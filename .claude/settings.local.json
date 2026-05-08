@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew assembleDebug)",
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew assembleRelease)",
+      "Bash(JAVA_HOME=\"/c/Program Files/Android/Android Studio/jbr\" ./gradlew tasks --group=build)",
+      "Bash('/c/Program Files/Android/Android Studio/jbr/bin/keytool' -list -v -keystore C:/Users/deitr/.android/debug.keystore -alias androiddebugkey -storepass android)",
+      "Bash(rm c:/Users/deitr/AndroidStudioProjects/Rummitimer/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml)",
+      "Bash(rm c:/Users/deitr/AndroidStudioProjects/Rummitimer/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml)",
+      "Bash(tasklist)",
+      "Bash(cmd.exe /c \"%LOCALAPPDATA%\\\\\\\\Roblox\\\\\\\\mcp.bat\")",
+      "Bash(\"/c/Program Files \\(x86\\)/Roblox/Versions/version-0c771458892e42b7/StudioMCP.exe\")",
+      "Bash(netstat -ano)",
+      "Bash(sort -t: -k2 -n)",
+      "PowerShell(netstat -ano)"
+    ]
+  }
+}

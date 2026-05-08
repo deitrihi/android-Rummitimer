@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">홈</string>
+    <string name="nav_favorites">즐겨찾기</string>
+    <string name="nav_settings">설정</string>
+
+    <!-- Settings -->
+    <string name="settings_title">설정</string>
+    <string name="language_label">언어</string>
+    <string name="language_system">시스템 기본값</string>
+    <string name="language_korean">한국어</string>
+    <string name="language_english">영어</string>
+    <string name="theme_label">테마</string>
+    <string name="theme_system">시스템 기본값</string>
+    <string name="theme_light">밝은색</string>
+    <string name="theme_dark">어두운색</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">인원수</string>
+    <string name="player_count_format">%d명</string>
+    <string name="turn_duration_label">제한 시간</string>
+    <string name="turn_duration_format">%d초</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">Player %d의 차례</string>
+    <string name="time_up">시간 초과!</string>
+    <string name="hurry_up">서두르세요!</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">게임종료</string>
+    <string name="btn_pause">일시정지</string>
+    <string name="btn_start">시작</string>
+    <string name="btn_next">다음</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">메뉴 열기</string>
+    <string name="navigate_back">뒤로 가기</string>
+
+    <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
+    <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
+    <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_interstitial_unit_id" translatable="false">ca-app-pub-3949969956815888/9693433475</string>
+</resources>

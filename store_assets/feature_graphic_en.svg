@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="500" viewBox="0 0 1024 500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#070F1F"/>
+      <stop offset="100%" stop-color="#0D1F6B"/>
+    </linearGradient>
+    <linearGradient id="arcGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FF6F00"/>
+      <stop offset="100%" stop-color="#FFD600"/>
+    </linearGradient>
+    <linearGradient id="titleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#CFD8FF"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="tileShadow">
+      <feDropShadow dx="4" dy="6" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="circleShadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="20" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="500" fill="url(#bgGrad)"/>
+
+  <radialGradient id="rightGlow" cx="70%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#1A237E" stop-opacity="0.5"/>
+    <stop offset="100%" stop-color="#070F1F" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1024" height="500" fill="url(#rightGlow)"/>
+
+  <!-- Decorative rings -->
+  <circle cx="730" cy="250" r="330" fill="none" stroke="#1A2E6C" stroke-width="1" opacity="0.4"/>
+  <circle cx="730" cy="250" r="260" fill="none" stroke="#1A2E6C" stroke-width="1" opacity="0.4"/>
+
+  <!-- Timer circle -->
+  <circle cx="730" cy="250" r="188" fill="#080E1E" stroke="#162050" stroke-width="2" filter="url(#circleShadow)"/>
+  <circle cx="730" cy="250" r="165" fill="none" stroke="#162050" stroke-width="14"/>
+
+  <!-- Timer arc: 270° -->
+  <path d="M 730 85 A 165 165 0 1 1 565.1 250.1"
+        fill="none" stroke="url(#arcGrad)" stroke-width="14"
+        stroke-linecap="round" filter="url(#glow)"/>
+
+  <!-- Tick marks -->
+  <line x1="730" y1="90"  x2="730" y2="108" stroke="#2A4080" stroke-width="3"/>
+  <line x1="895" y1="250" x2="877" y2="250" stroke="#2A4080" stroke-width="3"/>
+  <line x1="730" y1="410" x2="730" y2="392" stroke="#2A4080" stroke-width="3"/>
+  <line x1="565" y1="250" x2="583" y2="250" stroke="#2A4080" stroke-width="3"/>
+
+  <!-- Hour hand -->
+  <line x1="730" y1="250" x2="730" y2="152"
+        stroke="white" stroke-width="6" stroke-linecap="round" filter="url(#softGlow)"/>
+  <!-- Minute hand -->
+  <line x1="730" y1="250" x2="828" y2="250"
+        stroke="#FFB300" stroke-width="5" stroke-linecap="round" filter="url(#softGlow)"/>
+  <circle cx="730" cy="250" r="11" fill="#FFB300" filter="url(#softGlow)"/>
+  <circle cx="730" cy="250" r="5"  fill="white"/>
+
+  <!-- Time display -->
+  <text x="730" y="338"
+        font-family="'Courier New', Courier, monospace"
+        font-size="30" font-weight="bold" fill="#FFB300"
+        text-anchor="middle" letter-spacing="3" filter="url(#softGlow)">0:45</text>
+
+  <!-- Rummikub Tiles -->
+  <g transform="rotate(-14, 572, 122)" filter="url(#tileShadow)">
+    <rect x="537" y="78" width="70" height="88" rx="9" fill="white"/>
+    <text x="547" y="100" font-family="Arial" font-size="12" font-weight="bold" fill="#C62828">7</text>
+    <text x="572" y="142" font-family="Arial Black, Arial" font-size="44" font-weight="900"
+          fill="#C62828" text-anchor="middle">7</text>
+  </g>
+
+  <g transform="rotate(12, 906, 88)" filter="url(#tileShadow)">
+    <rect x="871" y="44" width="70" height="88" rx="9" fill="white"/>
+    <text x="881" y="66" font-family="Arial" font-size="12" font-weight="bold" fill="#1565C0">3</text>
+    <text x="906" y="108" font-family="Arial Black, Arial" font-size="44" font-weight="900"
+          fill="#1565C0" text-anchor="middle">3</text>
+  </g>
+
+  <g transform="rotate(-10, 906, 388)" filter="url(#tileShadow)">
+    <rect x="871" y="344" width="70" height="88" rx="9" fill="white"/>
+    <text x="881" y="366" font-family="Arial" font-size="12" font-weight="bold" fill="#212121">11</text>
+    <text x="906" y="406" font-family="Arial Black, Arial" font-size="38" font-weight="900"
+          fill="#212121" text-anchor="middle">11</text>
+  </g>
+
+  <g transform="rotate(14, 572, 388)" filter="url(#tileShadow)">
+    <rect x="537" y="344" width="70" height="88" rx="9" fill="white"/>
+    <text x="547" y="366" font-family="Arial" font-size="12" font-weight="bold" fill="#E65100">5</text>
+    <text x="572" y="408" font-family="Arial Black, Arial" font-size="44" font-weight="900"
+          fill="#E65100" text-anchor="middle">5</text>
+  </g>
+
+  <!-- Left side: English text -->
+
+  <!-- App name -->
+  <text x="48" y="200"
+        font-family="Arial Black, 'Arial Bold', Impact, sans-serif"
+        font-size="96" font-weight="900" fill="url(#titleGrad)" letter-spacing="-3">Rummi</text>
+  <text x="48" y="304"
+        font-family="Arial Black, 'Arial Bold', Impact, sans-serif"
+        font-size="96" font-weight="900" fill="#FFB300" letter-spacing="-3"
+        filter="url(#softGlow)">timer</text>
+
+  <!-- Accent line -->
+  <rect x="48" y="318" width="200" height="4" rx="2" fill="#FFB300" opacity="0.7"/>
+
+  <!-- English subtitle -->
+  <text x="52" y="356"
+        font-family="Arial, sans-serif"
+        font-size="22" fill="#90CAF9" letter-spacing="2">Rummikub Turn Timer</text>
+
+  <!-- Feature chips -->
+  <rect x="50"  y="378" width="124" height="30" rx="15" fill="#1A2E6C" stroke="#2A4DAD" stroke-width="1"/>
+  <text x="112" y="398" font-family="Arial, sans-serif"
+        font-size="13" fill="#90CAF9" text-anchor="middle">2 ~ 4 Players</text>
+
+  <rect x="184" y="378" width="130" height="30" rx="15" fill="#1A2E6C" stroke="#2A4DAD" stroke-width="1"/>
+  <text x="249" y="398" font-family="Arial, sans-serif"
+        font-size="13" fill="#90CAF9" text-anchor="middle">30 ~ 120 sec</text>
+
+  <rect x="324" y="378" width="152" height="30" rx="15" fill="#1A2E6C" stroke="#2A4DAD" stroke-width="1"/>
+  <text x="400" y="398" font-family="Arial, sans-serif"
+        font-size="13" fill="#90CAF9" text-anchor="middle">Metronome Alerts</text>
+
+  <!-- Tagline -->
+  <text x="52" y="444"
+        font-family="Georgia, 'Times New Roman', serif"
+        font-size="22" fill="#7B9FD4" font-style="italic">Fair turns. Fast games.</text>
+
+  <!-- Bottom accent dots -->
+  <circle cx="52" cy="472" r="3" fill="#FFB300"/>
+  <circle cx="64" cy="472" r="3" fill="#FFB300" opacity="0.6"/>
+  <circle cx="76" cy="472" r="3" fill="#FFB300" opacity="0.3"/>
+</svg>

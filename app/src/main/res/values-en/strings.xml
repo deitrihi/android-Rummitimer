@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="language_label">Language</string>
+    <string name="language_system">System default</string>
+    <string name="language_korean">Korean</string>
+    <string name="language_english">English</string>
+    <string name="theme_label">Theme</string>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">Players</string>
+    <string name="player_count_format">%d P</string>
+    <string name="turn_duration_label">Time Limit</string>
+    <string name="turn_duration_format">%ds</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">Player %d\'s Turn</string>
+    <string name="time_up">Time\'s Up!</string>
+    <string name="hurry_up">Hurry up!</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">End</string>
+    <string name="btn_pause">Pause</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_next">Next</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">Open menu</string>
+    <string name="navigate_back">Navigate back</string>
+</resources>
