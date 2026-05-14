@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 700" width="390" height="700">
+  <defs><style>text{font-family:'Segoe UI',Arial,sans-serif;}</style></defs>
+
+  <!-- Background -->
+  <rect width="390" height="700" fill="#F5F5F5"/>
+
+  <!-- Top App Bar -->
+  <rect width="390" height="64" fill="#FFFFFF"/>
+  <line x1="0" y1="64" x2="390" y2="64" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="20" y="41" font-size="20" font-weight="bold" fill="#1A1A1A">Rummitimer</text>
+  <rect x="340" y="22" width="24" height="3" rx="1.5" fill="#6B7280"/>
+  <rect x="340" y="30" width="24" height="3" rx="1.5" fill="#6B7280"/>
+  <rect x="340" y="38" width="24" height="3" rx="1.5" fill="#6B7280"/>
+
+  <!-- Settings Card -->
+  <rect x="16" y="76" width="358" height="136" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+
+  <!-- Player count label -->
+  <text x="195" y="100" font-size="12" fill="#9CA3AF" text-anchor="middle">인원 수</text>
+  <!-- Chip 2 -->
+  <rect x="72" y="108" width="72" height="32" rx="16" fill="#F3F4F6" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="108" y="128" font-size="14" fill="#9CA3AF" text-anchor="middle">2명</text>
+  <!-- Chip 3 (active) -->
+  <rect x="159" y="108" width="72" height="32" rx="16" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="195" y="128" font-size="14" fill="#2563EB" font-weight="bold" text-anchor="middle">3명 ✓</text>
+  <!-- Chip 4 -->
+  <rect x="246" y="108" width="72" height="32" rx="16" fill="#F3F4F6" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="282" y="128" font-size="14" fill="#9CA3AF" text-anchor="middle">4명</text>
+
+  <!-- Turn duration label -->
+  <text x="195" y="160" font-size="12" fill="#9CA3AF" text-anchor="middle">턴 시간</text>
+  <!-- Chip 30s -->
+  <rect x="20" y="168" width="72" height="32" rx="16" fill="#F3F4F6" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="56" y="188" font-size="13" fill="#9CA3AF" text-anchor="middle">30초</text>
+  <!-- Chip 60s (active) -->
+  <rect x="104" y="168" width="72" height="32" rx="16" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <text x="140" y="188" font-size="13" fill="#2563EB" font-weight="bold" text-anchor="middle">60초 ✓</text>
+  <!-- Chip 90s -->
+  <rect x="188" y="168" width="72" height="32" rx="16" fill="#F3F4F6" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="224" y="188" font-size="13" fill="#9CA3AF" text-anchor="middle">90초</text>
+  <!-- Chip 2m -->
+  <rect x="272" y="168" width="98" height="32" rx="16" fill="#F3F4F6" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="321" y="188" font-size="13" fill="#9CA3AF" text-anchor="middle">2분</text>
+
+  <!-- Player turn label -->
+  <text x="195" y="242" font-size="18" font-weight="600" fill="#1A1A1A" text-anchor="middle">P1의 턴</text>
+
+  <!-- Timer circle BG -->
+  <circle cx="195" cy="370" r="110" fill="none" stroke="#E0E0E0" stroke-width="16"/>
+  <!-- Timer circle progress (100%) -->
+  <circle cx="195" cy="370" r="110" fill="none" stroke="#2563EB" stroke-width="16"
+    stroke-dasharray="691.15" stroke-dashoffset="0"
+    stroke-linecap="round" transform="rotate(-90 195 370)"/>
+  <!-- Timer text -->
+  <text x="195" y="386" font-size="52" font-weight="bold" fill="#1A1A1A" text-anchor="middle" font-family="'Courier New',monospace">01:00</text>
+
+  <!-- Control buttons -->
+  <rect x="20" y="508" width="96" height="44" rx="22" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+  <text x="68" y="535" font-size="15" fill="#6B7280" text-anchor="middle">End</text>
+  <rect x="128" y="508" width="134" height="44" rx="22" fill="#2563EB"/>
+  <text x="195" y="535" font-size="15" font-weight="bold" fill="#FFFFFF" text-anchor="middle">▶  Start</text>
+  <rect x="274" y="508" width="96" height="44" rx="22" fill="#DBEAFE"/>
+  <text x="322" y="535" font-size="15" fill="#2563EB" text-anchor="middle">Next</text>
+
+  <!-- Player indicators -->
+  <circle cx="155" cy="582" r="9" fill="#2563EB"/>
+  <text x="155" y="603" font-size="11" fill="#2563EB" font-weight="bold" text-anchor="middle">P1</text>
+  <circle cx="195" cy="582" r="7" fill="#E0E0E0"/>
+  <text x="195" y="603" font-size="11" fill="#BDBDBD" text-anchor="middle">P2</text>
+  <circle cx="235" cy="582" r="7" fill="#E0E0E0"/>
+  <text x="235" y="603" font-size="11" fill="#BDBDBD" text-anchor="middle">P3</text>
+
+  <!-- Label -->
+  <text x="195" y="660" font-size="11" fill="#BDBDBD" text-anchor="middle">홈 화면 — 세로 / 초기 상태</text>
+</svg>

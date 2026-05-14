@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 700" width="390" height="700">
+  <defs><style>text{font-family:'Segoe UI',Arial,sans-serif;}</style></defs>
+
+  <!-- Background -->
+  <rect width="390" height="700" fill="#F5F5F5"/>
+
+  <!-- Top App Bar -->
+  <rect width="390" height="64" fill="#FFFFFF"/>
+  <line x1="0" y1="64" x2="390" y2="64" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="195" y="41" font-size="20" font-weight="bold" fill="#1A1A1A" text-anchor="middle">게임 결과</text>
+
+  <!-- Score table card -->
+  <rect x="16" y="80" width="358" height="388" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+
+  <!-- Table header -->
+  <rect x="16" y="80" width="358" height="48" rx="12" fill="#F3F4F6"/>
+  <rect x="16" y="104" width="358" height="24" fill="#F3F4F6"/>
+  <line x1="16" y1="128" x2="374" y2="128" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="44" y="110" font-size="12" fill="#6B7280">순위</text>
+  <text x="120" y="110" font-size="12" fill="#6B7280">플레이어</text>
+  <text x="264" y="110" font-size="12" fill="#6B7280" text-anchor="middle">점수</text>
+  <text x="345" y="110" font-size="12" fill="#6B7280" text-anchor="middle">패널티</text>
+
+  <!-- Row 1: 🥇 P1 -->
+  <rect x="16" y="128" width="358" height="64" fill="#FFFBEB"/>
+  <line x1="16" y1="192" x2="374" y2="192" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="167" font-size="28" text-anchor="middle">🥇</text>
+  <text x="88" y="160" font-size="26" text-anchor="middle">🍎</text>
+  <text x="130" y="164" font-size="15" font-weight="600" fill="#1A1A1A">P1</text>
+  <text x="264" y="164" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle" font-family="'Courier New',monospace">25</text>
+  <text x="284" y="164" font-size="13" fill="#6B7280">점</text>
+  <text x="345" y="164" font-size="15" fill="#6B7280" text-anchor="middle">0회</text>
+
+  <!-- Row 2: 🥈 P3 -->
+  <rect x="16" y="192" width="358" height="64" fill="#FFFFFF"/>
+  <line x1="16" y1="256" x2="374" y2="256" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="231" font-size="28" text-anchor="middle">🥈</text>
+  <text x="88" y="224" font-size="26" text-anchor="middle">🍇</text>
+  <text x="130" y="228" font-size="15" font-weight="600" fill="#1A1A1A">P3</text>
+  <text x="264" y="228" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle" font-family="'Courier New',monospace">42</text>
+  <text x="284" y="228" font-size="13" fill="#6B7280">점</text>
+  <!-- Penalty badge -->
+  <circle cx="345" cy="224" r="14" fill="#FEF3C7"/>
+  <text x="345" y="229" font-size="13" font-weight="bold" fill="#D97706" text-anchor="middle">1회</text>
+
+  <!-- Row 3: 🥉 P2 -->
+  <rect x="16" y="256" width="358" height="64" fill="#FFFFFF"/>
+  <line x1="16" y1="320" x2="374" y2="320" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="295" font-size="28" text-anchor="middle">🥉</text>
+  <text x="88" y="288" font-size="26" text-anchor="middle">🍌</text>
+  <text x="130" y="292" font-size="15" font-weight="600" fill="#1A1A1A">P2</text>
+  <text x="264" y="292" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle" font-family="'Courier New',monospace">65</text>
+  <text x="284" y="292" font-size="13" fill="#6B7280">점</text>
+  <text x="345" y="292" font-size="15" fill="#6B7280" text-anchor="middle">0회</text>
+
+  <!-- Row 4: 4위 P4 -->
+  <rect x="16" y="320" width="358" height="64" fill="#FFFFFF"/>
+  <line x1="16" y1="384" x2="374" y2="384" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="40" y="352" font-size="15" font-weight="bold" fill="#9CA3AF" text-anchor="middle">4위</text>
+  <text x="88" y="352" font-size="26" text-anchor="middle">🍓</text>
+  <text x="130" y="356" font-size="15" font-weight="600" fill="#1A1A1A">P4</text>
+  <text x="264" y="356" font-size="22" font-weight="bold" fill="#1A1A1A" text-anchor="middle" font-family="'Courier New',monospace">89</text>
+  <text x="284" y="356" font-size="13" fill="#6B7280">점</text>
+  <!-- High penalty badge -->
+  <circle cx="345" cy="352" r="14" fill="#FEE2E2"/>
+  <text x="345" y="357" font-size="13" font-weight="bold" fill="#DC2626" text-anchor="middle">2회</text>
+
+  <!-- Footer row (inside card) -->
+  <rect x="16" y="384" width="358" height="84" rx="0" fill="#F9FAFB"/>
+  <rect x="16" y="440" width="358" height="28" rx="12" fill="#F9FAFB"/>
+  <text x="195" y="426" font-size="12" fill="#9CA3AF" text-anchor="middle">낮은 점수가 유리합니다</text>
+  <text x="32" y="452" font-size="12" fill="#9CA3AF">총 패널티: 3회</text>
+  <text x="358" y="452" font-size="12" fill="#9CA3AF" text-anchor="end">게임 시간: 약 32분</text>
+
+  <!-- Stats hint -->
+  <rect x="16" y="484" width="358" height="60" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="195" y="512" font-size="13" fill="#9CA3AF" text-anchor="middle">이번 게임 요약</text>
+  <text x="195" y="533" font-size="12" fill="#BDBDBD" text-anchor="middle">총 3라운드 · 최단 턴 8초 · 타임오버 3회</text>
+
+  <!-- Complete button -->
+  <rect x="20" y="562" width="350" height="52" rx="26" fill="#2563EB"/>
+  <text x="195" y="593" font-size="17" font-weight="bold" fill="#FFFFFF" text-anchor="middle">완료 (광고 후 초기화)</text>
+
+  <!-- Label -->
+  <text x="195" y="660" font-size="11" fill="#BDBDBD" text-anchor="middle">결과 화면 (v2)</text>
+</svg>

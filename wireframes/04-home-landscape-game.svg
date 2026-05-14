@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 390" width="700" height="390">
+  <defs><style>text{font-family:'Segoe UI',Arial,sans-serif;}</style></defs>
+
+  <!-- Background -->
+  <rect width="700" height="390" fill="#F5F5F5"/>
+
+  <!-- Top App Bar -->
+  <rect width="700" height="56" fill="#FFFFFF"/>
+  <line x1="0" y1="56" x2="700" y2="56" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="20" y="36" font-size="20" font-weight="bold" fill="#1A1A1A">Rummitimer</text>
+  <rect x="650" y="18" width="24" height="3" rx="1.5" fill="#6B7280"/>
+  <rect x="650" y="26" width="24" height="3" rx="1.5" fill="#6B7280"/>
+  <rect x="650" y="34" width="24" height="3" rx="1.5" fill="#6B7280"/>
+
+  <!-- LEFT: Vertical control buttons (상대방용) -->
+  <rect x="16" y="72" width="140" height="302" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="86" y="95" font-size="11" fill="#9CA3AF" text-anchor="middle">상대방 버튼</text>
+  <rect x="30" y="105" width="112" height="38" rx="19" fill="#DBEAFE"/>
+  <text x="86" y="128" font-size="13" fill="#2563EB" text-anchor="middle">Next</text>
+  <rect x="30" y="157" width="112" height="38" rx="19" fill="#2563EB"/>
+  <text x="86" y="180" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">⏸  Pause</text>
+  <rect x="30" y="209" width="112" height="38" rx="19" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+  <text x="86" y="232" font-size="13" fill="#6B7280" text-anchor="middle">End</text>
+
+  <!-- CENTER: Player indicators + Timer -->
+  <!-- Player indicators -->
+  <circle cx="310" cy="96" r="7" fill="#E0E0E0"/>
+  <text x="310" y="113" font-size="10" fill="#BDBDBD" text-anchor="middle">P1</text>
+  <circle cx="350" cy="96" r="9" fill="#2563EB"/>
+  <text x="350" y="113" font-size="10" fill="#2563EB" font-weight="bold" text-anchor="middle">P2</text>
+  <circle cx="390" cy="96" r="7" fill="#E0E0E0"/>
+  <text x="390" y="113" font-size="10" fill="#BDBDBD" text-anchor="middle">P3</text>
+
+  <!-- Timer circle BG -->
+  <circle cx="350" cy="230" r="96" fill="none" stroke="#E0E0E0" stroke-width="14"/>
+  <!-- Timer circle progress (75%) -->
+  <circle cx="350" cy="230" r="96" fill="none" stroke="#2563EB" stroke-width="14"
+    stroke-dasharray="603.19" stroke-dashoffset="150.8"
+    stroke-linecap="round" transform="rotate(-90 350 230)"/>
+  <!-- Player label inside circle -->
+  <text x="350" y="220" font-size="14" font-weight="600" fill="#1A1A1A" text-anchor="middle">P2의 턴</text>
+  <text x="350" y="252" font-size="38" font-weight="bold" fill="#2563EB" text-anchor="middle" font-family="'Courier New',monospace">00:45</text>
+
+  <!-- RIGHT: Vertical control buttons (현재 플레이어용) -->
+  <rect x="544" y="72" width="140" height="302" rx="12" fill="#FFFFFF" stroke="#E0E0E0" stroke-width="1"/>
+  <text x="614" y="95" font-size="11" fill="#9CA3AF" text-anchor="middle">현재 플레이어</text>
+  <rect x="558" y="105" width="112" height="38" rx="19" fill="#DBEAFE"/>
+  <text x="614" y="128" font-size="13" fill="#2563EB" text-anchor="middle">Next</text>
+  <rect x="558" y="157" width="112" height="38" rx="19" fill="#2563EB"/>
+  <text x="614" y="180" font-size="13" font-weight="bold" fill="#FFFFFF" text-anchor="middle">⏸  Pause</text>
+  <rect x="558" y="209" width="112" height="38" rx="19" fill="#FFFFFF" stroke="#BDBDBD" stroke-width="1.5"/>
+  <text x="614" y="232" font-size="13" fill="#6B7280" text-anchor="middle">End</text>
+
+  <!-- Label -->
+  <text x="350" y="382" font-size="11" fill="#BDBDBD" text-anchor="middle">홈 화면 — 가로 / 게임 중</text>
+</svg>
