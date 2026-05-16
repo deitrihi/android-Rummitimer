@@ -38,6 +38,26 @@
     <string name="menu_open">메뉴 열기</string>
     <string name="navigate_back">뒤로 가기</string>
 
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">플레이어 아이콘</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">점수 입력</string>
+    <string name="score_input_subtitle">각 플레이어의 남은 타일 점수를 입력하세요</string>
+    <string name="score_input_optional">* 입력하지 않아도 완료할 수 있습니다</string>
+    <string name="score_unit">점</string>
+    <string name="btn_complete">완료</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">게임 결과</string>
+    <string name="rank_label">순위</string>
+    <string name="score_label">점수</string>
+    <string name="penalty_label">패널티</string>
+    <string name="low_score_wins">낮은 점수가 유리합니다</string>
+    <string name="total_penalty_format">총 패널티: %d회</string>
+    <string name="penalty_count_format">%d회</string>
+    <string name="btn_complete_reset">완료 (광고 후 초기화)</string>
+
     <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
     <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
     <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

@@ -42,6 +42,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -75,10 +76,15 @@ private fun currentLayoutType(): LayoutType {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
+    playerCount: Int,
+    onPlayerCountChange: (Int) -> Unit,
+    fruitIndices: List<Int>,
+    penalties: List<Int>,
     onMenuClick: () -> Unit = {},
+    onEndGame: () -> Unit = {},
+    onPenalty: (Int) -> Unit = {},
     modifier: Modifier = Modifier,
 ) {
-    var playerCount by rememberSaveable { mutableIntStateOf(2) }
     var turnDuration by rememberSaveable { mutableIntStateOf(60) }
     var currentPlayerIndex by rememberSaveable { mutableIntStateOf(0) }
     var timeRemaining by rememberSaveable { mutableIntStateOf(60) }
@@ -87,12 +93,7 @@ fun HomeScreen(
     var autoStartTrigger by rememberSaveable { mutableIntStateOf(0) }
     var timerStarted by rememberSaveable { mutableStateOf(false) }
 
-    val activity = LocalContext.current.findActivity()
-    val adManager = remember(activity) { activity?.let { InterstitialAdManager(it) } }
-
-    LaunchedEffect(adManager) {
-        adManager?.load()
-    }
+    val currentOnPenalty by rememberUpdatedState(onPenalty)
 
     LaunchedEffect(isRunning) {
         if (isRunning) {
@@ -108,6 +109,7 @@ fun HomeScreen(
             }
             isRunning = false
             isTimeUp = true
+            currentOnPenalty(currentPlayerIndex)
         }
     }
 
@@ -138,11 +140,10 @@ fun HomeScreen(
         autoStartTrigger++
     }
 
-    val onReset = { adManager?.showAd { resetTimer() } ?: resetTimer() }
-    val onPlayerCountChange: (Int) -> Unit = { count ->
-        playerCount = count
+    val handlePlayerCountChange: (Int) -> Unit = { count ->
         if (currentPlayerIndex >= count) currentPlayerIndex = 0
         resetTimer()
+        onPlayerCountChange(count)
     }
     val onTurnDurationChange: (Int) -> Unit = { duration ->
         turnDuration = duration
@@ -180,14 +181,15 @@ fun HomeScreen(
                 playerCount = playerCount,
                 turnDuration = turnDuration,
                 currentPlayerIndex = currentPlayerIndex,
+                fruitIndices = fruitIndices,
                 timeRemaining = timeRemaining,
                 isRunning = isRunning,
                 isTimeUp = isTimeUp,
                 timerStarted = timerStarted,
                 onStartPause = ::startPause,
                 onNext = ::nextPlayer,
-                onReset = onReset,
-                onPlayerCountChange = onPlayerCountChange,
+                onReset = onEndGame,
+                onPlayerCountChange = handlePlayerCountChange,
                 onTurnDurationChange = onTurnDurationChange,
             )
             LayoutType.LANDSCAPE -> LandscapeContent(
@@ -195,14 +197,15 @@ fun HomeScreen(
                 playerCount = playerCount,
                 turnDuration = turnDuration,
                 currentPlayerIndex = currentPlayerIndex,
+                fruitIndices = fruitIndices,
                 timeRemaining = timeRemaining,
                 isRunning = isRunning,
                 isTimeUp = isTimeUp,
                 timerStarted = timerStarted,
                 onStartPause = ::startPause,
                 onNext = ::nextPlayer,
-                onReset = onReset,
-                onPlayerCountChange = onPlayerCountChange,
+                onReset = onEndGame,
+                onPlayerCountChange = handlePlayerCountChange,
                 onTurnDurationChange = onTurnDurationChange,
             )
         }
@@ -217,6 +220,7 @@ private fun PortraitContent(
     playerCount: Int,
     turnDuration: Int,
     currentPlayerIndex: Int,
+    fruitIndices: List<Int>,
     timeRemaining: Int,
     isRunning: Boolean,
     isTimeUp: Boolean,
@@ -227,6 +231,8 @@ private fun PortraitContent(
     onPlayerCountChange: (Int) -> Unit,
     onTurnDurationChange: (Int) -> Unit,
 ) {
+    val currentFruitEmoji = FRUIT_EMOJIS[fruitIndices[currentPlayerIndex]]
+
     if (timerStarted) {
         Box(
             modifier = Modifier
@@ -247,16 +253,22 @@ private fun PortraitContent(
                 PlayerIndicators(
                     playerCount = playerCount,
                     currentPlayerIndex = currentPlayerIndex,
+                    fruitIndices = fruitIndices,
                     modifier = Modifier.rotate(180f)
                 )
                 SplitTimerCircle(
                     currentPlayerIndex = currentPlayerIndex,
+                    fruitEmoji = currentFruitEmoji,
                     timeRemaining = timeRemaining,
                     turnDuration = turnDuration,
                     isTimeUp = isTimeUp,
                     size = 300.dp
                 )
-                PlayerIndicators(playerCount = playerCount, currentPlayerIndex = currentPlayerIndex)
+                PlayerIndicators(
+                    playerCount = playerCount,
+                    currentPlayerIndex = currentPlayerIndex,
+                    fruitIndices = fruitIndices,
+                )
             }
             ControlButtons(
                 modifier = Modifier.align(Alignment.BottomCenter),
@@ -283,7 +295,11 @@ private fun PortraitContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                PlayerTurnLabel(currentPlayerIndex = currentPlayerIndex, isTimeUp = isTimeUp)
+                PlayerTurnLabel(
+                    currentPlayerIndex = currentPlayerIndex,
+                    fruitEmoji = currentFruitEmoji,
+                    isTimeUp = isTimeUp
+                )
                 TimerDisplay(
                     timeRemaining = timeRemaining, turnDuration = turnDuration,
                     isTimeUp = isTimeUp, size = 300.dp
@@ -293,7 +309,11 @@ private fun PortraitContent(
                 isRunning = isRunning, isTimeUp = isTimeUp,
                 onStartPause = onStartPause, onNext = onNext, onReset = onReset
             )
-            PlayerIndicators(playerCount = playerCount, currentPlayerIndex = currentPlayerIndex)
+            PlayerIndicators(
+                playerCount = playerCount,
+                currentPlayerIndex = currentPlayerIndex,
+                fruitIndices = fruitIndices,
+            )
         }
     }
 }
@@ -306,6 +326,7 @@ private fun LandscapeContent(
     playerCount: Int,
     turnDuration: Int,
     currentPlayerIndex: Int,
+    fruitIndices: List<Int>,
     timeRemaining: Int,
     isRunning: Boolean,
     isTimeUp: Boolean,
@@ -316,6 +337,8 @@ private fun LandscapeContent(
     onPlayerCountChange: (Int) -> Unit,
     onTurnDurationChange: (Int) -> Unit,
 ) {
+    val currentFruitEmoji = FRUIT_EMOJIS[fruitIndices[currentPlayerIndex]]
+
     if (timerStarted) {
         // 게임 중: 왼쪽=상대방 버튼(180도 회전), 중앙=인디케이터+타이머, 오른쪽=현재 플레이어 버튼
         Row(
@@ -346,7 +369,11 @@ private fun LandscapeContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
-                PlayerIndicators(playerCount = playerCount, currentPlayerIndex = currentPlayerIndex)
+                PlayerIndicators(
+                    playerCount = playerCount,
+                    currentPlayerIndex = currentPlayerIndex,
+                    fruitIndices = fruitIndices,
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 TimerDisplay(
                     timeRemaining = timeRemaining,
@@ -356,7 +383,7 @@ private fun LandscapeContent(
                     strokeWidth = 13.dp,
                     timerFontSize = 32.sp,
                     timeUpFontSize = 19.sp,
-                    playerLabel = stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
+                    playerLabel = "$currentFruitEmoji P${currentPlayerIndex + 1}의 차례",
                 )
             }
 
@@ -407,7 +434,11 @@ private fun LandscapeContent(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                PlayerTurnLabel(currentPlayerIndex = currentPlayerIndex, isTimeUp = isTimeUp)
+                PlayerTurnLabel(
+                    currentPlayerIndex = currentPlayerIndex,
+                    fruitEmoji = currentFruitEmoji,
+                    isTimeUp = isTimeUp
+                )
                 TimerDisplay(
                     timeRemaining = timeRemaining, turnDuration = turnDuration,
                     isTimeUp = isTimeUp, size = 200.dp,
@@ -417,7 +448,11 @@ private fun LandscapeContent(
                     isRunning = isRunning, isTimeUp = isTimeUp,
                     onStartPause = onStartPause, onNext = onNext, onReset = onReset
                 )
-                PlayerIndicators(playerCount = playerCount, currentPlayerIndex = currentPlayerIndex)
+                PlayerIndicators(
+                    playerCount = playerCount,
+                    currentPlayerIndex = currentPlayerIndex,
+                    fruitIndices = fruitIndices,
+                )
             }
         }
     }
@@ -472,9 +507,13 @@ private fun SettingsSection(
 }
 
 @Composable
-private fun PlayerTurnLabel(currentPlayerIndex: Int, isTimeUp: Boolean) {
+private fun PlayerTurnLabel(
+    currentPlayerIndex: Int,
+    fruitEmoji: String,
+    isTimeUp: Boolean,
+) {
     Text(
-        text = stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
+        text = "$fruitEmoji P${currentPlayerIndex + 1}의 차례",
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.SemiBold,
         color = if (isTimeUp) MaterialTheme.colorScheme.error
@@ -549,6 +588,7 @@ private fun TimerDisplay(
 @Composable
 private fun SplitTimerCircle(
     currentPlayerIndex: Int,
+    fruitEmoji: String,
     timeRemaining: Int,
     turnDuration: Int,
     isTimeUp: Boolean,
@@ -597,7 +637,7 @@ private fun SplitTimerCircle(
                 color = progressColor
             )
             Text(
-                text = stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
+                text = "$fruitEmoji P${currentPlayerIndex + 1}의 차례",
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = if (isTimeUp) MaterialTheme.colorScheme.error
@@ -698,6 +738,7 @@ private fun VerticalControlButtons(
 private fun PlayerIndicators(
     playerCount: Int,
     currentPlayerIndex: Int,
+    fruitIndices: List<Int>,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -718,20 +759,17 @@ private fun PlayerIndicators(
                     color = color,
                     modifier = Modifier.size(if (isActive) 16.dp else 12.dp)
                 ) {}
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(2.dp))
                 Text(
-                    text = "P${index + 1}",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = if (isActive) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.onSurfaceVariant,
-                    fontWeight = if (isActive) FontWeight.Bold else FontWeight.Normal
+                    text = FRUIT_EMOJIS[fruitIndices[index]],
+                    style = MaterialTheme.typography.labelSmall
                 )
             }
         }
     }
 }
 
-private fun Context.findActivity(): Activity? {
+fun Context.findActivity(): Activity? {
     var context = this
     while (context is ContextWrapper) {
         if (context is Activity) return context

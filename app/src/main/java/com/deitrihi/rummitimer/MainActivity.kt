@@ -8,12 +8,17 @@ import androidx.activity.enableEdgeToEdge
 import com.google.android.gms.ads.MobileAds
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
+
+enum class Screen { HOME, SETTINGS, SCORE_INPUT, RESULT }
 
 class MainActivity : ComponentActivity() {
 
@@ -50,17 +55,62 @@ fun RummitimerApp(
     currentTheme: String = ThemeHelper.THEME_SYSTEM,
     onThemeChange: (String) -> Unit = {},
 ) {
-    var showSettings by rememberSaveable { mutableStateOf(false) }
+    val context = LocalContext.current
+    val activity = context.findActivity()
+    val adManager = remember(activity) { activity?.let { InterstitialAdManager(it) } }
+    LaunchedEffect(adManager) { adManager?.load() }
 
-    if (showSettings) {
-        SettingsScreen(
+    var currentScreen by rememberSaveable { mutableStateOf(Screen.HOME) }
+    var playerCount by rememberSaveable { mutableIntStateOf(2) }
+    // penalties/scores는 구성 변경 시 초기화 허용 (rememberSaveable 불필요)
+    var penalties by remember { mutableStateOf(List(4) { 0 }) }
+    var scores by remember { mutableStateOf(List<Int?>(4) { null }) }
+    var fruitIndices by remember { mutableStateOf(FruitHelper.getFruitIndices(context)) }
+
+    fun resetGame() {
+        penalties = List(4) { 0 }
+        scores = List(4) { null }
+        currentScreen = Screen.HOME
+    }
+
+    when (currentScreen) {
+        Screen.HOME -> HomeScreen(
+            playerCount = playerCount,
+            onPlayerCountChange = { playerCount = it },
+            fruitIndices = fruitIndices,
+            penalties = penalties,
+            onMenuClick = { currentScreen = Screen.SETTINGS },
+            onEndGame = { currentScreen = Screen.SCORE_INPUT },
+            onPenalty = { playerIndex ->
+                penalties = penalties.toMutableList().also { it[playerIndex]++ }
+            }
+        )
+        Screen.SETTINGS -> SettingsScreen(
             currentTheme = currentTheme,
             onThemeChange = onThemeChange,
-            onBack = { showSettings = false }
+            fruitIndices = fruitIndices,
+            onFruitChange = { playerIndex, fruitIndex ->
+                FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)
+                fruitIndices = FruitHelper.getFruitIndices(context)
+            },
+            onBack = { currentScreen = Screen.HOME }
         )
-    } else {
-        HomeScreen(
-            onMenuClick = { showSettings = true }
+        Screen.SCORE_INPUT -> ScoreInputScreen(
+            playerCount = playerCount,
+            fruitIndices = fruitIndices,
+            onComplete = { enteredScores ->
+                scores = enteredScores
+                currentScreen = Screen.RESULT
+            }
+        )
+        Screen.RESULT -> ResultScreen(
+            playerCount = playerCount,
+            fruitIndices = fruitIndices,
+            scores = scores,
+            penalties = penalties,
+            onComplete = {
+                adManager?.showAd { resetGame() } ?: resetGame()
+            }
         )
     }
 }
