@@ -31,3 +31,26 @@
 
 ## 미해결 이슈
 - 없음. 플랜 작성 완료, 구현은 다음 세션에서 진행 예정.
+
+---
+
+## 2026-05-20 | mipmap-아이콘-생성
+
+### 요청
+- rummikub-timer-icon-v5.svg를 Android mipmap 규격 아이콘 셋으로 변환
+
+### 행동
+- SVG를 프로젝트 루트에 저장
+- resvg-js(Node.js, Rust 기반 SVG 렌더러)를 사용해 PNG 변환
+- 레거시(48~192px): ic_launcher.png, ic_launcher_round.png
+- 어댑티브 전경(108~432px): ic_launcher_foreground.png (배경 rect 제거, 투명)
+- 기존 webp 파일 삭제
+- ic_launcher_background.xml의 기존 색상(#191C32)이 SVG 배경색과 근사하므로 유지
+- `./gradlew assembleDebug` 빌드 성공 확인
+
+### 결정
+- cairo 의존성이 없는 resvg-js 사용 (Windows에서 cairosvg/svglib 동작 불가)
+- foreground 레이어: SVG에서 배경 rect 2개만 제거, 컨텐츠는 그대로 유지
+
+### 미해결
+- 없음
