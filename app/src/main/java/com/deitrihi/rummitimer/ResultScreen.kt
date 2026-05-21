@@ -167,7 +167,7 @@ fun ResultScreen(
                     .fillMaxWidth()
                     .height(52.dp)
             ) {
-                Text(
+                AutoFitText(
                     text = stringResource(R.string.btn_complete_reset),
                     fontWeight = FontWeight.Bold
                 )

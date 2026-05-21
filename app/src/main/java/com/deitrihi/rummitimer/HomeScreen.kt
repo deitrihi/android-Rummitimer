@@ -10,6 +10,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
@@ -53,7 +55,10 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -675,7 +680,7 @@ private fun ControlButtons(
         verticalAlignment = Alignment.CenterVertically
     ) {
         OutlinedButton(onClick = onReset, modifier = Modifier.weight(1f)) {
-            Text(stringResource(R.string.btn_reset))
+            AutoFitText(stringResource(R.string.btn_reset))
         }
         Button(
             onClick = onStartPause,
@@ -686,13 +691,13 @@ private fun ControlButtons(
                 else MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(
+            AutoFitText(
                 text = if (isRunning) stringResource(R.string.btn_pause) else stringResource(R.string.btn_start),
                 fontWeight = FontWeight.Bold
             )
         }
         FilledTonalButton(onClick = onNext, modifier = Modifier.weight(1f)) {
-            Text(stringResource(R.string.btn_next))
+            AutoFitText(stringResource(R.string.btn_next))
         }
     }
 }
@@ -712,7 +717,7 @@ private fun VerticalControlButtons(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         FilledTonalButton(onClick = onNext, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(R.string.btn_next))
+            AutoFitText(stringResource(R.string.btn_next))
         }
         Button(
             onClick = onStartPause,
@@ -723,13 +728,13 @@ private fun VerticalControlButtons(
                 else MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(
+            AutoFitText(
                 text = if (isRunning) stringResource(R.string.btn_pause) else stringResource(R.string.btn_start),
                 fontWeight = FontWeight.Bold
             )
         }
         OutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth()) {
-            Text(stringResource(R.string.btn_reset))
+            AutoFitText(stringResource(R.string.btn_reset))
         }
     }
 }
@@ -766,6 +771,46 @@ private fun PlayerIndicators(
                 )
             }
         }
+    }
+}
+
+// 버튼 등 고정 폭 컨테이너에서 텍스트가 항상 1줄에 들어오도록 폰트 크기를 자동 축소한다.
+@Composable
+internal fun AutoFitText(
+    text: String,
+    modifier: Modifier = Modifier,
+    fontWeight: FontWeight? = null,
+    minFontSize: TextUnit = 8.sp,
+) {
+    val textMeasurer = rememberTextMeasurer()
+    val baseStyle = LocalTextStyle.current.let {
+        if (fontWeight != null) it.copy(fontWeight = fontWeight) else it
+    }
+    val baseFontSize = if (baseStyle.fontSize.isSp) baseStyle.fontSize.value else 14f
+
+    BoxWithConstraints(modifier = modifier) {
+        val maxWidthPx = constraints.maxWidth
+        val fontSize = remember(text, maxWidthPx, baseFontSize, minFontSize.value, baseStyle.fontWeight) {
+            var size = baseFontSize
+            while (size > minFontSize.value) {
+                val result = textMeasurer.measure(
+                    text = AnnotatedString(text),
+                    style = baseStyle.copy(fontSize = size.sp),
+                    maxLines = 1,
+                    softWrap = false,
+                )
+                if (result.size.width <= maxWidthPx) break
+                size -= 0.5f
+            }
+            size.sp
+        }
+        Text(
+            text = text,
+            fontSize = fontSize,
+            fontWeight = fontWeight,
+            maxLines = 1,
+            overflow = TextOverflow.Clip,
+        )
     }
 }
 
