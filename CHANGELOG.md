@@ -2,6 +2,10 @@
 
 ## [미커밋]
 
+- gradle/libs.versions.toml — firebase-analytics 라이브러리 항목 추가
+- app/build.gradle.kts — firebase-analytics 의존성 추가
+- app/src/main/AndroidManifest.xml — AD_SERVICES_CONFIG manifest 충돌 해소 (tools:replace)
+
 - HomeScreen.kt — AutoFitText 컴포저블 추가, ControlButtons/VerticalControlButtons 버튼 텍스트 1줄 자동 축소 적용
 - ResultScreen.kt — 완료 버튼 텍스트에 AutoFitText 적용
 - mipmap-*/ic_launcher.png — SVG 아이콘(v5)으로 레거시 런처 아이콘 교체 (mdpi~xxxhdpi)

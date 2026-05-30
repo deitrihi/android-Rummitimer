@@ -14,6 +14,12 @@
 android:supportsRtl="true"
         android:theme="@style/Theme.Rummitimer">
 
+        <!-- play-services-ads와 firebase-analytics의 AD_SERVICES_CONFIG 충돌 해소 -->
+        <property
+            android:name="android.adservices.AD_SERVICES_CONFIG"
+            android:resource="@xml/gma_ad_services_config"
+            tools:replace="android:resource" />
+
         <!-- AdMob App ID (실제 출시 전 실제 ID로 교체) -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
