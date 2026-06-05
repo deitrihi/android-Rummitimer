@@ -2,6 +2,9 @@
 
 ## [미커밋]
 
+- gradle/libs.versions.toml — core-ktx 1.10.1→1.19.0, lifecycle-runtime-ktx 2.6.1→2.10.0, activity-compose 1.8.0→1.13.0 업데이트
+- app/build.gradle.kts — compileSdk/targetSdk 36→37 업데이트
+
 - gradle/libs.versions.toml — firebase-analytics 라이브러리 항목 추가
 - app/build.gradle.kts — firebase-analytics 의존성 추가
 - app/src/main/AndroidManifest.xml — AD_SERVICES_CONFIG manifest 충돌 해소 (tools:replace)
