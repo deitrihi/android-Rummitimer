@@ -18,16 +18,14 @@ val localProps = Properties().apply {
 android {
     namespace = "com.deitrihi.rummitimer"
     compileSdk {
-        version = release(36) {
-            minorApiLevel = 1
-        }
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "com.deitrihi.rummitimer"
         minSdk = 24
-        targetSdk = 36
-        versionCode = 11
+        targetSdk = 37
+        versionCode = 12
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

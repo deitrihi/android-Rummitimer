@@ -41,6 +41,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `ScoreInputScreen.kt` — 게임 종료 후 잔여 타일 점수 입력
 - `ResultScreen.kt` — 점수·패널티 기준 랭킹 결과 표시
 
+## Localization
+
+- 지원 로케일: `values/` (한국어, 기본값), `values-en/` (영어)
+- `strings.xml`에 문자열을 추가하거나 수정할 때는 **모든 로케일 파일을 동시에 업데이트**한다.
+- `translatable="false"` 항목(AdMob ID 등)은 기본 `values/`에만 두고 다른 로케일에는 추가하지 않는다.
+
 ## Forbidden
 - No LiveData
 - No XML layouts

@@ -12,6 +12,10 @@
     <string name="language_system">시스템 기본값</string>
     <string name="language_korean">한국어</string>
     <string name="language_english">영어</string>
+    <string name="language_japanese">일본어</string>
+    <string name="language_german">독일어</string>
+    <string name="language_spanish">스페인어</string>
+    <string name="language_dutch">네덜란드어</string>
     <string name="theme_label">테마</string>
     <string name="theme_system">시스템 기본값</string>
     <string name="theme_light">밝은색</string>

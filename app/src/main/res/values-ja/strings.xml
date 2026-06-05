@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">ホーム</string>
+    <string name="nav_favorites">お気に入り</string>
+    <string name="nav_settings">設定</string>
+
+    <!-- Settings -->
+    <string name="settings_title">設定</string>
+    <string name="language_label">言語</string>
+    <string name="language_system">システムデフォルト</string>
+    <string name="language_korean">韓国語</string>
+    <string name="language_english">英語</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_german">ドイツ語</string>
+    <string name="language_spanish">スペイン語</string>
+    <string name="language_dutch">オランダ語</string>
+    <string name="theme_label">テーマ</string>
+    <string name="theme_system">システムデフォルト</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">プレイヤー数</string>
+    <string name="player_count_format">%d人</string>
+    <string name="turn_duration_label">制限時間</string>
+    <string name="turn_duration_format">%d秒</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">プレイヤー%dのターン</string>
+    <string name="time_up">時間切れ！</string>
+    <string name="hurry_up">急いで！</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">終了</string>
+    <string name="btn_pause">一時停止</string>
+    <string name="btn_start">スタート</string>
+    <string name="btn_next">次へ</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">メニューを開く</string>
+    <string name="navigate_back">戻る</string>
+
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">プレイヤーアイコン</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">スコア入力</string>
+    <string name="score_input_subtitle">各プレイヤーの残りタイルのスコアを入力してください</string>
+    <string name="score_input_optional">※ 入力しなくても完了できます</string>
+    <string name="score_unit">点</string>
+    <string name="btn_complete">完了</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">ゲーム結果</string>
+    <string name="rank_label">順位</string>
+    <string name="score_label">スコア</string>
+    <string name="penalty_label">ペナルティ</string>
+    <string name="low_score_wins">スコアが低いほど有利です</string>
+    <string name="total_penalty_format">合計ペナルティ: %d回</string>
+    <string name="penalty_count_format">%d回</string>
+    <string name="btn_complete_reset">完了（広告後にリセット）</string>
+</resources>

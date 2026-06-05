@@ -12,6 +12,10 @@
     <string name="language_system">System default</string>
     <string name="language_korean">Korean</string>
     <string name="language_english">English</string>
+    <string name="language_japanese">Japanese</string>
+    <string name="language_german">German</string>
+    <string name="language_spanish">Spanish</string>
+    <string name="language_dutch">Dutch</string>
     <string name="theme_label">Theme</string>
     <string name="theme_system">System default</string>
     <string name="theme_light">Light</string>
@@ -37,4 +41,24 @@
     <!-- Navigation actions -->
     <string name="menu_open">Open menu</string>
     <string name="navigate_back">Navigate back</string>
+
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">Player Icon</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">Enter Scores</string>
+    <string name="score_input_subtitle">Enter each player\'s remaining tile score</string>
+    <string name="score_input_optional">* You can complete without entering scores</string>
+    <string name="score_unit">pts</string>
+    <string name="btn_complete">Complete</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">Game Result</string>
+    <string name="rank_label">Rank</string>
+    <string name="score_label">Score</string>
+    <string name="penalty_label">Penalty</string>
+    <string name="low_score_wins">Lower score is better</string>
+    <string name="total_penalty_format">Total penalties: %d</string>
+    <string name="penalty_count_format">%d</string>
+    <string name="btn_complete_reset">Complete (Reset after ad)</string>
 </resources>

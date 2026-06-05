@@ -11,6 +11,10 @@ object LocaleHelper {
     const val LANG_SYSTEM = "system"
     const val LANG_KOREAN = "ko"
     const val LANG_ENGLISH = "en"
+    const val LANG_JAPANESE = "ja"
+    const val LANG_GERMAN = "de"
+    const val LANG_SPANISH = "es"
+    const val LANG_DUTCH = "nl"
 
     fun getSelectedLanguage(context: Context): String {
         return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

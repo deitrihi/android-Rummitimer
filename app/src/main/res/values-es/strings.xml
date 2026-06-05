@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Inicio</string>
+    <string name="nav_favorites">Favoritos</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ajustes</string>
+    <string name="language_label">Idioma</string>
+    <string name="language_system">Predeterminado del sistema</string>
+    <string name="language_korean">Coreano</string>
+    <string name="language_english">Inglés</string>
+    <string name="language_japanese">Japonés</string>
+    <string name="language_german">Alemán</string>
+    <string name="language_spanish">Español</string>
+    <string name="language_dutch">Neerlandés</string>
+    <string name="theme_label">Tema</string>
+    <string name="theme_system">Predeterminado del sistema</string>
+    <string name="theme_light">Claro</string>
+    <string name="theme_dark">Oscuro</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">Jugadores</string>
+    <string name="player_count_format">%d J</string>
+    <string name="turn_duration_label">Límite de tiempo</string>
+    <string name="turn_duration_format">%ds</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">Turno del jugador %d</string>
+    <string name="time_up">¡Tiempo agotado!</string>
+    <string name="hurry_up">¡Date prisa!</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">Terminar</string>
+    <string name="btn_pause">Pausar</string>
+    <string name="btn_start">Iniciar</string>
+    <string name="btn_next">Siguiente</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">Abrir menú</string>
+    <string name="navigate_back">Volver</string>
+
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">Icono de jugador</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">Ingresar puntos</string>
+    <string name="score_input_subtitle">Ingresa los puntos de fichas restantes de cada jugador</string>
+    <string name="score_input_optional">* Puedes completar sin ingresar puntos</string>
+    <string name="score_unit">pts</string>
+    <string name="btn_complete">Completar</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">Resultado</string>
+    <string name="rank_label">Rango</string>
+    <string name="score_label">Puntos</string>
+    <string name="penalty_label">Penalti</string>
+    <string name="low_score_wins">Menos puntos es mejor</string>
+    <string name="total_penalty_format">Penaltis totales: %d</string>
+    <string name="penalty_count_format">%d</string>
+    <string name="btn_complete_reset">Completar (reiniciar tras anuncio)</string>
+</resources>
