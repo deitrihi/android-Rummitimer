@@ -60,6 +60,10 @@ fun SettingsScreen(
         LocaleHelper.LANG_SYSTEM to stringResource(R.string.language_system),
         LocaleHelper.LANG_KOREAN to stringResource(R.string.language_korean),
         LocaleHelper.LANG_ENGLISH to stringResource(R.string.language_english),
+        LocaleHelper.LANG_JAPANESE to stringResource(R.string.language_japanese),
+        LocaleHelper.LANG_GERMAN to stringResource(R.string.language_german),
+        LocaleHelper.LANG_SPANISH to stringResource(R.string.language_spanish),
+        LocaleHelper.LANG_DUTCH to stringResource(R.string.language_dutch),
     )
 
     val themeOptions = listOf(
@@ -80,7 +84,10 @@ fun SettingsScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
+                    IconButton(onClick = {
+                        AnalyticsHelper.log(context, AnalyticsHelper.SETTINGS_BACK)
+                        onBack()
+                    }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_arrow_back),
                             contentDescription = stringResource(R.string.navigate_back)
@@ -110,6 +117,7 @@ fun SettingsScreen(
                     label = label,
                     selected = selectedLanguage == lang,
                     onClick = {
+                        AnalyticsHelper.log(context, AnalyticsHelper.LANGUAGE_CHANGE, "language" to lang)
                         selectedLanguage = lang
                         LocaleHelper.setLanguage(context, lang)
                         (context as? Activity)?.recreate()
@@ -131,7 +139,10 @@ fun SettingsScreen(
                 SettingsRadioRow(
                     label = label,
                     selected = currentTheme == theme,
-                    onClick = { onThemeChange(theme) }
+                    onClick = {
+                        AnalyticsHelper.log(context, AnalyticsHelper.THEME_CHANGE, "theme" to theme)
+                        onThemeChange(theme)
+                    }
                 )
             }
 
@@ -187,6 +198,7 @@ private fun FruitPickerRow(
     selectedFruitIndex: Int,
     onSelect: (Int) -> Unit,
 ) {
+    val context = LocalContext.current
     Row(
         modifier = Modifier.horizontalScroll(rememberScrollState()),
         verticalAlignment = Alignment.CenterVertically,
@@ -202,7 +214,10 @@ private fun FruitPickerRow(
             FruitChip(
                 emoji = emoji,
                 selected = selectedFruitIndex == fruitIndex,
-                onClick = { onSelect(fruitIndex) }
+                onClick = {
+                    AnalyticsHelper.log(context, AnalyticsHelper.FRUIT_CHANGE, "player" to playerIndex, "fruit" to fruitIndex)
+                    onSelect(fruitIndex)
+                }
             )
         }
     }

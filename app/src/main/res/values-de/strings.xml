@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Startseite</string>
+    <string name="nav_favorites">Favoriten</string>
+    <string name="nav_settings">Einstellungen</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Einstellungen</string>
+    <string name="language_label">Sprache</string>
+    <string name="language_system">Systemstandard</string>
+    <string name="language_korean">Koreanisch</string>
+    <string name="language_english">Englisch</string>
+    <string name="language_japanese">Japanisch</string>
+    <string name="language_german">Deutsch</string>
+    <string name="language_spanish">Spanisch</string>
+    <string name="language_dutch">Niederländisch</string>
+    <string name="theme_label">Design</string>
+    <string name="theme_system">Systemstandard</string>
+    <string name="theme_light">Hell</string>
+    <string name="theme_dark">Dunkel</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">Spieleranzahl</string>
+    <string name="player_count_format">%d Sp.</string>
+    <string name="turn_duration_label">Zeitlimit</string>
+    <string name="turn_duration_format">%ds</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">Spieler %d ist dran</string>
+    <string name="time_up">Zeit abgelaufen!</string>
+    <string name="hurry_up">Beeil dich!</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">Beenden</string>
+    <string name="btn_pause">Pause</string>
+    <string name="btn_start">Start</string>
+    <string name="btn_next">Weiter</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">Menü öffnen</string>
+    <string name="navigate_back">Zurück</string>
+
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">Spieler-Symbol</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">Punkte eingeben</string>
+    <string name="score_input_subtitle">Gebt die verbleibenden Steinwerte jedes Spielers ein</string>
+    <string name="score_input_optional">* Auch ohne Eingabe abschließbar</string>
+    <string name="score_unit">Pkt.</string>
+    <string name="btn_complete">Fertig</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">Spielergebnis</string>
+    <string name="rank_label">Rang</string>
+    <string name="score_label">Punkte</string>
+    <string name="penalty_label">Strafe</string>
+    <string name="low_score_wins">Weniger Punkte sind besser</string>
+    <string name="total_penalty_format">Strafen gesamt: %d</string>
+    <string name="penalty_count_format">%d</string>
+    <string name="btn_complete_reset">Fertig (Reset nach Werbung)</string>
+</resources>

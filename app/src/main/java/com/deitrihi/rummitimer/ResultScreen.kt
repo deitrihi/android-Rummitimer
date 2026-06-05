@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -42,6 +43,7 @@ fun ResultScreen(
     onComplete: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     val ranked = (0 until playerCount).map { i ->
         PlayerResult(i, FRUIT_EMOJIS[fruitIndices[i]], scores[i], penalties[i], 0)
     }.sortedWith(compareBy<PlayerResult, Int?>(nullsLast()) { it.score }.thenBy { it.penaltyCount })
@@ -162,7 +164,10 @@ fun ResultScreen(
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
-                onClick = onComplete,
+                onClick = {
+                    AnalyticsHelper.log(context, AnalyticsHelper.GAME_RESET)
+                    onComplete()
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(52.dp)

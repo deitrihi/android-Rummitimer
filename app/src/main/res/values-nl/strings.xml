@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Rummitimer</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Startpagina</string>
+    <string name="nav_favorites">Favorieten</string>
+    <string name="nav_settings">Instellingen</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Instellingen</string>
+    <string name="language_label">Taal</string>
+    <string name="language_system">Systeemstandaard</string>
+    <string name="language_korean">Koreaans</string>
+    <string name="language_english">Engels</string>
+    <string name="language_japanese">Japans</string>
+    <string name="language_german">Duits</string>
+    <string name="language_spanish">Spaans</string>
+    <string name="language_dutch">Nederlands</string>
+    <string name="theme_label">Thema</string>
+    <string name="theme_system">Systeemstandaard</string>
+    <string name="theme_light">Licht</string>
+    <string name="theme_dark">Donker</string>
+
+    <!-- Timer Settings -->
+    <string name="player_count_label">Spelers</string>
+    <string name="player_count_format">%d sp.</string>
+    <string name="turn_duration_label">Tijdslimiet</string>
+    <string name="turn_duration_format">%ds</string>
+
+    <!-- Timer -->
+    <string name="player_turn_label">Beurt van speler %d</string>
+    <string name="time_up">Tijd is om!</string>
+    <string name="hurry_up">Schiet op!</string>
+
+    <!-- Controls -->
+    <string name="btn_reset">Beëindigen</string>
+    <string name="btn_pause">Pauze</string>
+    <string name="btn_start">Starten</string>
+    <string name="btn_next">Volgende</string>
+
+    <!-- Navigation actions -->
+    <string name="menu_open">Menu openen</string>
+    <string name="navigate_back">Terug</string>
+
+    <!-- v2: Fruit icons -->
+    <string name="fruit_icon_label">Spelerspictogram</string>
+
+    <!-- v2: Score input screen -->
+    <string name="score_input_title">Punten invoeren</string>
+    <string name="score_input_subtitle">Voer de resterende tegelpunten van elke speler in</string>
+    <string name="score_input_optional">* Je kunt ook voltooien zonder punten in te voeren</string>
+    <string name="score_unit">pnt</string>
+    <string name="btn_complete">Voltooien</string>
+
+    <!-- v2: Result screen -->
+    <string name="result_title">Spelresultaat</string>
+    <string name="rank_label">Rang</string>
+    <string name="score_label">Punten</string>
+    <string name="penalty_label">Straf</string>
+    <string name="low_score_wins">Minder punten is beter</string>
+    <string name="total_penalty_format">Totaal straffen: %d</string>
+    <string name="penalty_count_format">%d</string>
+    <string name="btn_complete_reset">Voltooien (reset na advertentie)</string>
+</resources>

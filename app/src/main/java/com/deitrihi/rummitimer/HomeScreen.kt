@@ -170,7 +170,11 @@ fun HomeScreen(
                     )
                 },
                 actions = {
-                    IconButton(onClick = onMenuClick) {
+                    val context = LocalContext.current
+                    IconButton(onClick = {
+                        AnalyticsHelper.log(context, AnalyticsHelper.MENU_OPEN)
+                        onMenuClick()
+                    }) {
                         Icon(
                             painter = painterResource(R.drawable.ic_menu),
                             contentDescription = stringResource(R.string.menu_open)
@@ -473,6 +477,7 @@ private fun SettingsSection(
     onPlayerCountChange: (Int) -> Unit,
     onTurnDurationChange: (Int) -> Unit,
 ) {
+    val context = LocalContext.current
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -486,7 +491,12 @@ private fun SettingsSection(
             PLAYER_COUNT_OPTIONS.forEach { count ->
                 FilterChip(
                     selected = playerCount == count,
-                    onClick = { if (!isRunning) onPlayerCountChange(count) },
+                    onClick = {
+                        if (!isRunning) {
+                            AnalyticsHelper.log(context, AnalyticsHelper.PLAYER_COUNT, "count" to count)
+                            onPlayerCountChange(count)
+                        }
+                    },
                     label = { Text(stringResource(R.string.player_count_format, count)) },
                     enabled = !isRunning
                 )
@@ -502,7 +512,12 @@ private fun SettingsSection(
             TURN_DURATION_OPTIONS.forEach { duration ->
                 FilterChip(
                     selected = turnDuration == duration,
-                    onClick = { if (!isRunning) onTurnDurationChange(duration) },
+                    onClick = {
+                        if (!isRunning) {
+                            AnalyticsHelper.log(context, AnalyticsHelper.TURN_DURATION, "seconds" to duration)
+                            onTurnDurationChange(duration)
+                        }
+                    },
                     label = { Text(stringResource(R.string.turn_duration_format, duration)) },
                     enabled = !isRunning
                 )
@@ -674,16 +689,23 @@ private fun ControlButtons(
     onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        OutlinedButton(onClick = onReset, modifier = Modifier.weight(1f)) {
+        OutlinedButton(onClick = {
+            AnalyticsHelper.log(context, AnalyticsHelper.END_GAME)
+            onReset()
+        }, modifier = Modifier.weight(1f)) {
             AutoFitText(stringResource(R.string.btn_reset))
         }
         Button(
-            onClick = onStartPause,
+            onClick = {
+                AnalyticsHelper.log(context, if (isRunning) AnalyticsHelper.TIMER_PAUSE else AnalyticsHelper.TIMER_START)
+                onStartPause()
+            },
             modifier = Modifier.weight(1.4f),
             enabled = !isTimeUp,
             colors = ButtonDefaults.buttonColors(
@@ -696,7 +718,10 @@ private fun ControlButtons(
                 fontWeight = FontWeight.Bold
             )
         }
-        FilledTonalButton(onClick = onNext, modifier = Modifier.weight(1f)) {
+        FilledTonalButton(onClick = {
+            AnalyticsHelper.log(context, AnalyticsHelper.NEXT_PLAYER)
+            onNext()
+        }, modifier = Modifier.weight(1f)) {
             AutoFitText(stringResource(R.string.btn_next))
         }
     }
@@ -711,16 +736,23 @@ private fun VerticalControlButtons(
     onReset: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        FilledTonalButton(onClick = onNext, modifier = Modifier.fillMaxWidth()) {
+        FilledTonalButton(onClick = {
+            AnalyticsHelper.log(context, AnalyticsHelper.NEXT_PLAYER)
+            onNext()
+        }, modifier = Modifier.fillMaxWidth()) {
             AutoFitText(stringResource(R.string.btn_next))
         }
         Button(
-            onClick = onStartPause,
+            onClick = {
+                AnalyticsHelper.log(context, if (isRunning) AnalyticsHelper.TIMER_PAUSE else AnalyticsHelper.TIMER_START)
+                onStartPause()
+            },
             modifier = Modifier.fillMaxWidth(),
             enabled = !isTimeUp,
             colors = ButtonDefaults.buttonColors(
@@ -733,7 +765,10 @@ private fun VerticalControlButtons(
                 fontWeight = FontWeight.Bold
             )
         }
-        OutlinedButton(onClick = onReset, modifier = Modifier.fillMaxWidth()) {
+        OutlinedButton(onClick = {
+            AnalyticsHelper.log(context, AnalyticsHelper.END_GAME)
+            onReset()
+        }, modifier = Modifier.fillMaxWidth()) {
             AutoFitText(stringResource(R.string.btn_reset))
         }
     }
