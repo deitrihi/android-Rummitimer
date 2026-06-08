@@ -62,6 +62,19 @@
     <string name="penalty_count_format">%d회</string>
     <string name="btn_complete_reset">완료 (광고 후 초기화)</string>
 
+    <!-- v3: Menu -->
+    <string name="menu_title">타이머 선택</string>
+    <string name="menu_section_board_game">보드게임 타이머</string>
+    <string name="menu_section_general">일반 타이머</string>
+    <string name="menu_rummicube">루미큐브 타이머</string>
+    <string name="menu_janggi">장기 타이머</string>
+    <string name="menu_baduk">바둑 타이머</string>
+    <string name="menu_chess">체스 타이머</string>
+    <string name="menu_stopwatch">스톱워치</string>
+    <string name="menu_pomodoro">뽀모도로 타이머</string>
+    <string name="menu_general_timer">일반 타이머</string>
+    <string name="menu_coming_soon">준비 중</string>
+
     <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
     <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
     <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

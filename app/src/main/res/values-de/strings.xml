@@ -61,4 +61,17 @@
     <string name="total_penalty_format">Strafen gesamt: %d</string>
     <string name="penalty_count_format">%d</string>
     <string name="btn_complete_reset">Fertig (Reset nach Werbung)</string>
+
+    <!-- v3: Menu -->
+    <string name="menu_title">Timer auswählen</string>
+    <string name="menu_section_board_game">Brettspiel-Timer</string>
+    <string name="menu_section_general">Allgemeine Timer</string>
+    <string name="menu_rummicube">Rummikub-Timer</string>
+    <string name="menu_janggi">Janggi-Timer</string>
+    <string name="menu_baduk">Go-Timer</string>
+    <string name="menu_chess">Schach-Timer</string>
+    <string name="menu_stopwatch">Stoppuhr</string>
+    <string name="menu_pomodoro">Pomodoro-Timer</string>
+    <string name="menu_general_timer">Allgemeiner Timer</string>
+    <string name="menu_coming_soon">Demnächst</string>
 </resources>

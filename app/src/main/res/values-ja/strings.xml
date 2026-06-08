@@ -61,4 +61,17 @@
     <string name="total_penalty_format">合計ペナルティ: %d回</string>
     <string name="penalty_count_format">%d回</string>
     <string name="btn_complete_reset">完了（広告後にリセット）</string>
+
+    <!-- v3: Menu -->
+    <string name="menu_title">タイマー選択</string>
+    <string name="menu_section_board_game">ボードゲームタイマー</string>
+    <string name="menu_section_general">一般タイマー</string>
+    <string name="menu_rummicube">ラミィキューブタイマー</string>
+    <string name="menu_janggi">チャンギタイマー</string>
+    <string name="menu_baduk">囲碁タイマー</string>
+    <string name="menu_chess">チェスタイマー</string>
+    <string name="menu_stopwatch">ストップウォッチ</string>
+    <string name="menu_pomodoro">ポモドーロタイマー</string>
+    <string name="menu_general_timer">一般タイマー</string>
+    <string name="menu_coming_soon">準備中</string>
 </resources>
