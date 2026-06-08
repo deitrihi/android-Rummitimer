@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## [미커밋]
+
+- MenuScreen.kt — 게임·타이머 선택 메뉴 화면 신규 추가 (보드게임 타이머 4종, 일반 타이머 3종, 설정 진입)
+- MainActivity.kt — Screen enum에 MENU 추가, 햄버거 버튼 → MENU 화면으로 라우팅 변경
+- values/strings.xml, values-en/strings.xml — v3 메뉴 문자열 11개 추가
+- values-ja/strings.xml, values-de/strings.xml, values-es/strings.xml, values-nl/strings.xml — v3 메뉴 문자열 11개 각 언어 번역 추가
+
 ## 2026-06-05 | e670473
 
 - values-en/strings.xml — v2 누락 항목 14개 영어 번역 추가 (과일 아이콘, 점수 입력, 결과 화면)

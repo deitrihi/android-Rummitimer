@@ -61,4 +61,17 @@
     <string name="total_penalty_format">Totaal straffen: %d</string>
     <string name="penalty_count_format">%d</string>
     <string name="btn_complete_reset">Voltooien (reset na advertentie)</string>
+
+    <!-- v3: Menu -->
+    <string name="menu_title">Timer selecteren</string>
+    <string name="menu_section_board_game">Bordspeltimers</string>
+    <string name="menu_section_general">Algemene timers</string>
+    <string name="menu_rummicube">Rummikub-timer</string>
+    <string name="menu_janggi">Janggi-timer</string>
+    <string name="menu_baduk">Baduk-timer</string>
+    <string name="menu_chess">Schaaktimer</string>
+    <string name="menu_stopwatch">Stopwatch</string>
+    <string name="menu_pomodoro">Pomodoro-timer</string>
+    <string name="menu_general_timer">Algemene timer</string>
+    <string name="menu_coming_soon">Binnenkort</string>
 </resources>

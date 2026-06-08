@@ -61,4 +61,17 @@
     <string name="total_penalty_format">Penaltis totales: %d</string>
     <string name="penalty_count_format">%d</string>
     <string name="btn_complete_reset">Completar (reiniciar tras anuncio)</string>
+
+    <!-- v3: Menu -->
+    <string name="menu_title">Seleccionar temporizador</string>
+    <string name="menu_section_board_game">Temporizadores de juegos de mesa</string>
+    <string name="menu_section_general">Temporizadores generales</string>
+    <string name="menu_rummicube">Temporizador Rummikub</string>
+    <string name="menu_janggi">Temporizador Janggi</string>
+    <string name="menu_baduk">Temporizador Baduk</string>
+    <string name="menu_chess">Temporizador de ajedrez</string>
+    <string name="menu_stopwatch">Cronómetro</string>
+    <string name="menu_pomodoro">Temporizador Pomodoro</string>
+    <string name="menu_general_timer">Temporizador general</string>
+    <string name="menu_coming_soon">Próximamente</string>
 </resources>

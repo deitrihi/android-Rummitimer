@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
 
-enum class Screen { HOME, SETTINGS, SCORE_INPUT, RESULT }
+enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT }
 
 class MainActivity : ComponentActivity() {
 
@@ -79,11 +79,16 @@ fun RummitimerApp(
             onPlayerCountChange = { playerCount = it },
             fruitIndices = fruitIndices,
             penalties = penalties,
-            onMenuClick = { currentScreen = Screen.SETTINGS },
+            onMenuClick = { currentScreen = Screen.MENU },
             onEndGame = { currentScreen = Screen.SCORE_INPUT },
             onPenalty = { playerIndex ->
                 penalties = penalties.toMutableList().also { it[playerIndex]++ }
             }
+        )
+        Screen.MENU -> MenuScreen(
+            onSelectRummicube = { currentScreen = Screen.HOME },
+            onSelectSettings = { currentScreen = Screen.SETTINGS },
+            onBack = { currentScreen = Screen.HOME }
         )
         Screen.SETTINGS -> SettingsScreen(
             currentTheme = currentTheme,
