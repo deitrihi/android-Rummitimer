@@ -6,6 +6,9 @@
 - MainActivity.kt — Screen enum에 MENU 추가, 햄버거 버튼 → MENU 화면으로 라우팅 변경
 - values/strings.xml, values-en/strings.xml — v3 메뉴 문자열 11개 추가
 - values-ja/strings.xml, values-de/strings.xml, values-es/strings.xml, values-nl/strings.xml — v3 메뉴 문자열 11개 각 언어 번역 추가
+- claude_logs/firebase-analytics-기본설정.md — 2026-05-31 세션 로그 소급 추가
+- claude_logs/firebase-analytics-이벤트-연동-다국어-확장.md — 2026-06-05 세션 로그 소급 추가
+- claude_logs/타이머-선택-메뉴-화면-추가.md — 2026-06-08 세션 로그 소급 추가
 
 ## 2026-06-05 | e670473
 
