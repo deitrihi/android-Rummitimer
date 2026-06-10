@@ -74,4 +74,16 @@
     <string name="menu_pomodoro">Pomodoro-timer</string>
     <string name="menu_general_timer">Algemene timer</string>
     <string name="menu_coming_soon">Binnenkort</string>
+
+    <!-- v3: Twee-speler wedstrijdtimer -->
+    <string name="janggi_setup_title">Janggi timer-instellingen</string>
+    <string name="two_player_time_min_format">%d min</string>
+    <string name="tap_to_move">Tik om te zetten</string>
+    <string name="waiting">Wachten</string>
+    <string name="btn_resume">Hervatten</string>
+    <string name="btn_see_result">Resultaten bekijken</string>
+    <string name="game_winner">Wint!</string>
+    <string name="btn_new_game">Nieuw spel</string>
+    <string name="btn_change_settings">Instellingen wijzigen</string>
+    <string name="two_player_time_used_label">Gebruikte tijd</string>
 </resources>

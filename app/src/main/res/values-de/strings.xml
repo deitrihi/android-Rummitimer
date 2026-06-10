@@ -74,4 +74,16 @@
     <string name="menu_pomodoro">Pomodoro-Timer</string>
     <string name="menu_general_timer">Allgemeiner Timer</string>
     <string name="menu_coming_soon">Demnächst</string>
+
+    <!-- v3: Zwei-Spieler-Turniertimer -->
+    <string name="janggi_setup_title">Janggi-Timer-Einstellungen</string>
+    <string name="two_player_time_min_format">%d Min.</string>
+    <string name="tap_to_move">Antippen zum Ziehen</string>
+    <string name="waiting">Warten</string>
+    <string name="btn_resume">Fortsetzen</string>
+    <string name="btn_see_result">Ergebnis anzeigen</string>
+    <string name="game_winner">Gewonnen!</string>
+    <string name="btn_new_game">Neues Spiel</string>
+    <string name="btn_change_settings">Einstellungen ändern</string>
+    <string name="two_player_time_used_label">Verwendete Zeit</string>
 </resources>

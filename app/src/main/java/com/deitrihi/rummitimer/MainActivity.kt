@@ -18,7 +18,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
 
-enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT }
+enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT }
+enum class GameType { JANGGI, BADUK, CHESS }
 
 class MainActivity : ComponentActivity() {
 
@@ -67,6 +68,13 @@ fun RummitimerApp(
     var scores by remember { mutableStateOf(List<Int?>(4) { null }) }
     var fruitIndices by remember { mutableStateOf(FruitHelper.getFruitIndices(context)) }
 
+    // v3 2인 대국 타이머 상태
+    var twoPlayerGameType by rememberSaveable { mutableStateOf(GameType.JANGGI) }
+    var twoPlayerInitialTime by rememberSaveable { mutableIntStateOf(10 * 60) }
+    var twoPlayerWinner by rememberSaveable { mutableIntStateOf(-1) }
+    var twoPlayerP1Used by rememberSaveable { mutableIntStateOf(0) }
+    var twoPlayerP2Used by rememberSaveable { mutableIntStateOf(0) }
+
     fun resetGame() {
         penalties = List(4) { 0 }
         scores = List(4) { null }
@@ -87,8 +95,44 @@ fun RummitimerApp(
         )
         Screen.MENU -> MenuScreen(
             onSelectRummicube = { currentScreen = Screen.HOME },
+            onSelectJanggi = {
+                twoPlayerGameType = GameType.JANGGI
+                currentScreen = Screen.TWO_PLAYER_SETUP
+            },
             onSelectSettings = { currentScreen = Screen.SETTINGS },
             onBack = { currentScreen = Screen.HOME }
+        )
+        Screen.TWO_PLAYER_SETUP -> TwoPlayerSetupScreen(
+            gameType = twoPlayerGameType,
+            onStart = { time ->
+                twoPlayerInitialTime = time
+                currentScreen = Screen.TWO_PLAYER_TIMER
+            },
+            onBack = { currentScreen = Screen.MENU }
+        )
+        Screen.TWO_PLAYER_TIMER -> TwoPlayerTimerScreen(
+            gameType = twoPlayerGameType,
+            initialTimeSeconds = twoPlayerInitialTime,
+            onGameEnd = { w, p1, p2 ->
+                twoPlayerWinner = w
+                twoPlayerP1Used = p1
+                twoPlayerP2Used = p2
+                currentScreen = Screen.TWO_PLAYER_RESULT
+            },
+            onBack = { currentScreen = Screen.TWO_PLAYER_SETUP }
+        )
+        Screen.TWO_PLAYER_RESULT -> TwoPlayerResultScreen(
+            winner = twoPlayerWinner,
+            p1UsedSeconds = twoPlayerP1Used,
+            p2UsedSeconds = twoPlayerP2Used,
+            onRestart = {
+                twoPlayerWinner = -1
+                currentScreen = Screen.TWO_PLAYER_TIMER
+            },
+            onChangeSettings = {
+                twoPlayerWinner = -1
+                currentScreen = Screen.TWO_PLAYER_SETUP
+            }
         )
         Screen.SETTINGS -> SettingsScreen(
             currentTheme = currentTheme,
