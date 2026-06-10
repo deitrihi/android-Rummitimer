@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun MenuScreen(
     onSelectRummicube: () -> Unit,
+    onSelectJanggi: () -> Unit,
     onSelectSettings: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -68,8 +69,8 @@ fun MenuScreen(
                 MenuItemRow(
                     icon = "♟",
                     label = stringResource(R.string.menu_janggi),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectJanggi
                 )
             }
             item {

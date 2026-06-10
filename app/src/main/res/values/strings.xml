@@ -75,6 +75,18 @@
     <string name="menu_general_timer">일반 타이머</string>
     <string name="menu_coming_soon">준비 중</string>
 
+    <!-- v3: 2인 대국 타이머 -->
+    <string name="janggi_setup_title">장기 타이머 설정</string>
+    <string name="two_player_time_min_format">%d분</string>
+    <string name="tap_to_move">탭하여 착수</string>
+    <string name="waiting">대기 중</string>
+    <string name="btn_resume">재개</string>
+    <string name="btn_see_result">결과 보기</string>
+    <string name="game_winner">승리!</string>
+    <string name="btn_new_game">새 게임</string>
+    <string name="btn_change_settings">설정 변경</string>
+    <string name="two_player_time_used_label">사용 시간</string>
+
     <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
     <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
     <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

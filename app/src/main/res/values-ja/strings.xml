@@ -74,4 +74,16 @@
     <string name="menu_pomodoro">ポモドーロタイマー</string>
     <string name="menu_general_timer">一般タイマー</string>
     <string name="menu_coming_soon">準備中</string>
+
+    <!-- v3: 2人対局タイマー -->
+    <string name="janggi_setup_title">チャンギタイマー設定</string>
+    <string name="two_player_time_min_format">%d分</string>
+    <string name="tap_to_move">タップして着手</string>
+    <string name="waiting">待機中</string>
+    <string name="btn_resume">再開</string>
+    <string name="btn_see_result">結果を見る</string>
+    <string name="game_winner">勝利！</string>
+    <string name="btn_new_game">新しいゲーム</string>
+    <string name="btn_change_settings">設定変更</string>
+    <string name="two_player_time_used_label">使用時間</string>
 </resources>

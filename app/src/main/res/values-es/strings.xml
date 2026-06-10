@@ -74,4 +74,16 @@
     <string name="menu_pomodoro">Temporizador Pomodoro</string>
     <string name="menu_general_timer">Temporizador general</string>
     <string name="menu_coming_soon">Próximamente</string>
+
+    <!-- v3: Temporizador de partida para 2 jugadores -->
+    <string name="janggi_setup_title">Configuración del temporizador Janggi</string>
+    <string name="two_player_time_min_format">%d min</string>
+    <string name="tap_to_move">Toca para mover</string>
+    <string name="waiting">Esperando</string>
+    <string name="btn_resume">Reanudar</string>
+    <string name="btn_see_result">Ver resultados</string>
+    <string name="game_winner">¡Gana!</string>
+    <string name="btn_new_game">Nuevo juego</string>
+    <string name="btn_change_settings">Cambiar ajustes</string>
+    <string name="two_player_time_used_label">Tiempo usado</string>
 </resources>
