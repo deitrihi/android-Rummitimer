@@ -2,6 +2,8 @@
 
 ## [미커밋]
 
+## 2026-06-17 | b1dfeca
+
 - TwoPlayerTimerScreen.kt — 가로 모드(landscape) 레이아웃 추가 (P1 좌 / ControlStrip 세로 / P2 우, 회전 없음); 회전을 Surface 외부에서 내부 Column으로 이동
 - MainActivity.kt — 마지막 선택 타이머를 SharedPreferences에 저장, 앱 시작 시 해당 화면으로 복원
 - MainActivity.kt — 장기 타이머 결과 화면(다시하기·설정 변경) 버튼에 전면 광고 삽입
