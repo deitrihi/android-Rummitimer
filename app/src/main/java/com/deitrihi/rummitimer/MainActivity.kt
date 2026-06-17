@@ -61,7 +61,12 @@ fun RummitimerApp(
     val adManager = remember(activity) { activity?.let { InterstitialAdManager(it) } }
     LaunchedEffect(adManager) { adManager?.load() }
 
-    var currentScreen by rememberSaveable { mutableStateOf(Screen.HOME) }
+    val prefs = remember { context.getSharedPreferences("rummitimer_prefs", android.content.Context.MODE_PRIVATE) }
+    val initialScreen = remember {
+        if (prefs.getString("last_timer", "HOME") == "JANGGI") Screen.TWO_PLAYER_SETUP
+        else Screen.HOME
+    }
+    var currentScreen by rememberSaveable { mutableStateOf(initialScreen) }
     var playerCount by rememberSaveable { mutableIntStateOf(2) }
     // penalties/scores는 구성 변경 시 초기화 허용 (rememberSaveable 불필요)
     var penalties by remember { mutableStateOf(List(4) { 0 }) }
@@ -94,8 +99,12 @@ fun RummitimerApp(
             }
         )
         Screen.MENU -> MenuScreen(
-            onSelectRummicube = { currentScreen = Screen.HOME },
+            onSelectRummicube = {
+                prefs.edit().putString("last_timer", "HOME").apply()
+                currentScreen = Screen.HOME
+            },
             onSelectJanggi = {
+                prefs.edit().putString("last_timer", "JANGGI").apply()
                 twoPlayerGameType = GameType.JANGGI
                 currentScreen = Screen.TWO_PLAYER_SETUP
             },
@@ -119,19 +128,32 @@ fun RummitimerApp(
                 twoPlayerP2Used = p2
                 currentScreen = Screen.TWO_PLAYER_RESULT
             },
-            onBack = { currentScreen = Screen.TWO_PLAYER_SETUP }
+            onBack = {
+                adManager?.showAd { currentScreen = Screen.TWO_PLAYER_SETUP }
+                    ?: run { currentScreen = Screen.TWO_PLAYER_SETUP }
+            }
         )
         Screen.TWO_PLAYER_RESULT -> TwoPlayerResultScreen(
             winner = twoPlayerWinner,
             p1UsedSeconds = twoPlayerP1Used,
             p2UsedSeconds = twoPlayerP2Used,
             onRestart = {
-                twoPlayerWinner = -1
-                currentScreen = Screen.TWO_PLAYER_TIMER
+                adManager?.showAd {
+                    twoPlayerWinner = -1
+                    currentScreen = Screen.TWO_PLAYER_TIMER
+                } ?: run {
+                    twoPlayerWinner = -1
+                    currentScreen = Screen.TWO_PLAYER_TIMER
+                }
             },
             onChangeSettings = {
-                twoPlayerWinner = -1
-                currentScreen = Screen.TWO_PLAYER_SETUP
+                adManager?.showAd {
+                    twoPlayerWinner = -1
+                    currentScreen = Screen.TWO_PLAYER_SETUP
+                } ?: run {
+                    twoPlayerWinner = -1
+                    currentScreen = Screen.TWO_PLAYER_SETUP
+                }
             }
         )
         Screen.SETTINGS -> SettingsScreen(

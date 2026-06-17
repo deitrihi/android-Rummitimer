@@ -1,6 +1,7 @@
 // 2인 대국 타이머 화면 — 플레이어 영역 전체 탭으로 착수 처리
 package com.deitrihi.rummitimer
 
+import android.content.res.Configuration
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -8,9 +9,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +30,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -95,43 +99,83 @@ fun TwoPlayerTimerScreen(
         }
     }
 
-    Column(modifier = modifier.fillMaxSize()) {
-        // P2 영역 — 상단, 180도 회전 (P2가 자신의 방향에서 읽음)
-        PlayerHalf(
-            modifier = Modifier.weight(1f).rotate(180f),
-            timeSeconds = player2Time,
-            playerIndex = 1,
-            isActive = activePlayer == 1,
-            isGameStarted = gameStarted,
-            winner = winner,
-            onTap = { handleMove(1) }
-        )
-        // 중앙 컨트롤 스트립
-        ControlStrip(
-            isGameStarted = gameStarted,
-            isPaused = activePlayer < 0 && gameStarted,
-            isGameOver = winner >= 0,
-            onStart = ::startGame,
-            onTogglePause = ::togglePause,
-            onEnd = onBack,
-            onSeeResult = {
-                onGameEnd(
-                    winner,
-                    initialTimeSeconds - player1Time,
-                    initialTimeSeconds - player2Time
-                )
-            }
-        )
-        // P1 영역 — 하단
-        PlayerHalf(
-            modifier = Modifier.weight(1f),
-            timeSeconds = player1Time,
-            playerIndex = 0,
-            isActive = activePlayer == 0,
-            isGameStarted = gameStarted,
-            winner = winner,
-            onTap = { handleMove(0) }
-        )
+    val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    if (isLandscape) {
+        // 가로 모드: P1 좌 / ControlStrip 중앙 / P2 우
+        Row(modifier = modifier.fillMaxSize()) {
+            PlayerHalf(
+                modifier = Modifier.weight(1f),
+                rotation = 0f,
+                timeSeconds = player1Time,
+                playerIndex = 0,
+                isActive = activePlayer == 0,
+                isGameStarted = gameStarted,
+                winner = winner,
+                onTap = { handleMove(0) }
+            )
+            ControlStrip(
+                isGameStarted = gameStarted,
+                isPaused = activePlayer < 0 && gameStarted,
+                isGameOver = winner >= 0,
+                isVertical = true,
+                onStart = ::startGame,
+                onTogglePause = ::togglePause,
+                onEnd = onBack,
+                onSeeResult = {
+                    onGameEnd(winner, initialTimeSeconds - player1Time, initialTimeSeconds - player2Time)
+                }
+            )
+            PlayerHalf(
+                modifier = Modifier.weight(1f),
+                rotation = 0f,
+                timeSeconds = player2Time,
+                playerIndex = 1,
+                isActive = activePlayer == 1,
+                isGameStarted = gameStarted,
+                winner = winner,
+                onTap = { handleMove(1) }
+            )
+        }
+    } else {
+        // 세로 모드: 기존 레이아웃
+        Column(modifier = modifier.fillMaxSize()) {
+            // P2 영역 — 상단, 180도 회전 (P2가 자신의 방향에서 읽음)
+            PlayerHalf(
+                modifier = Modifier.weight(1f),
+                rotation = 180f,
+                timeSeconds = player2Time,
+                playerIndex = 1,
+                isActive = activePlayer == 1,
+                isGameStarted = gameStarted,
+                winner = winner,
+                onTap = { handleMove(1) }
+            )
+            // 중앙 컨트롤 스트립
+            ControlStrip(
+                isGameStarted = gameStarted,
+                isPaused = activePlayer < 0 && gameStarted,
+                isGameOver = winner >= 0,
+                isVertical = false,
+                onStart = ::startGame,
+                onTogglePause = ::togglePause,
+                onEnd = onBack,
+                onSeeResult = {
+                    onGameEnd(winner, initialTimeSeconds - player1Time, initialTimeSeconds - player2Time)
+                }
+            )
+            // P1 영역 — 하단
+            PlayerHalf(
+                modifier = Modifier.weight(1f),
+                rotation = 0f,
+                timeSeconds = player1Time,
+                playerIndex = 0,
+                isActive = activePlayer == 0,
+                isGameStarted = gameStarted,
+                winner = winner,
+                onTap = { handleMove(0) }
+            )
+        }
     }
 }
 
@@ -142,6 +186,7 @@ private fun PlayerHalf(
     isActive: Boolean,
     isGameStarted: Boolean,
     winner: Int,
+    rotation: Float = 0f,
     onTap: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -171,7 +216,7 @@ private fun PlayerHalf(
 
     Surface(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxSize()
             .clickable(enabled = isActive && isGameStarted && !isGameOver, onClick = onTap),
         color = bgColor
     ) {
@@ -179,7 +224,9 @@ private fun PlayerHalf(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
+            // Surface는 영역을 꽉 채우고, 텍스트 컨텐츠만 회전
             Column(
+                modifier = Modifier.rotate(rotation),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -233,6 +280,7 @@ private fun ControlStrip(
     isGameStarted: Boolean,
     isPaused: Boolean,
     isGameOver: Boolean,
+    isVertical: Boolean,
     onStart: () -> Unit,
     onTogglePause: () -> Unit,
     onEnd: () -> Unit,
@@ -240,43 +288,85 @@ private fun ControlStrip(
     modifier: Modifier = Modifier,
 ) {
     Surface(
-        modifier = modifier.fillMaxWidth(),
+        modifier = if (isVertical) modifier.fillMaxHeight().width(128.dp)
+                   else modifier.fillMaxWidth(),
         tonalElevation = 2.dp
     ) {
-        Row(
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            when {
-                !isGameStarted -> Button(
-                    onClick = onStart,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    Text(stringResource(R.string.btn_start), fontWeight = FontWeight.Bold)
-                }
-                isGameOver -> Button(
-                    onClick = onSeeResult,
-                    modifier = Modifier.weight(1f)
-                ) {
-                    AutoFitText(stringResource(R.string.btn_see_result))
-                }
-                else -> {
-                    OutlinedButton(onClick = onEnd, modifier = Modifier.weight(1f)) {
-                        AutoFitText(stringResource(R.string.btn_reset))
-                    }
-                    Button(
-                        onClick = onTogglePause,
-                        modifier = Modifier.weight(1f),
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if (isPaused) MaterialTheme.colorScheme.primary
-                            else MaterialTheme.colorScheme.secondary
-                        )
+        if (isVertical) {
+            Column(
+                modifier = Modifier.padding(horizontal = 10.dp, vertical = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterVertically),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                when {
+                    !isGameStarted -> Button(
+                        onClick = onStart,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        AutoFitText(
-                            if (isPaused) stringResource(R.string.btn_resume)
-                            else stringResource(R.string.btn_pause)
-                        )
+                        Text(stringResource(R.string.btn_start), fontWeight = FontWeight.Bold)
+                    }
+                    isGameOver -> Button(
+                        onClick = onSeeResult,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        AutoFitText(stringResource(R.string.btn_see_result))
+                    }
+                    else -> {
+                        OutlinedButton(onClick = onEnd, modifier = Modifier.fillMaxWidth()) {
+                            AutoFitText(stringResource(R.string.btn_reset))
+                        }
+                        Button(
+                            onClick = onTogglePause,
+                            modifier = Modifier.fillMaxWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (isPaused) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.secondary
+                            )
+                        ) {
+                            AutoFitText(
+                                if (isPaused) stringResource(R.string.btn_resume)
+                                else stringResource(R.string.btn_pause)
+                            )
+                        }
+                    }
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                when {
+                    !isGameStarted -> Button(
+                        onClick = onStart,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text(stringResource(R.string.btn_start), fontWeight = FontWeight.Bold)
+                    }
+                    isGameOver -> Button(
+                        onClick = onSeeResult,
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        AutoFitText(stringResource(R.string.btn_see_result))
+                    }
+                    else -> {
+                        OutlinedButton(onClick = onEnd, modifier = Modifier.weight(1f)) {
+                            AutoFitText(stringResource(R.string.btn_reset))
+                        }
+                        Button(
+                            onClick = onTogglePause,
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (isPaused) MaterialTheme.colorScheme.primary
+                                else MaterialTheme.colorScheme.secondary
+                            )
+                        ) {
+                            AutoFitText(
+                                if (isPaused) stringResource(R.string.btn_resume)
+                                else stringResource(R.string.btn_pause)
+                            )
+                        }
                     }
                 }
             }
