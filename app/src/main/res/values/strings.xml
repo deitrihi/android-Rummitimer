@@ -87,6 +87,13 @@
     <string name="btn_change_settings">설정 변경</string>
     <string name="two_player_time_used_label">사용 시간</string>
 
+    <!-- v4: 뽀모도로 타이머 -->
+    <string name="pomodoro_phase_focus">집중</string>
+    <string name="pomodoro_phase_short_break">짧은 휴식</string>
+    <string name="pomodoro_phase_long_break">긴 휴식</string>
+    <string name="pomodoro_btn_reset">초기화</string>
+    <string name="pomodoro_btn_skip">건너뛰기</string>
+
     <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
     <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
     <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>

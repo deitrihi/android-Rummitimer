@@ -36,7 +36,7 @@ private val TIME_OPTIONS_MINUTES = listOf(1, 3, 5, 10, 30)
 fun TwoPlayerSetupScreen(
     gameType: GameType,
     onStart: (initialTimeSeconds: Int) -> Unit,
-    onBack: () -> Unit,
+    onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var selectedMinutes by rememberSaveable { mutableIntStateOf(10) }
@@ -52,11 +52,11 @@ fun TwoPlayerSetupScreen(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(titleRes)) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
+                actions = {
+                    IconButton(onClick = onMenuClick) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_arrow_back),
-                            contentDescription = stringResource(R.string.navigate_back)
+                            painter = painterResource(R.drawable.ic_menu),
+                            contentDescription = stringResource(R.string.menu_open)
                         )
                     }
                 }

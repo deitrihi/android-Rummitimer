@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
 
-enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT }
+enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT, POMODORO }
 enum class GameType { JANGGI, BADUK, CHESS }
 
 class MainActivity : ComponentActivity() {
@@ -63,8 +63,11 @@ fun RummitimerApp(
 
     val prefs = remember { context.getSharedPreferences("rummitimer_prefs", android.content.Context.MODE_PRIVATE) }
     val initialScreen = remember {
-        if (prefs.getString("last_timer", "HOME") == "JANGGI") Screen.TWO_PLAYER_SETUP
-        else Screen.HOME
+        when (prefs.getString("last_timer", "HOME")) {
+            "JANGGI" -> Screen.TWO_PLAYER_SETUP
+            "POMODORO" -> Screen.POMODORO
+            else -> Screen.HOME
+        }
     }
     var currentScreen by rememberSaveable { mutableStateOf(initialScreen) }
     var playerCount by rememberSaveable { mutableIntStateOf(2) }
@@ -108,8 +111,15 @@ fun RummitimerApp(
                 twoPlayerGameType = GameType.JANGGI
                 currentScreen = Screen.TWO_PLAYER_SETUP
             },
+            onSelectPomodoro = {
+                prefs.edit().putString("last_timer", "POMODORO").apply()
+                currentScreen = Screen.POMODORO
+            },
             onSelectSettings = { currentScreen = Screen.SETTINGS },
             onBack = { currentScreen = Screen.HOME }
+        )
+        Screen.POMODORO -> PomodoroScreen(
+            onMenuClick = { currentScreen = Screen.MENU }
         )
         Screen.TWO_PLAYER_SETUP -> TwoPlayerSetupScreen(
             gameType = twoPlayerGameType,
@@ -117,7 +127,7 @@ fun RummitimerApp(
                 twoPlayerInitialTime = time
                 currentScreen = Screen.TWO_PLAYER_TIMER
             },
-            onBack = { currentScreen = Screen.MENU }
+            onMenuClick = { currentScreen = Screen.MENU }
         )
         Screen.TWO_PLAYER_TIMER -> TwoPlayerTimerScreen(
             gameType = twoPlayerGameType,

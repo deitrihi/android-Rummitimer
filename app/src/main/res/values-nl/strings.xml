@@ -86,4 +86,11 @@
     <string name="btn_new_game">Nieuw spel</string>
     <string name="btn_change_settings">Instellingen wijzigen</string>
     <string name="two_player_time_used_label">Gebruikte tijd</string>
+
+    <!-- v4: Pomodoro-timer -->
+    <string name="pomodoro_phase_focus">Focus</string>
+    <string name="pomodoro_phase_short_break">Korte pauze</string>
+    <string name="pomodoro_phase_long_break">Lange pauze</string>
+    <string name="pomodoro_btn_reset">Opnieuw instellen</string>
+    <string name="pomodoro_btn_skip">Overslaan</string>
 </resources>

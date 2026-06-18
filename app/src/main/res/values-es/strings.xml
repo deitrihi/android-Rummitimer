@@ -86,4 +86,11 @@
     <string name="btn_new_game">Nuevo juego</string>
     <string name="btn_change_settings">Cambiar ajustes</string>
     <string name="two_player_time_used_label">Tiempo usado</string>
+
+    <!-- v4: Temporizador Pomodoro -->
+    <string name="pomodoro_phase_focus">Enfoque</string>
+    <string name="pomodoro_phase_short_break">Pausa corta</string>
+    <string name="pomodoro_phase_long_break">Pausa larga</string>
+    <string name="pomodoro_btn_reset">Reiniciar</string>
+    <string name="pomodoro_btn_skip">Saltar</string>
 </resources>

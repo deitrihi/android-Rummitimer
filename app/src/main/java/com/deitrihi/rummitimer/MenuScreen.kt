@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.dp
 fun MenuScreen(
     onSelectRummicube: () -> Unit,
     onSelectJanggi: () -> Unit,
+    onSelectPomodoro: () -> Unit,
     onSelectSettings: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -105,8 +106,8 @@ fun MenuScreen(
                 MenuItemRow(
                     icon = "🍅",
                     label = stringResource(R.string.menu_pomodoro),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectPomodoro
                 )
             }
             item {
