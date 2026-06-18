@@ -2,6 +2,17 @@
 
 ## [미커밋]
 
+- PomodoroScreen.kt — 분침 시계를 링 진행 표시기로 교체 (60초 1바퀴 원호 스트로크, 배경 링 + 진행 링)
+- PomodoroScreen.kt — 뽀모도로 타이머 화면 신규 구현 (집중 25분·짧은 휴식 5분·긴 휴식 15분 사이클, 세션 도트, 건너뛰기·초기화 버튼)
+- PomodoroScreen.kt — 원형 파이 차트 타이머 비주얼 추가 (Canvas로 경과 시간 파이 슬라이스, 내부 원에 시간 표시)
+- MainActivity.kt — 마지막 타이머 복원 로직에 뽀모도로 추가 (last_timer = "POMODORO" 저장 및 복원)
+- MainActivity.kt — Screen enum에 POMODORO 추가 및 navigation 분기 연결
+- MenuScreen.kt — 뽀모도로 항목 comingSoon 해제, onSelectPomodoro 콜백 연결
+- strings.xml (한/영/ja/de/es/nl) — 뽀모도로 관련 문자열 추가 (단계 레이블, 초기화, 건너뛰기)
+- PomodoroScreen.kt — TopAppBar 레이아웃 통일: 좌상단 뒤로가기 → 우상단 햄버거 메뉴 (onBack → onMenuClick)
+- TwoPlayerSetupScreen.kt — TopAppBar 레이아웃 통일: 좌상단 뒤로가기 → 우상단 햄버거 메뉴 (onBack → onMenuClick)
+- MainActivity.kt — PomodoroScreen·TwoPlayerSetupScreen 호출부 파라미터 onBack → onMenuClick 변경
+
 ## 2026-06-17 | b1dfeca
 
 - TwoPlayerTimerScreen.kt — 가로 모드(landscape) 레이아웃 추가 (P1 좌 / ControlStrip 세로 / P2 우, 회전 없음); 회전을 Surface 외부에서 내부 Column으로 이동

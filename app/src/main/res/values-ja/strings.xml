@@ -86,4 +86,11 @@
     <string name="btn_new_game">新しいゲーム</string>
     <string name="btn_change_settings">設定変更</string>
     <string name="two_player_time_used_label">使用時間</string>
+
+    <!-- v4: ポモドーロタイマー -->
+    <string name="pomodoro_phase_focus">集中</string>
+    <string name="pomodoro_phase_short_break">短い休憩</string>
+    <string name="pomodoro_phase_long_break">長い休憩</string>
+    <string name="pomodoro_btn_reset">リセット</string>
+    <string name="pomodoro_btn_skip">スキップ</string>
 </resources>
