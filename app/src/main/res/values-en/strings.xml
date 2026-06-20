@@ -87,6 +87,13 @@
     <string name="btn_change_settings">Change Settings</string>
     <string name="two_player_time_used_label">Time Used</string>
 
+    <!-- v5: Stopwatch -->
+    <string name="btn_lap">Lap</string>
+    <string name="stopwatch_lap_format">Lap %d</string>
+
+    <!-- v5: General Timer -->
+    <string name="general_timer_done">Done!</string>
+
     <!-- v4: Pomodoro Timer -->
     <string name="pomodoro_phase_focus">Focus</string>
     <string name="pomodoro_phase_short_break">Short Break</string>

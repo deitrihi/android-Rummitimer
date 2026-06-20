@@ -18,7 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
 
-enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT, POMODORO }
+enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT, POMODORO, STOPWATCH, GENERAL_TIMER }
 enum class GameType { JANGGI, BADUK, CHESS }
 
 class MainActivity : ComponentActivity() {
@@ -66,6 +66,8 @@ fun RummitimerApp(
         when (prefs.getString("last_timer", "HOME")) {
             "JANGGI" -> Screen.TWO_PLAYER_SETUP
             "POMODORO" -> Screen.POMODORO
+            "STOPWATCH" -> Screen.STOPWATCH
+            "GENERAL_TIMER" -> Screen.GENERAL_TIMER
             else -> Screen.HOME
         }
     }
@@ -115,10 +117,24 @@ fun RummitimerApp(
                 prefs.edit().putString("last_timer", "POMODORO").apply()
                 currentScreen = Screen.POMODORO
             },
+            onSelectStopwatch = {
+                prefs.edit().putString("last_timer", "STOPWATCH").apply()
+                currentScreen = Screen.STOPWATCH
+            },
+            onSelectGeneralTimer = {
+                prefs.edit().putString("last_timer", "GENERAL_TIMER").apply()
+                currentScreen = Screen.GENERAL_TIMER
+            },
             onSelectSettings = { currentScreen = Screen.SETTINGS },
             onBack = { currentScreen = Screen.HOME }
         )
         Screen.POMODORO -> PomodoroScreen(
+            onMenuClick = { currentScreen = Screen.MENU }
+        )
+        Screen.STOPWATCH -> StopwatchScreen(
+            onMenuClick = { currentScreen = Screen.MENU }
+        )
+        Screen.GENERAL_TIMER -> GeneralTimerScreen(
             onMenuClick = { currentScreen = Screen.MENU }
         )
         Screen.TWO_PLAYER_SETUP -> TwoPlayerSetupScreen(

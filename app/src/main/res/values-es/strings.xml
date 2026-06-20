@@ -87,6 +87,13 @@
     <string name="btn_change_settings">Cambiar ajustes</string>
     <string name="two_player_time_used_label">Tiempo usado</string>
 
+    <!-- v5: Cronómetro -->
+    <string name="btn_lap">Vuelta</string>
+    <string name="stopwatch_lap_format">Vuelta %d</string>
+
+    <!-- v5: Temporizador general -->
+    <string name="general_timer_done">¡Listo!</string>
+
     <!-- v4: Temporizador Pomodoro -->
     <string name="pomodoro_phase_focus">Enfoque</string>
     <string name="pomodoro_phase_short_break">Pausa corta</string>

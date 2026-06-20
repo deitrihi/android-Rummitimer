@@ -180,8 +180,8 @@ fun PomodoroScreen(
                     drawCircle(color = phaseColor)
 
                     // 바깥쪽 링 — 단계 남은 시간 (밝은 커버가 반시계방향으로 줄어듦)
-                    val outerRingRadius = radius * 0.875f
                     val outerRingStroke = radius * 0.22f
+                    val outerRingRadius = radius - outerRingStroke / 2f
                     drawCircle(
                         color = onPhaseColor.copy(alpha = 0.35f),
                         radius = outerRingRadius,
@@ -201,11 +201,13 @@ fun PomodoroScreen(
                         )
                     }
                     // 바깥쪽·가운데 링 사이 간격을 어두운색으로 채움
-                    drawCircle(color = onPhaseColor.copy(alpha = 0.35f), radius = outerRingRadius - outerRingStroke / 2f)
-
-                    // 가운데 링 — 분 내 초 진행 (밝은 커버가 반시계방향으로 줄어듦)
                     val ringRadius = radius * 0.635f
                     val ringStroke = radius * 0.19f
+                    drawCircle(color = onPhaseColor.copy(alpha = 0.35f), radius = outerRingRadius - outerRingStroke / 2f)
+                    // 가운데 링이 그려질 영역을 배경색으로 리셋 (겹침으로 인한 색상 차이 방지)
+                    drawCircle(color = phaseColor, radius = ringRadius + ringStroke / 2f)
+
+                    // 가운데 링 — 분 내 초 진행 (밝은 커버가 반시계방향으로 줄어듦)
                     drawCircle(
                         color = onPhaseColor.copy(alpha = 0.35f),
                         radius = ringRadius,

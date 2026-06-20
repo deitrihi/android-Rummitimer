@@ -87,6 +87,13 @@
     <string name="btn_change_settings">설정 변경</string>
     <string name="two_player_time_used_label">사용 시간</string>
 
+    <!-- v5: 스톱워치 -->
+    <string name="btn_lap">랩</string>
+    <string name="stopwatch_lap_format">랩 %d</string>
+
+    <!-- v5: 일반 타이머 -->
+    <string name="general_timer_done">완료!</string>
+
     <!-- v4: 뽀모도로 타이머 -->
     <string name="pomodoro_phase_focus">집중</string>
     <string name="pomodoro_phase_short_break">짧은 휴식</string>
