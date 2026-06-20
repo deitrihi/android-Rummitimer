@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -103,7 +104,7 @@ fun TwoPlayerTimerScreen(
 
     if (isLandscape) {
         // 가로 모드: P1 좌 / ControlStrip 중앙 / P2 우
-        Row(modifier = modifier.fillMaxSize()) {
+        Row(modifier = modifier.fillMaxSize().safeDrawingPadding()) {
             PlayerHalf(
                 modifier = Modifier.weight(1f),
                 rotation = 0f,
@@ -139,7 +140,7 @@ fun TwoPlayerTimerScreen(
         }
     } else {
         // 세로 모드: 기존 레이아웃
-        Column(modifier = modifier.fillMaxSize()) {
+        Column(modifier = modifier.fillMaxSize().safeDrawingPadding()) {
             // P2 영역 — 상단, 180도 회전 (P2가 자신의 방향에서 읽음)
             PlayerHalf(
                 modifier = Modifier.weight(1f),

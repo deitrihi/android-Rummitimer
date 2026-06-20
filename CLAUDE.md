@@ -76,10 +76,14 @@ TopAppBar
 
 ## Timer Visual Direction (원형 타이머 진행 방향)
 
-- **카운트다운 타이머** (시간이 줄어듦) → 반시계 방향 (`sweepAngle` 음수)
-- **카운트업 타이머** (시간이 늘어남) → 시계 방향 (`sweepAngle` 양수)
+두 경우 모두 **양수 sweepAngle**을 사용한다.
 
-별도 언급이 없으면 위 기본 방향을 따른다.
+- **남은 시간 링** (카운트다운) → `남은 시간 / 전체 시간 × 360f` (양수, CW 호)  
+  링 끝점이 반시계 방향으로 후퇴 → 링이 반시계 방향으로 줄어드는 효과
+- **경과 시간 링** (카운트업) → `경과 시간 / 기준 시간 × 360f` (양수, CW 호)  
+  링 끝점이 시계 방향으로 전진 → 링이 시계 방향으로 채워지는 효과
+
+PomodoroScreen의 `remainingOuterSweep = (360f - sweepAngle)` 패턴이 기준 구현이다.
 
 ## Forbidden
 - No LiveData

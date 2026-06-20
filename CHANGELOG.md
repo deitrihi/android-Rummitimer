@@ -2,6 +2,20 @@
 
 ## [미커밋]
 
+## 2026-06-20 | 312cefe
+
+- GeneralTimerScreen.kt — 카운트다운 링 방향 수정 (음수 sweepAngle → 양수, 반시계 방향으로 줄어듦)
+- CLAUDE.md — 타이머 진행 방향 지침 수정 (양수 sweepAngle 기준으로 통일, PomodoroScreen 패턴 명시)
+- StopwatchScreen.kt — 스톱워치 신규 구현 (카운트업 원형 링, 랩 기록 목록)
+- GeneralTimerScreen.kt — 일반 타이머 신규 구현 (h/m/s 피커, 카운트다운 원형 링)
+- MainActivity.kt — Screen enum에 STOPWATCH·GENERAL_TIMER 추가, 라우팅 및 last_timer 복원 연결
+- MenuScreen.kt — 스톱워치·일반 타이머 comingSoon 해제, onSelectStopwatch·onSelectGeneralTimer 콜백 연결
+- strings.xml (한/영/ja/de/es/nl) — btn_lap, stopwatch_lap_format, general_timer_done 추가
+- gradle/libs.versions.toml, app/build.gradle.kts — androidx.fragment 1.8.9 명시적 선언 (전이 의존성 버전 고정)
+- TwoPlayerTimerScreen.kt — safeDrawingPadding() 추가로 edge-to-edge 인셋 처리 (SDK 35+ 대응)
+- PomodoroScreen.kt — 외부 링 반지름을 디스크 가장자리에 맞춰 테두리 제거
+- PomodoroScreen.kt — 안쪽 링 그리기 전 배경 리셋으로 두 링 트랙 색상 통일
+
 ## 2026-06-18 | b85291c
 
 - PomodoroScreen.kt — 분침 시계를 링 진행 표시기로 교체 (60초 1바퀴 원호 스트로크, 배경 링 + 진행 링)

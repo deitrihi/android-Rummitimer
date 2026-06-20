@@ -29,6 +29,8 @@ fun MenuScreen(
     onSelectRummicube: () -> Unit,
     onSelectJanggi: () -> Unit,
     onSelectPomodoro: () -> Unit,
+    onSelectStopwatch: () -> Unit,
+    onSelectGeneralTimer: () -> Unit,
     onSelectSettings: () -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -98,8 +100,8 @@ fun MenuScreen(
                 MenuItemRow(
                     icon = "⏱",
                     label = stringResource(R.string.menu_stopwatch),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectStopwatch
                 )
             }
             item {
@@ -114,8 +116,8 @@ fun MenuScreen(
                 MenuItemRow(
                     icon = "⏰",
                     label = stringResource(R.string.menu_general_timer),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectGeneralTimer
                 )
             }
 

@@ -87,6 +87,13 @@
     <string name="btn_change_settings">設定変更</string>
     <string name="two_player_time_used_label">使用時間</string>
 
+    <!-- v5: ストップウォッチ -->
+    <string name="btn_lap">ラップ</string>
+    <string name="stopwatch_lap_format">ラップ %d</string>
+
+    <!-- v5: 一般タイマー -->
+    <string name="general_timer_done">完了！</string>
+
     <!-- v4: ポモドーロタイマー -->
     <string name="pomodoro_phase_focus">集中</string>
     <string name="pomodoro_phase_short_break">短い休憩</string>

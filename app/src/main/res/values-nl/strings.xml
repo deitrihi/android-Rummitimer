@@ -87,6 +87,13 @@
     <string name="btn_change_settings">Instellingen wijzigen</string>
     <string name="two_player_time_used_label">Gebruikte tijd</string>
 
+    <!-- v5: Stopwatch -->
+    <string name="btn_lap">Ronde</string>
+    <string name="stopwatch_lap_format">Ronde %d</string>
+
+    <!-- v5: Algemene timer -->
+    <string name="general_timer_done">Klaar!</string>
+
     <!-- v4: Pomodoro-timer -->
     <string name="pomodoro_phase_focus">Focus</string>
     <string name="pomodoro_phase_short_break">Korte pauze</string>
