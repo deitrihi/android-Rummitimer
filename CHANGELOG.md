@@ -2,6 +2,8 @@
 
 ## [미커밋]
 
+## 2026-06-20 | 312cefe
+
 - GeneralTimerScreen.kt — 카운트다운 링 방향 수정 (음수 sweepAngle → 양수, 반시계 방향으로 줄어듦)
 - CLAUDE.md — 타이머 진행 방향 지침 수정 (양수 sweepAngle 기준으로 통일, PomodoroScreen 패턴 명시)
 - StopwatchScreen.kt — 스톱워치 신규 구현 (카운트업 원형 링, 랩 기록 목록)
