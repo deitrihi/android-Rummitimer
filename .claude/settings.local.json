@@ -12,7 +12,12 @@
       "Bash(\"/c/Program Files \\(x86\\)/Roblox/Versions/version-0c771458892e42b7/StudioMCP.exe\")",
       "Bash(netstat -ano)",
       "Bash(sort -t: -k2 -n)",
-      "PowerShell(netstat -ano)"
+      "PowerShell(netstat -ano)",
+      "Bash(mkdir -p c:/dev/android/Rummitimer/.claude/commands)",
+      "PowerShell(git add CHANGELOG.md app/src/main/java/com/deitrihi/rummitimer/ThemeHelper.kt app/src/main/java/com/deitrihi/rummitimer/SettingsScreen.kt app/src/main/java/com/deitrihi/rummitimer/MainActivity.kt \"app/src/main/res/values/strings.xml\" \"app/src/main/res/values-en/strings.xml\" \"app/src/main/res/values-ja/strings.xml\" \"app/src/main/res/values-de/strings.xml\" \"app/src/main/res/values-es/strings.xml\" \"app/src/main/res/values-nl/strings.xml\" .claude/commands/ \"claude_logs/screen-keep-on-����.md\" .claude/settings.local.json)"
+    ],
+    "additionalDirectories": [
+      "c:\\dev\\android\\Rummitimer\\.claude"
     ]
   }
 }

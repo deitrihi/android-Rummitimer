@@ -26,6 +26,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -48,6 +49,8 @@ import androidx.compose.ui.unit.sp
 fun SettingsScreen(
     currentTheme: String,
     onThemeChange: (String) -> Unit,
+    keepScreenOn: Boolean,
+    onKeepScreenOnChange: (Boolean) -> Unit,
     fruitIndices: List<Int>,
     onFruitChange: (playerIndex: Int, fruitIndex: Int) -> Unit,
     onBack: () -> Unit,
@@ -148,6 +151,22 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
 
+            // 화면 섹션
+            Text(
+                text = stringResource(R.string.display_label),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            HorizontalDivider(modifier = Modifier.padding(bottom = 4.dp))
+            SettingsSwitchRow(
+                label = stringResource(R.string.keep_screen_on_label),
+                checked = keepScreenOn,
+                onCheckedChange = onKeepScreenOnChange
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
             // 과일 아이콘 섹션
             Text(
                 text = stringResource(R.string.fruit_icon_label),
@@ -167,6 +186,29 @@ fun SettingsScreen(
 
             Spacer(modifier = Modifier.height(24.dp))
         }
+    }
+}
+
+@Composable
+private fun SettingsSwitchRow(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onCheckedChange(!checked) }
+            .padding(vertical = 4.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = label,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+        Switch(checked = checked, onCheckedChange = onCheckedChange)
     }
 }
 

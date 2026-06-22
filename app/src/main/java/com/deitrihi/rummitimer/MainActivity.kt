@@ -2,6 +2,7 @@ package com.deitrihi.rummitimer
 
 import android.content.Context
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +10,7 @@ import com.google.android.gms.ads.MobileAds
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -33,10 +35,18 @@ class MainActivity : ComponentActivity() {
         MobileAds.initialize(this)
         setContent {
             var themeMode by remember { mutableStateOf(ThemeHelper.getSelectedTheme(this)) }
+            var keepScreenOn by remember { mutableStateOf(ThemeHelper.getKeepScreenOn(this)) }
             val darkTheme = when (themeMode) {
                 ThemeHelper.THEME_DARK -> true
                 ThemeHelper.THEME_LIGHT -> false
                 else -> isSystemInDarkTheme()
+            }
+            SideEffect {
+                if (keepScreenOn) {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                } else {
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
             }
             RummitimerTheme(darkTheme = darkTheme) {
                 RummitimerApp(
@@ -44,6 +54,11 @@ class MainActivity : ComponentActivity() {
                     onThemeChange = { mode ->
                         ThemeHelper.setTheme(this, mode)
                         themeMode = mode
+                    },
+                    keepScreenOn = keepScreenOn,
+                    onKeepScreenOnChange = { enabled ->
+                        ThemeHelper.setKeepScreenOn(this, enabled)
+                        keepScreenOn = enabled
                     }
                 )
             }
@@ -55,6 +70,8 @@ class MainActivity : ComponentActivity() {
 fun RummitimerApp(
     currentTheme: String = ThemeHelper.THEME_SYSTEM,
     onThemeChange: (String) -> Unit = {},
+    keepScreenOn: Boolean = false,
+    onKeepScreenOnChange: (Boolean) -> Unit = {},
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -185,6 +202,8 @@ fun RummitimerApp(
         Screen.SETTINGS -> SettingsScreen(
             currentTheme = currentTheme,
             onThemeChange = onThemeChange,
+            keepScreenOn = keepScreenOn,
+            onKeepScreenOnChange = onKeepScreenOnChange,
             fruitIndices = fruitIndices,
             onFruitChange = { playerIndex, fruitIndex ->
                 FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)

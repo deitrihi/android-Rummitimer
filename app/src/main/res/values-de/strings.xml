@@ -20,6 +20,8 @@
     <string name="theme_system">Systemstandard</string>
     <string name="theme_light">Hell</string>
     <string name="theme_dark">Dunkel</string>
+    <string name="display_label">Anzeige</string>
+    <string name="keep_screen_on_label">Bildschirm immer aktiv</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Spieleranzahl</string>

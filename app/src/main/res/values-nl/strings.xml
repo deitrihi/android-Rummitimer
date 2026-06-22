@@ -20,6 +20,8 @@
     <string name="theme_system">Systeemstandaard</string>
     <string name="theme_light">Licht</string>
     <string name="theme_dark">Donker</string>
+    <string name="display_label">Scherm</string>
+    <string name="keep_screen_on_label">Scherm altijd aan</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Spelers</string>

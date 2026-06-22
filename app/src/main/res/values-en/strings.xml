@@ -20,6 +20,8 @@
     <string name="theme_system">System default</string>
     <string name="theme_light">Light</string>
     <string name="theme_dark">Dark</string>
+    <string name="display_label">Display</string>
+    <string name="keep_screen_on_label">Keep screen on</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Players</string>
