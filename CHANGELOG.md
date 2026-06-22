@@ -2,6 +2,8 @@
 
 ## [미커밋]
 
+## 2026-06-22 | 1609a54
+
 - ThemeHelper.kt — 항상 켜짐 설정 persist 메서드 추가 (getKeepScreenOn / setKeepScreenOn)
 - SettingsScreen.kt — 화면 섹션 및 항상 켜짐 토글(Switch) 추가
 - MainActivity.kt — keepScreenOn 상태 관리 및 FLAG_KEEP_SCREEN_ON 플래그 적용
