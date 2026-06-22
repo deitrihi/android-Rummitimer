@@ -20,6 +20,8 @@
     <string name="theme_system">시스템 기본값</string>
     <string name="theme_light">밝은색</string>
     <string name="theme_dark">어두운색</string>
+    <string name="display_label">화면</string>
+    <string name="keep_screen_on_label">항상 켜짐</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">인원수</string>

@@ -20,6 +20,8 @@
     <string name="theme_system">システムデフォルト</string>
     <string name="theme_light">ライト</string>
     <string name="theme_dark">ダーク</string>
+    <string name="display_label">画面</string>
+    <string name="keep_screen_on_label">画面を常にオン</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">プレイヤー数</string>

@@ -20,6 +20,8 @@
     <string name="theme_system">Predeterminado del sistema</string>
     <string name="theme_light">Claro</string>
     <string name="theme_dark">Oscuro</string>
+    <string name="display_label">Pantalla</string>
+    <string name="keep_screen_on_label">Mantener pantalla activa</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Jugadores</string>

@@ -2,6 +2,12 @@
 
 ## [미커밋]
 
+- ThemeHelper.kt — 항상 켜짐 설정 persist 메서드 추가 (getKeepScreenOn / setKeepScreenOn)
+- SettingsScreen.kt — 화면 섹션 및 항상 켜짐 토글(Switch) 추가
+- MainActivity.kt — keepScreenOn 상태 관리 및 FLAG_KEEP_SCREEN_ON 플래그 적용
+- strings.xml (한/영/ja/de/es/nl) — display_label, keep_screen_on_label 추가
+- .claude/commands/작업종료.md — /작업종료 커스텀 스킬 추가 (커밋·병합·푸시 자동화)
+
 ## 2026-06-20 | 312cefe
 
 - GeneralTimerScreen.kt — 카운트다운 링 방향 수정 (음수 sweepAngle → 양수, 반시계 방향으로 줄어듦)
