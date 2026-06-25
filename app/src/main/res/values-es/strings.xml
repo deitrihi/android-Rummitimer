@@ -96,6 +96,15 @@
     <!-- v5: Temporizador general -->
     <string name="general_timer_done">¡Listo!</string>
 
+    <!-- Timer exit confirmation dialog -->
+    <string name="timer_exit_title">Salir del temporizador</string>
+    <string name="timer_exit_message">El temporizador se reiniciará.</string>
+    <string name="btn_confirm">Confirmar</string>
+    <string name="btn_cancel">Cancelar</string>
+
+    <!-- Back press to exit -->
+    <string name="back_press_to_exit">Pulse de nuevo para salir</string>
+
     <!-- v4: Temporizador Pomodoro -->
     <string name="pomodoro_phase_focus">Enfoque</string>
     <string name="pomodoro_phase_short_break">Pausa corta</string>

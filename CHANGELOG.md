@@ -2,6 +2,21 @@
 
 ## [미커밋]
 
+- strings.xml — 배너 광고 Unit ID를 실제 ID로 교체 (ca-app-pub-3949969956815888/7502245754)
+- BannerAd.kt — 배너 광고 Composable 신규 생성
+- GeneralTimerScreen.kt, StopwatchScreen.kt, PomodoroScreen.kt — 하단 배너 광고 추가
+- MainActivity.kt — 설정 화면 뒤로 가기 시 직전 타이머로 복귀 (previousScreen 추적)
+- SettingsScreen.kt — 시스템 뒤로가기(제스처/버튼)에 BackHandler 추가하여 onBack() 연결
+- MainActivity.kt — 타이머 화면 더블 백 누름 종료: 첫 번째 뒤로가기에 토스트 표시, 2초 내 재입력 시 앱 종료
+- PomodoroScreen.kt, StopwatchScreen.kt, GeneralTimerScreen.kt — 타이머 진행 중 뒤로가기 시 종료 확인 다이얼로그 추가 (확인 → 초기화, 취소 → 계속)
+- TwoPlayerTimerScreen.kt — 시스템 뒤로가기에 BackHandler 추가: 게임 진행 중 → 확인 다이얼로그(확인 시 설정 화면으로), 미시작·종료 시 → 설정 화면으로 바로 이동
+- HomeScreen.kt — 타이머 시작 후 뒤로가기 시 종료 확인 다이얼로그 추가 (확인 → 광고 노출 후 초기 상태, 취소 → 계속)
+- MainActivity.kt — HomeScreen에 onShowAd 콜백 연결
+- strings.xml (한/영/ja/de/es/nl) — timer_exit_title, timer_exit_message, btn_confirm, btn_cancel 추가
+- strings.xml (한/영/ja/de/es/nl) — back_press_to_exit 문자열 추가
+
+## 2026-06-24 | 0d19bab
+
 - MainActivity.kt — 패밀리 정책 준수를 위한 아동 안전 광고 설정 추가 (TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE, MAX_AD_CONTENT_RATING_G)
 
 ## 2026-06-22 | 1609a54

@@ -2,6 +2,7 @@
 package com.deitrihi.rummitimer
 
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
@@ -15,17 +16,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -98,6 +102,31 @@ fun TwoPlayerTimerScreen(
         } else {
             activePlayer = lastActivePlayer
         }
+    }
+
+    var showExitDialog by remember { mutableStateOf(false) }
+    val isGameInProgress = gameStarted && winner < 0
+
+    BackHandler(enabled = !showExitDialog) {
+        if (isGameInProgress) showExitDialog = true else onBack()
+    }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(stringResource(R.string.timer_exit_title)) },
+            text = { Text(stringResource(R.string.timer_exit_message)) },
+            confirmButton = {
+                TextButton(onClick = { showExitDialog = false; onBack() }) {
+                    Text(stringResource(R.string.btn_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(stringResource(R.string.btn_cancel))
+                }
+            }
+        )
     }
 
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE

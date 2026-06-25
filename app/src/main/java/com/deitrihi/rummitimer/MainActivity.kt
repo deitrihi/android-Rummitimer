@@ -3,7 +3,9 @@ package com.deitrihi.rummitimer
 import android.content.Context
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.google.android.gms.ads.MobileAds
@@ -20,6 +22,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import com.deitrihi.rummitimer.ui.theme.RummitimerTheme
+import kotlinx.coroutines.delay
 
 enum class Screen { HOME, MENU, SETTINGS, SCORE_INPUT, RESULT, TWO_PLAYER_SETUP, TWO_PLAYER_TIMER, TWO_PLAYER_RESULT, POMODORO, STOPWATCH, GENERAL_TIMER }
 enum class GameType { JANGGI, BADUK, CHESS }
@@ -96,6 +99,8 @@ fun RummitimerApp(
         }
     }
     var currentScreen by rememberSaveable { mutableStateOf(initialScreen) }
+    var previousScreen by rememberSaveable { mutableStateOf(initialScreen) }
+    var backPressedOnce by rememberSaveable { mutableStateOf(false) }
     var playerCount by rememberSaveable { mutableIntStateOf(2) }
     // penalties/scores는 구성 변경 시 초기화 허용 (rememberSaveable 불필요)
     var penalties by remember { mutableStateOf(List(4) { 0 }) }
@@ -109,6 +114,28 @@ fun RummitimerApp(
     var twoPlayerP1Used by rememberSaveable { mutableIntStateOf(0) }
     var twoPlayerP2Used by rememberSaveable { mutableIntStateOf(0) }
 
+    val timerScreens = setOf(
+        Screen.HOME, Screen.POMODORO, Screen.STOPWATCH, Screen.GENERAL_TIMER, Screen.TWO_PLAYER_SETUP
+    )
+
+    LaunchedEffect(currentScreen) { backPressedOnce = false }
+
+    LaunchedEffect(backPressedOnce) {
+        if (backPressedOnce) {
+            delay(2000)
+            backPressedOnce = false
+        }
+    }
+
+    BackHandler(enabled = currentScreen in timerScreens) {
+        if (backPressedOnce) {
+            activity?.finish()
+        } else {
+            backPressedOnce = true
+            Toast.makeText(context, context.getString(R.string.back_press_to_exit), Toast.LENGTH_SHORT).show()
+        }
+    }
+
     fun resetGame() {
         penalties = List(4) { 0 }
         scores = List(4) { null }
@@ -121,10 +148,13 @@ fun RummitimerApp(
             onPlayerCountChange = { playerCount = it },
             fruitIndices = fruitIndices,
             penalties = penalties,
-            onMenuClick = { currentScreen = Screen.MENU },
+            onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU },
             onEndGame = { currentScreen = Screen.SCORE_INPUT },
             onPenalty = { playerIndex ->
                 penalties = penalties.toMutableList().also { it[playerIndex]++ }
+            },
+            onShowAd = { onAdDismissed ->
+                adManager?.showAd(onAdDismissed) ?: onAdDismissed()
             }
         )
         Screen.MENU -> MenuScreen(
@@ -150,16 +180,16 @@ fun RummitimerApp(
                 currentScreen = Screen.GENERAL_TIMER
             },
             onSelectSettings = { currentScreen = Screen.SETTINGS },
-            onBack = { currentScreen = Screen.HOME }
+            onBack = { currentScreen = previousScreen }
         )
         Screen.POMODORO -> PomodoroScreen(
-            onMenuClick = { currentScreen = Screen.MENU }
+            onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU }
         )
         Screen.STOPWATCH -> StopwatchScreen(
-            onMenuClick = { currentScreen = Screen.MENU }
+            onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU }
         )
         Screen.GENERAL_TIMER -> GeneralTimerScreen(
-            onMenuClick = { currentScreen = Screen.MENU }
+            onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU }
         )
         Screen.TWO_PLAYER_SETUP -> TwoPlayerSetupScreen(
             gameType = twoPlayerGameType,
@@ -167,7 +197,7 @@ fun RummitimerApp(
                 twoPlayerInitialTime = time
                 currentScreen = Screen.TWO_PLAYER_TIMER
             },
-            onMenuClick = { currentScreen = Screen.MENU }
+            onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU }
         )
         Screen.TWO_PLAYER_TIMER -> TwoPlayerTimerScreen(
             gameType = twoPlayerGameType,
@@ -216,7 +246,7 @@ fun RummitimerApp(
                 FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)
                 fruitIndices = FruitHelper.getFruitIndices(context)
             },
-            onBack = { currentScreen = Screen.HOME }
+            onBack = { currentScreen = previousScreen }
         )
         Screen.SCORE_INPUT -> ScoreInputScreen(
             playerCount = playerCount,

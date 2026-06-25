@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.activity.compose.BackHandler
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -27,6 +29,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -84,6 +87,28 @@ fun GeneralTimerScreen(
         totalSeconds = 0
     }
 
+    var showExitDialog by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = timerState != GeneralTimerState.IDLE && !showExitDialog) { showExitDialog = true }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(stringResource(R.string.timer_exit_title)) },
+            text = { Text(stringResource(R.string.timer_exit_message)) },
+            confirmButton = {
+                TextButton(onClick = { showExitDialog = false; reset() }) {
+                    Text(stringResource(R.string.btn_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(stringResource(R.string.btn_cancel))
+                }
+            }
+        )
+    }
+
     // 남은 시간 비율 × 360°의 양수 sweepAngle → 끝점이 반시계 방향으로 후퇴하며 링이 반시계 방향으로 줄어듦
     val sweepAngle = if (totalSeconds > 0) timeLeft.toFloat() / totalSeconds * 360f else 0f
 
@@ -105,7 +130,8 @@ fun GeneralTimerScreen(
                     }
                 }
             )
-        }
+        },
+        bottomBar = { BannerAd(modifier = Modifier.fillMaxWidth()) }
     ) { innerPadding ->
         Column(
             modifier = Modifier

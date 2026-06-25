@@ -96,6 +96,15 @@
     <!-- v5: 一般タイマー -->
     <string name="general_timer_done">完了！</string>
 
+    <!-- Timer exit confirmation dialog -->
+    <string name="timer_exit_title">タイマー終了</string>
+    <string name="timer_exit_message">タイマーがリセットされます。</string>
+    <string name="btn_confirm">確認</string>
+    <string name="btn_cancel">キャンセル</string>
+
+    <!-- Back press to exit -->
+    <string name="back_press_to_exit">もう一度押すと終了します</string>
+
     <!-- v4: ポモドーロタイマー -->
     <string name="pomodoro_phase_focus">集中</string>
     <string name="pomodoro_phase_short_break">短い休憩</string>

@@ -103,8 +103,17 @@
     <string name="pomodoro_btn_reset">초기화</string>
     <string name="pomodoro_btn_skip">건너뛰기</string>
 
+    <!-- Timer exit confirmation dialog -->
+    <string name="timer_exit_title">타이머 종료</string>
+    <string name="timer_exit_message">타이머가 초기화됩니다.</string>
+    <string name="btn_confirm">확인</string>
+    <string name="btn_cancel">취소</string>
+
+    <!-- Back press to exit -->
+    <string name="back_press_to_exit">한 번 더 누르면 종료됩니다</string>
+
     <!-- AdMob IDs (실제 출시 전 AdMob 콘솔에서 발급받은 실제 ID로 교체) -->
     <string name="admob_app_id" translatable="false">ca-app-pub-3949969956815888~9561558224</string>
-    <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="admob_banner_unit_id" translatable="false">ca-app-pub-3949969956815888/7502245754</string>
     <string name="admob_interstitial_unit_id" translatable="false">ca-app-pub-3949969956815888/9693433475</string>
 </resources>

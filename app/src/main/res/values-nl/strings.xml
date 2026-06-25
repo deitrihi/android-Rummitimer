@@ -96,6 +96,15 @@
     <!-- v5: Algemene timer -->
     <string name="general_timer_done">Klaar!</string>
 
+    <!-- Timer exit confirmation dialog -->
+    <string name="timer_exit_title">Timer beëindigen</string>
+    <string name="timer_exit_message">De timer wordt gereset.</string>
+    <string name="btn_confirm">Bevestigen</string>
+    <string name="btn_cancel">Annuleren</string>
+
+    <!-- Back press to exit -->
+    <string name="back_press_to_exit">Druk nogmaals om af te sluiten</string>
+
     <!-- v4: Pomodoro-timer -->
     <string name="pomodoro_phase_focus">Focus</string>
     <string name="pomodoro_phase_short_break">Korte pauze</string>
