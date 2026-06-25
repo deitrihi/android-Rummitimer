@@ -14,10 +14,18 @@
       "Bash(sort -t: -k2 -n)",
       "PowerShell(netstat -ano)",
       "Bash(mkdir -p c:/dev/android/Rummitimer/.claude/commands)",
-      "PowerShell(git add CHANGELOG.md app/src/main/java/com/deitrihi/rummitimer/ThemeHelper.kt app/src/main/java/com/deitrihi/rummitimer/SettingsScreen.kt app/src/main/java/com/deitrihi/rummitimer/MainActivity.kt \"app/src/main/res/values/strings.xml\" \"app/src/main/res/values-en/strings.xml\" \"app/src/main/res/values-ja/strings.xml\" \"app/src/main/res/values-de/strings.xml\" \"app/src/main/res/values-es/strings.xml\" \"app/src/main/res/values-nl/strings.xml\" .claude/commands/ \"claude_logs/screen-keep-on-����.md\" .claude/settings.local.json)"
+      "PowerShell(git add CHANGELOG.md app/src/main/java/com/deitrihi/rummitimer/ThemeHelper.kt app/src/main/java/com/deitrihi/rummitimer/SettingsScreen.kt app/src/main/java/com/deitrihi/rummitimer/MainActivity.kt \"app/src/main/res/values/strings.xml\" \"app/src/main/res/values-en/strings.xml\" \"app/src/main/res/values-ja/strings.xml\" \"app/src/main/res/values-de/strings.xml\" \"app/src/main/res/values-es/strings.xml\" \"app/src/main/res/values-nl/strings.xml\" .claude/commands/ \"claude_logs/screen-keep-on-����.md\" .claude/settings.local.json)",
+      "PowerShell(git add CHANGELOG.md)",
+      "PowerShell(git push origin main)",
+      "Bash(git checkout *)",
+      "Bash(./gradlew assembleRelease)",
+      "PowerShell($env:JAVA_HOME = \"C:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\"; cd c:\\\\dev\\\\android\\\\Rummitimer; .\\\\gradlew assembleRelease 2>&1 | Select-Object -Last 20)",
+      "Read(//c/dev/obsidian/루트/raw/android/Rummitimer/**)",
+      "Bash(cat >> *)"
     ],
     "additionalDirectories": [
-      "c:\\dev\\android\\Rummitimer\\.claude"
+      "c:\\dev\\android\\Rummitimer\\.claude",
+      "c:\\dev\\obsidian\\루트\\raw\\android\\Rummitimer"
     ]
   }
 }

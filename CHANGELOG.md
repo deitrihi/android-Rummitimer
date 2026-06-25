@@ -2,6 +2,8 @@
 
 ## [미커밋]
 
+- MainActivity.kt — 패밀리 정책 준수를 위한 아동 안전 광고 설정 추가 (TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE, MAX_AD_CONTENT_RATING_G)
+
 ## 2026-06-22 | 1609a54
 
 - ThemeHelper.kt — 항상 켜짐 설정 persist 메서드 추가 (getKeepScreenOn / setKeepScreenOn)
