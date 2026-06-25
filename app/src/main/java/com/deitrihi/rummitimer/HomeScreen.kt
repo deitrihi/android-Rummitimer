@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -22,6 +23,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.LocalTextStyle
@@ -36,6 +38,7 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -88,6 +91,7 @@ fun HomeScreen(
     onMenuClick: () -> Unit = {},
     onEndGame: () -> Unit = {},
     onPenalty: (Int) -> Unit = {},
+    onShowAd: (onAdDismissed: () -> Unit) -> Unit = { it() },
     modifier: Modifier = Modifier,
 ) {
     var turnDuration by rememberSaveable { mutableIntStateOf(60) }
@@ -154,6 +158,28 @@ fun HomeScreen(
         turnDuration = duration
         resetTimer()
         timeRemaining = duration
+    }
+
+    var showExitDialog by remember { mutableStateOf(false) }
+
+    BackHandler(enabled = timerStarted && !showExitDialog) { showExitDialog = true }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(stringResource(R.string.timer_exit_title)) },
+            text = { Text(stringResource(R.string.timer_exit_message)) },
+            confirmButton = {
+                TextButton(onClick = { showExitDialog = false; onShowAd { resetTimer() } }) {
+                    Text(stringResource(R.string.btn_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(stringResource(R.string.btn_cancel))
+                }
+            }
+        )
     }
 
     val layoutType = currentLayoutType()

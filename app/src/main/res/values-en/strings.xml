@@ -96,6 +96,15 @@
     <!-- v5: General Timer -->
     <string name="general_timer_done">Done!</string>
 
+    <!-- Timer exit confirmation dialog -->
+    <string name="timer_exit_title">Exit Timer</string>
+    <string name="timer_exit_message">The timer will be reset.</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- Back press to exit -->
+    <string name="back_press_to_exit">Press back again to exit</string>
+
     <!-- v4: Pomodoro Timer -->
     <string name="pomodoro_phase_focus">Focus</string>
     <string name="pomodoro_phase_short_break">Short Break</string>

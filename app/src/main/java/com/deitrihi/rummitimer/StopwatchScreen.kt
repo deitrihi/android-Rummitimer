@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.activity.compose.BackHandler
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -24,6 +26,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -56,6 +59,33 @@ fun StopwatchScreen(
     var isRunning by rememberSaveable { mutableStateOf(false) }
     // 구성 변경 시 랩 초기화 허용
     var laps by remember { mutableStateOf(emptyList<Long>()) }
+    var showExitDialog by remember { mutableStateOf(false) }
+    val isNonInitial = isRunning || elapsedMillis > 0L
+
+    BackHandler(enabled = isNonInitial && !showExitDialog) { showExitDialog = true }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            title = { Text(stringResource(R.string.timer_exit_title)) },
+            text = { Text(stringResource(R.string.timer_exit_message)) },
+            confirmButton = {
+                TextButton(onClick = {
+                    showExitDialog = false
+                    isRunning = false
+                    elapsedMillis = 0L
+                    laps = emptyList()
+                }) {
+                    Text(stringResource(R.string.btn_confirm))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showExitDialog = false }) {
+                    Text(stringResource(R.string.btn_cancel))
+                }
+            }
+        )
+    }
 
     LaunchedEffect(Unit) {
         var lastTick = System.currentTimeMillis()
@@ -98,7 +128,8 @@ fun StopwatchScreen(
                     }
                 }
             )
-        }
+        },
+        bottomBar = { BannerAd(modifier = Modifier.fillMaxWidth()) }
     ) { innerPadding ->
         Column(
             modifier = Modifier
