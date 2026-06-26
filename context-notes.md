@@ -1,5 +1,34 @@
 # v3 장기 타이머 — Context Notes
 
+## 2026-06-26 Families Policy Ad Content 대응
+
+### 초기 판단
+Google Play 반려 사유가 `Families Policy Requirements: Ad Content`이므로 소스에서 광고 SDK 버전, 광고 요청 설정, 광고 ID 권한 병합 여부를 점검한다.
+공식 AdMob 문서 기준으로 아동 또는 연령 미확인 사용자에게 광고를 제공할 때 child-directed treatment와 최대 광고 콘텐츠 등급 G가 필요하다.
+현재 `MainActivity.kt`에 전역 TFCD와 `MAX_AD_CONTENT_RATING_G` 설정은 있으나, 배너와 전면 광고 요청이 개별적으로 `AdRequest.Builder().build()`를 직접 호출하고 있어 정책 대응 코드가 분산되어 있다.
+AdMob 문서는 GMA SDK 20.6.0 이상에서 TFCD/TFUA 설정 시 AAID 전송을 막는다고 설명하지만, 앱 전체에서 광고 ID 권한 병합을 막는 선택지도 제시한다.
+
+### 적용 결정
+`AdMobPolicy.kt`를 추가해 광고 SDK 초기화와 광고 요청 생성을 한 곳으로 모은다.
+GMA SDK는 Maven 기준 최신 릴리스인 `25.4.0`으로 올리고, Android SDK 공개 API에서 지원되는 child-directed treatment와 `MAX_AD_CONTENT_RATING_G`를 적용한다.
+병합 매니페스트에서 `com.google.android.gms.permission.AD_ID` 권한이 들어오지 않도록 `tools:node="remove"`를 명시한다.
+
+### 빌드 중 정정
+초기에는 `AgeRestrictedTreatment.CHILD` 적용을 시도했으나 `play-services-ads:25.4.0` Android 공개 API에서 해당 타입이 없어 컴파일 실패했다.
+해당 시도는 제거하고 공식 Android API로 제공되는 TFCD와 최대 광고 콘텐츠 등급 G만 유지한다.
+
+`AndroidManifest.xml`이 기존에 `@xml/gma_ad_services_config`를 참조하고 있었지만 실제 앱 리소스가 없어 `processDebugResources`에서 실패했다.
+광고 SDK가 제공하던 표준 `gma_ad_services_config.xml` 내용을 앱 리소스로 추가해 manifest 참조를 유효하게 만들었다.
+
+빌드 후 debug 병합 매니페스트에서 `com.google.android.gms.permission.AD_ID`는 제거됐지만 `android.permission.ACCESS_ADSERVICES_AD_ID`가 남아 있는 것을 확인했다.
+가족 정책 리스크를 더 줄이기 위해 Privacy Sandbox 광고 ID 권한도 `tools:node="remove"`로 제거한다.
+
+### 검증
+`assembleDebug test` 통과.
+debug 병합/패키징 manifest에서 `AD_ID`, `ACCESS_ADSERVICES_AD_ID`, `com.google.android.gms.permission.AD_ID` 검색 결과 0건.
+`assembleRelease` 통과.
+release 병합/패키징 manifest에서도 동일 검색 결과 0건.
+
 ## 2026-06-10
 
 ### LaunchedEffect 전략

@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 
@@ -18,7 +17,7 @@ fun BannerAd(modifier: Modifier = Modifier) {
             AdView(it).apply {
                 setAdSize(AdSize.BANNER)
                 adUnitId = context.getString(R.string.admob_banner_unit_id)
-                loadAd(AdRequest.Builder().build())
+                loadAd(AdMobPolicy.createAdRequest())
             }
         }
     )

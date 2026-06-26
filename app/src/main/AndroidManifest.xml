@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="com.google.android.gms.permission.AD_ID"
+        tools:node="remove" />
+    <uses-permission
+        android:name="android.permission.ACCESS_ADSERVICES_AD_ID"
+        tools:node="remove" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +17,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-android:supportsRtl="true"
+        android:supportsRtl="true"
         android:theme="@style/Theme.Rummitimer">
 
         <!-- play-services-ads와 firebase-analytics의 AD_SERVICES_CONFIG 충돌 해소 -->

@@ -1,5 +1,12 @@
 # v3 장기 타이머 — 체크리스트
 
+## 2026-06-26 Families Policy Ad Content 대응
+- [x] 공식 AdMob/Google Play Families 광고 요구사항 확인
+- [x] 현재 광고 초기화, 광고 요청, 매니페스트 권한 확인
+- [x] 가족 정책용 광고 설정을 모든 광고 요청에 일관 적용
+- [x] 광고 SDK 버전 및 광고 ID 권한 처리 점검
+- [x] 빌드 또는 테스트로 검증
+
 ## 플랜 문서
 - [x] plan.md 작성
 - [x] checklist.md 작성

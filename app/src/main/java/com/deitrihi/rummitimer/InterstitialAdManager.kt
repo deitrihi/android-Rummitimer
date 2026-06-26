@@ -2,7 +2,6 @@ package com.deitrihi.rummitimer
 
 import android.app.Activity
 import com.google.android.gms.ads.AdError
-import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -13,11 +12,10 @@ class InterstitialAdManager(private val activity: Activity) {
     private var interstitialAd: InterstitialAd? = null
 
     fun load() {
-        val request = AdRequest.Builder().build()
         InterstitialAd.load(
             activity,
             activity.getString(R.string.admob_interstitial_unit_id),
-            request,
+            AdMobPolicy.createAdRequest(),
             object : InterstitialAdLoadCallback() {
                 override fun onAdLoaded(ad: InterstitialAd) {
                     interstitialAd = ad
