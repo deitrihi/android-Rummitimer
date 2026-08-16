@@ -52,6 +52,12 @@ fun SettingsScreen(
     onThemeChange: (String) -> Unit,
     keepScreenOn: Boolean,
     onKeepScreenOnChange: (Boolean) -> Unit,
+    alertSound: Boolean,
+    onAlertSoundChange: (Boolean) -> Unit,
+    alertVibration: Boolean,
+    onAlertVibrationChange: (Boolean) -> Unit,
+    alertFlash: Boolean,
+    onAlertFlashChange: (Boolean) -> Unit,
     fruitIndices: List<Int>,
     onFruitChange: (playerIndex: Int, fruitIndex: Int) -> Unit,
     onBack: () -> Unit,
@@ -165,6 +171,32 @@ fun SettingsScreen(
                 label = stringResource(R.string.keep_screen_on_label),
                 checked = keepScreenOn,
                 onCheckedChange = onKeepScreenOnChange
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // 알림 섹션
+            Text(
+                text = stringResource(R.string.alert_label),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(bottom = 4.dp)
+            )
+            HorizontalDivider(modifier = Modifier.padding(bottom = 4.dp))
+            SettingsSwitchRow(
+                label = stringResource(R.string.alert_sound_label),
+                checked = alertSound,
+                onCheckedChange = onAlertSoundChange
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.alert_vibration_label),
+                checked = alertVibration,
+                onCheckedChange = onAlertVibrationChange
+            )
+            SettingsSwitchRow(
+                label = stringResource(R.string.alert_flash_label),
+                checked = alertFlash,
+                onCheckedChange = onAlertFlashChange
             )
 
             Spacer(modifier = Modifier.height(24.dp))

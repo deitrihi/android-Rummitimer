@@ -38,6 +38,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             var themeMode by remember { mutableStateOf(ThemeHelper.getSelectedTheme(this)) }
             var keepScreenOn by remember { mutableStateOf(ThemeHelper.getKeepScreenOn(this)) }
+            var alertSound by remember { mutableStateOf(AlertHelper.getSoundEnabled(this)) }
+            var alertVibration by remember { mutableStateOf(AlertHelper.getVibrationEnabled(this)) }
+            var alertFlash by remember { mutableStateOf(AlertHelper.getFlashEnabled(this)) }
             val darkTheme = when (themeMode) {
                 ThemeHelper.THEME_DARK -> true
                 ThemeHelper.THEME_LIGHT -> false
@@ -61,7 +64,13 @@ class MainActivity : ComponentActivity() {
                     onKeepScreenOnChange = { enabled ->
                         ThemeHelper.setKeepScreenOn(this, enabled)
                         keepScreenOn = enabled
-                    }
+                    },
+                    alertSound = alertSound,
+                    onAlertSoundChange = { v -> AlertHelper.setSoundEnabled(this, v); alertSound = v },
+                    alertVibration = alertVibration,
+                    onAlertVibrationChange = { v -> AlertHelper.setVibrationEnabled(this, v); alertVibration = v },
+                    alertFlash = alertFlash,
+                    onAlertFlashChange = { v -> AlertHelper.setFlashEnabled(this, v); alertFlash = v }
                 )
             }
         }
@@ -74,6 +83,12 @@ fun RummitimerApp(
     onThemeChange: (String) -> Unit = {},
     keepScreenOn: Boolean = false,
     onKeepScreenOnChange: (Boolean) -> Unit = {},
+    alertSound: Boolean = true,
+    onAlertSoundChange: (Boolean) -> Unit = {},
+    alertVibration: Boolean = false,
+    onAlertVibrationChange: (Boolean) -> Unit = {},
+    alertFlash: Boolean = false,
+    onAlertFlashChange: (Boolean) -> Unit = {},
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -233,6 +248,12 @@ fun RummitimerApp(
             onThemeChange = onThemeChange,
             keepScreenOn = keepScreenOn,
             onKeepScreenOnChange = onKeepScreenOnChange,
+            alertSound = alertSound,
+            onAlertSoundChange = onAlertSoundChange,
+            alertVibration = alertVibration,
+            onAlertVibrationChange = onAlertVibrationChange,
+            alertFlash = alertFlash,
+            onAlertFlashChange = onAlertFlashChange,
             fruitIndices = fruitIndices,
             onFruitChange = { playerIndex, fruitIndex ->
                 FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)

@@ -22,6 +22,10 @@
     <string name="theme_dark">Oscuro</string>
     <string name="display_label">Pantalla</string>
     <string name="keep_screen_on_label">Mantener pantalla activa</string>
+    <string name="alert_label">Alertas</string>
+    <string name="alert_sound_label">Sonido</string>
+    <string name="alert_vibration_label">Vibración</string>
+    <string name="alert_flash_label">Destello de pantalla</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Jugadores</string>
