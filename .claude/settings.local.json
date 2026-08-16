@@ -30,7 +30,8 @@
       "Skill(claude-api)",
       "Skill(claude-api:*)",
       "WebSearch",
-      "PowerShell(cd \"c:\\\\dev\\\\android\\\\Rummitimer\"; $env:JAVA_HOME = \"C:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\"; $env:PATH = \"$env:JAVA_HOME\\\\bin;$env:PATH\"; .\\\\gradlew.bat assembleDebug 2>&1 | Select-Object -Last 50)"
+      "PowerShell(cd \"c:\\\\dev\\\\android\\\\Rummitimer\"; $env:JAVA_HOME = \"C:\\\\Program Files\\\\Android\\\\Android Studio\\\\jbr\"; $env:PATH = \"$env:JAVA_HOME\\\\bin;$env:PATH\"; .\\\\gradlew.bat assembleDebug 2>&1 | Select-Object -Last 50)",
+      "Bash(git add *)"
     ],
     "additionalDirectories": [
       "c:\\dev\\android\\Rummitimer\\.claude",

@@ -92,6 +92,14 @@
     <string name="btn_new_game">새 게임</string>
     <string name="btn_change_settings">설정 변경</string>
     <string name="two_player_time_used_label">사용 시간</string>
+    <string name="baduk_setup_title">바둑 타이머 설정</string>
+    <string name="chess_setup_title">체스 타이머 설정</string>
+    <string name="main_time_label">기본 시간</string>
+    <string name="byoyomi_time_label">초읽기 시간</string>
+    <string name="byoyomi_periods_label">초읽기 횟수</string>
+    <string name="increment_time_label">증가 시간</string>
+    <string name="byoyomi_periods_format">%d회</string>
+    <string name="byoyomi_periods_remaining_format">초읽기 %d회</string>
 
     <!-- v5: 스톱워치 -->
     <string name="btn_lap">랩</string>

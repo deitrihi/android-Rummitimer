@@ -92,6 +92,14 @@
     <string name="btn_new_game">New Game</string>
     <string name="btn_change_settings">Change Settings</string>
     <string name="two_player_time_used_label">Time Used</string>
+    <string name="baduk_setup_title">Go Timer Setup</string>
+    <string name="chess_setup_title">Chess Timer Setup</string>
+    <string name="main_time_label">Main Time</string>
+    <string name="byoyomi_time_label">Byoyomi Time</string>
+    <string name="byoyomi_periods_label">Byoyomi Periods</string>
+    <string name="increment_time_label">Increment</string>
+    <string name="byoyomi_periods_format">%d periods</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d left</string>
 
     <!-- v5: Stopwatch -->
     <string name="btn_lap">Lap</string>

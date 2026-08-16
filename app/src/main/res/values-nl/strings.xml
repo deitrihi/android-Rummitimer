@@ -92,6 +92,14 @@
     <string name="btn_new_game">Nieuw spel</string>
     <string name="btn_change_settings">Instellingen wijzigen</string>
     <string name="two_player_time_used_label">Gebruikte tijd</string>
+    <string name="baduk_setup_title">Go-timerinstellingen</string>
+    <string name="chess_setup_title">Schaaktimerinstellingen</string>
+    <string name="main_time_label">Hoofdtijd</string>
+    <string name="byoyomi_time_label">Byoyomi-tijd</string>
+    <string name="byoyomi_periods_label">Byoyomi-perioden</string>
+    <string name="increment_time_label">Increment</string>
+    <string name="byoyomi_periods_format">%d perioden</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d over</string>
 
     <!-- v5: Stopwatch -->
     <string name="btn_lap">Ronde</string>

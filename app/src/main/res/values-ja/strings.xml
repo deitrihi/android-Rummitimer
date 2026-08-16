@@ -92,6 +92,14 @@
     <string name="btn_new_game">新しいゲーム</string>
     <string name="btn_change_settings">設定変更</string>
     <string name="two_player_time_used_label">使用時間</string>
+    <string name="baduk_setup_title">囲碁タイマー設定</string>
+    <string name="chess_setup_title">チェスタイマー設定</string>
+    <string name="main_time_label">持ち時間</string>
+    <string name="byoyomi_time_label">秒読み時間</string>
+    <string name="byoyomi_periods_label">秒読み回数</string>
+    <string name="increment_time_label">加算時間</string>
+    <string name="byoyomi_periods_format">%d回</string>
+    <string name="byoyomi_periods_remaining_format">秒読み %d回</string>
 
     <!-- v5: ストップウォッチ -->
     <string name="btn_lap">ラップ</string>

@@ -92,6 +92,14 @@
     <string name="btn_new_game">Neues Spiel</string>
     <string name="btn_change_settings">Einstellungen ändern</string>
     <string name="two_player_time_used_label">Verwendete Zeit</string>
+    <string name="baduk_setup_title">Go-Timer-Einstellungen</string>
+    <string name="chess_setup_title">Schach-Timer-Einstellungen</string>
+    <string name="main_time_label">Grundzeit</string>
+    <string name="byoyomi_time_label">Byoyomi-Zeit</string>
+    <string name="byoyomi_periods_label">Byoyomi-Perioden</string>
+    <string name="increment_time_label">Inkrement</string>
+    <string name="byoyomi_periods_format">%d Perioden</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d übrig</string>
 
     <!-- v5: Stoppuhr -->
     <string name="btn_lap">Runde</string>

@@ -2,6 +2,18 @@
 
 ## [미커밋]
 
+- TwoPlayerSetupScreen.kt — gameType별 설정 UI 분기(장기: 기존 분 피커, 바둑: 기본시간+초읽기 시간/횟수, 체스: 기본시간+증가시간), onStart 4-인자로 확장
+- TwoPlayerTimerScreen.kt — 바둑 초읽기(byoyomi) 상태 전이 로직 신규 구현 (기본시간 소진 시 진입, 제한시간 내 착수 시 리셋, 시간 초과 시 횟수 소모, 횟수 소진 시 패배)
+- TwoPlayerTimerScreen.kt — 체스 증가시간(Fischer increment) 로직 신규 구현 (착수 완료 직후 자기 시간에 +N초)
+- TwoPlayerTimerScreen.kt — PlayerHalf에 초읽기 중 "초읽기 N회" 라벨 표시 추가
+- TwoPlayerTimerScreen.kt — 결과 화면 전달용 사용 시간 계산에 하한 0 클램프 추가 (증가시간으로 남은 시간이 초기값을 넘는 경우 대비)
+- MenuScreen.kt — onSelectBaduk/onSelectChess 파라미터 추가, 바둑·체스 메뉴 항목 comingSoon 해제
+- MainActivity.kt — twoPlayerByoyomiSeconds/twoPlayerByoyomiPeriods/twoPlayerIncrementSeconds 상태 추가 및 화면 연결
+- MainActivity.kt — last_timer 복원 로직에 BADUK/CHESS 케이스 추가, twoPlayerGameType 복원 누락 버그 수정
+- strings.xml (한/영/ja/de/es/nl) — baduk_setup_title, chess_setup_title, main_time_label, byoyomi_time_label, byoyomi_periods_label, increment_time_label, byoyomi_periods_format, byoyomi_periods_remaining_format 추가
+
+## 2026-06-26 | e6d1e88
+
 - AlertHelper.kt — 소리/진동/화면 깜박임 알림 설정 저장 및 실행 신규 생성
 - AndroidManifest.xml — VIBRATE 권한 추가
 - SettingsScreen.kt — 알림 섹션(소리·진동·화면 깜박임 토글) 추가

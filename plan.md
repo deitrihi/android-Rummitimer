@@ -1,56 +1,30 @@
-# v3 장기 타이머 — 개발 플랜
+# 바둑 타이머 · 체스 타이머 구현
 
-## 목표
-장기(절대 시간 방식)를 위한 2인 대국 타이머 개발.
-스마트폰을 두 플레이어 사이에 놓고, 상단=P2(180도 회전), 하단=P1이 각자 자신의 시간을 보는 UI.
+## 왜
 
-## 화면 흐름
-```
-MenuScreen
-  └─ [장기 선택] → TwoPlayerSetupScreen
-                      └─ [시작] → TwoPlayerTimerScreen
-                                    └─ [결과 보기] → TwoPlayerResultScreen
-                                                       ├─ [새 게임] → TwoPlayerTimerScreen
-                                                       └─ [설정 변경] → TwoPlayerSetupScreen
-```
+`MenuScreen`의 바둑·체스 타이머 항목이 `comingSoon = true`로 막혀 있다. `GameType` enum과 `TwoPlayerSetupScreen`/`TwoPlayerTimerScreen`/`TwoPlayerResultScreen`은 이미 세 종목을 대비해 파라미터화돼 있지만, 실제 로직은 장기와 동일한 절대시간 카운트다운뿐이다. 바둑(초읽기)·체스(증가시간)의 실제 대국 시계 규칙을 구현해 두 항목을 활성화한다.
 
-## 레이아웃 (세로 모드)
-```
-┌─────────────────────────────┐
-│  P2 영역 (180도 회전)        │
-│  시간 표시 MM:SS             │
-│  탭하여 착수 / 대기 중 / 승리 │
-├─────────────────────────────┤
-│  [게임종료]  [일시정지/재개]  │  컨트롤 스트립
-├─────────────────────────────┤
-│  탭하여 착수 / 대기 중 / 승리 │
-│  시간 표시 MM:SS             │
-│  P1 영역                     │
-└─────────────────────────────┘
-```
+## 확정된 규칙
 
-## 상태 설계 (TwoPlayerTimerScreen)
-| 변수 | 타입 | 설명 |
-|---|---|---|
-| player1Time | Int | P1 남은 초 |
-| player2Time | Int | P2 남은 초 |
-| activePlayer | Int | -1=미시작/일시정지, 0=P1, 1=P2 |
-| lastActivePlayer | Int | 일시정지 전 플레이어 (재개에 사용) |
-| gameStarted | Boolean | 시작 버튼 눌렀는지 여부 |
-| winner | Int | -1=없음, 0=P1 승, 1=P2 승 |
+- 체스: 증가시간(Fischer)만 지원. 착수 완료 직후 자기 시간에 +N초.
+- 바둑: 기본 시간 + 초읽기(30/40/60초 × 1~5회). 기본 시간 소진 후 초읽기 진입, 매 착수 시 시간 리셋, 시간 초과 시 횟수 소모, 횟수 모두 소진 후 시간 초과하면 패배.
 
-## 타이머 엔진
-- LaunchedEffect(Unit) 단일 루프 (race condition 방지)
-- 매초 activePlayer 확인 후 해당 플레이어 시간 차감
-- 10초 이하: MetronomePlayer.tick(warning=true)
-- winner 설정 후 break — 루프 종료
+## 설계 원칙
 
-## 신규 파일
-- TwoPlayerSetupScreen.kt — 제한 시간 선택 (1/3/5/10/30분 프리셋)
-- TwoPlayerTimerScreen.kt — 2인 대국 타이머 화면
-- TwoPlayerResultScreen.kt — 승패 표시 + 소요 시간
+`TwoPlayerSetupScreen`/`TwoPlayerTimerScreen`에 `byoyomiSeconds`, `byoyomiPeriods`, `incrementSeconds` 파라미터 추가 (기본값 0). 셋 다 0이면 기존 장기 로직과 완전히 동일 — 새 화면을 만들지 않고 기존 3개 화면을 확장.
 
-## 수정 파일
-- MainActivity.kt — GameType enum, Screen 3개 추가, RummitimerApp 분기
-- MenuScreen.kt — 장기 comingSoon=false, onSelectJanggi 파라미터
-- strings.xml x 6 로케일 — 신규 문자열 10개
+## 변경 파일
+
+1. `TwoPlayerSetupScreen.kt` — gameType별 설정 UI 분기, onStart 4-인자로 확장
+2. `TwoPlayerTimerScreen.kt` — 초읽기/증가시간 상태 전이 로직, PlayerHalf 표시 확장
+3. `MenuScreen.kt` — onSelectBaduk/onSelectChess 추가, comingSoon 해제
+4. `MainActivity.kt` — 상태 3개 추가, last_timer 복원 로직 수정(BADUK/CHESS 케이스 + gameType 복원 버그 수정)
+5. 6개 로케일 `strings.xml` — baduk_setup_title, chess_setup_title, main_time_label, byoyomi_time_label, byoyomi_periods_label, increment_time_label, byoyomi_periods_format, byoyomi_periods_remaining_format
+
+상세 설계는 harness plan 파일(`C:\Users\deitr\.claude\plans\effervescent-enchanting-hellman.md`) 참조.
+
+## 검증
+
+- `./gradlew assembleDebug` 컴파일 확인
+- 6개 로케일 strings.xml key 개수 일치 확인
+- 장기(byoyomi/increment=0) 동작이 기존과 동일한지 코드 리뷰로 확인
