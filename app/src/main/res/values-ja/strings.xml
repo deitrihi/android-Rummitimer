@@ -22,6 +22,10 @@
     <string name="theme_dark">ダーク</string>
     <string name="display_label">画面</string>
     <string name="keep_screen_on_label">画面を常にオン</string>
+    <string name="alert_label">アラート</string>
+    <string name="alert_sound_label">サウンド</string>
+    <string name="alert_vibration_label">バイブレーション</string>
+    <string name="alert_flash_label">画面フラッシュ</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">プレイヤー数</string>

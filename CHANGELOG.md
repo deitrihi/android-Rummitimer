@@ -2,6 +2,17 @@
 
 ## [미커밋]
 
+- AlertHelper.kt — 소리/진동/화면 깜박임 알림 설정 저장 및 실행 신규 생성
+- AndroidManifest.xml — VIBRATE 권한 추가
+- SettingsScreen.kt — 알림 섹션(소리·진동·화면 깜박임 토글) 추가
+- MainActivity.kt — 알림 설정 상태 관리 및 SettingsScreen/RummitimerApp 파라미터 연결
+- GeneralTimerScreen.kt — 타이머 종료 시 AlertHelper로 알림 실행, 앱 테두리 깜박임 오버레이 추가
+- PomodoroScreen.kt — 단계 전환 시 AlertHelper로 알림 실행, 앱 테두리 깜박임 오버레이 추가
+- PomodoroScreen.kt — 링 배경 제거, 경과 초만 accentColor 호로 표시하여 파이와 색상 분리
+- HomeScreen.kt — 턴 종료 시 AlertHelper로 알림 실행, 경고 사운드 설정 연동, 앱 테두리 깜박임 오버레이 추가
+- TwoPlayerTimerScreen.kt — 시간 소진 시 AlertHelper로 알림 실행(승자 결정 시점), 경고 사운드 설정 연동, 앱 테두리 깜박임 오버레이 추가
+- strings.xml (한/영/ja/de/es/nl) — alert_label, alert_sound_label, alert_vibration_label, alert_flash_label 추가
+- BannerAd.kt — navigationBarsPadding() 추가로 배너가 내비게이션 바 아래 표시되던 문제 수정
 - strings.xml — 배너 광고 Unit ID를 실제 ID로 교체 (ca-app-pub-3949969956815888/7502245754)
 - BannerAd.kt — 배너 광고 Composable 신규 생성
 - GeneralTimerScreen.kt, StopwatchScreen.kt, PomodoroScreen.kt — 하단 배너 광고 추가

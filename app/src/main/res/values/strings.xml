@@ -22,6 +22,10 @@
     <string name="theme_dark">어두운색</string>
     <string name="display_label">화면</string>
     <string name="keep_screen_on_label">항상 켜짐</string>
+    <string name="alert_label">알림</string>
+    <string name="alert_sound_label">소리</string>
+    <string name="alert_vibration_label">진동</string>
+    <string name="alert_flash_label">화면 깜박임</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">인원수</string>

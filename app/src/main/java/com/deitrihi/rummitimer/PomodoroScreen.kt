@@ -34,11 +34,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.foundation.border
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -48,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 private const val FOCUS_SECONDS = 25 * 60
 private const val SHORT_BREAK_SECONDS = 5 * 60
@@ -62,6 +67,19 @@ fun PomodoroScreen(
     onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var flashVisible by remember { mutableStateOf(false) }
+
+    fun triggerFlash() = scope.launch {
+        repeat(3) {
+            flashVisible = true
+            delay(200)
+            flashVisible = false
+            delay(200)
+        }
+    }
+
     var phase by rememberSaveable { mutableStateOf(PomodoroPhase.FOCUS) }
     var timeLeft by rememberSaveable { mutableIntStateOf(FOCUS_SECONDS) }
     var isRunning by rememberSaveable { mutableStateOf(false) }
@@ -131,7 +149,7 @@ fun PomodoroScreen(
                 timeLeft--
                 if (timeLeft == 0) {
                     isRunning = false
-                    MetronomePlayer.tick(warning = true)
+                    AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
                     advancePhase()
                 }
             }
@@ -165,11 +183,17 @@ fun PomodoroScreen(
         PomodoroPhase.LONG_BREAK -> MaterialTheme.colorScheme.secondary
     }
 
+    val surfaceColor = MaterialTheme.colorScheme.surface
+    val onSurfaceColor = MaterialTheme.colorScheme.onSurface
+
     val sweepAngle = ((totalSeconds - timeLeft).toFloat() / totalSeconds * 360f).coerceIn(0f, 360f)
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
+    val flashColor = MaterialTheme.colorScheme.error
+
+    Box(modifier = modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.menu_pomodoro)) },
                 actions = {
@@ -204,62 +228,50 @@ fun PomodoroScreen(
                     val cx = size.width / 2f
                     val cy = size.height / 2f
 
-                    // 배경 디스크
+                    // 전체 배경
                     drawCircle(color = phaseColor)
 
-                    // 바깥쪽 링 — 단계 남은 시간 (밝은 커버가 반시계방향으로 줄어듦)
-                    val outerRingStroke = radius * 0.22f
-                    val outerRingRadius = radius - outerRingStroke / 2f
-                    drawCircle(
-                        color = onPhaseColor.copy(alpha = 0.35f),
-                        radius = outerRingRadius,
-                        center = Offset(cx, cy),
-                        style = Stroke(width = outerRingStroke)
-                    )
-                    val remainingOuterSweep = (360f - sweepAngle).coerceIn(0f, 360f)
-                    if (remainingOuterSweep > 0f) {
+                    // 바깥쪽 파이 — 경과 영역 (경과할수록 파이가 반시계방향으로 줄어듦)
+                    if (sweepAngle > 0f) {
                         drawArc(
-                            color = phaseColor,
-                            startAngle = -90f,
-                            sweepAngle = remainingOuterSweep,
-                            useCenter = false,
-                            topLeft = Offset(cx - outerRingRadius, cy - outerRingRadius),
-                            size = Size(outerRingRadius * 2, outerRingRadius * 2),
-                            style = Stroke(width = outerRingStroke, cap = StrokeCap.Round)
+                            color = onPhaseColor.copy(alpha = 0.35f),
+                            startAngle = 270f - sweepAngle,
+                            sweepAngle = sweepAngle,
+                            useCenter = true,
+                            topLeft = Offset(cx - radius, cy - radius),
+                            size = Size(radius * 2, radius * 2)
                         )
                     }
-                    // 바깥쪽·가운데 링 사이 간격을 어두운색으로 채움
+
+                    // 가운데 링 — 분 내 경과 초 (accentColor 호만 그림)
                     val ringRadius = radius * 0.635f
                     val ringStroke = radius * 0.19f
-                    drawCircle(color = onPhaseColor.copy(alpha = 0.35f), radius = outerRingRadius - outerRingStroke / 2f)
-                    // 가운데 링이 그려질 영역을 배경색으로 리셋 (겹침으로 인한 색상 차이 방지)
-                    drawCircle(color = phaseColor, radius = ringRadius + ringStroke / 2f)
-
-                    // 가운데 링 — 분 내 초 진행 (밝은 커버가 반시계방향으로 줄어듦)
-                    drawCircle(
-                        color = onPhaseColor.copy(alpha = 0.35f),
-                        radius = ringRadius,
-                        center = Offset(cx, cy),
-                        style = Stroke(width = ringStroke)
-                    )
                     val handElapsed = (60 - timeLeft % 60) % 60
                     val remainingArcSweep = (60 - handElapsed) / 60f * 360f
                     if (remainingArcSweep > 0f) {
                         drawArc(
-                            color = phaseColor,
+                            color = accentColor,
                             startAngle = -90f,
                             sweepAngle = remainingArcSweep,
                             useCenter = false,
                             topLeft = Offset(cx - ringRadius, cy - ringRadius),
                             size = Size(ringRadius * 2, ringRadius * 2),
-                            style = Stroke(width = ringStroke, cap = StrokeCap.Round)
+                            style = Stroke(width = ringStroke, cap = StrokeCap.Butt)
+                        )
+                        // 움직이는 끝부분에만 둥근 캡 수동 추가
+                        val endAngleRad = Math.toRadians(-90.0 + remainingArcSweep)
+                        drawCircle(
+                            color = accentColor,
+                            radius = ringStroke / 2f,
+                            center = Offset(
+                                cx + ringRadius * Math.cos(endAngleRad).toFloat(),
+                                cy + ringRadius * Math.sin(endAngleRad).toFloat()
+                            )
                         )
                     }
-                    // 가운데·안쪽 원 사이 간격을 어두운색으로 채움
-                    drawCircle(color = onPhaseColor.copy(alpha = 0.35f), radius = ringRadius - ringStroke / 2f)
 
-                    // 안쪽 채워진 원 — 텍스트 배경
-                    drawCircle(color = phaseColor, radius = radius * 0.50f)
+                    // 안쪽 원 — 텍스트 배경 (링 내부 경계에 맞닿음)
+                    drawCircle(color = surfaceColor, radius = ringRadius - ringStroke / 2f)
                 }
                 // 원 중앙 텍스트
                 Column(
@@ -270,7 +282,7 @@ fun PomodoroScreen(
                         text = phaseLabel,
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
-                        color = onPhaseColor
+                        color = onSurfaceColor
                     )
                     val minutes = timeLeft / 60
                     val seconds = timeLeft % 60
@@ -278,7 +290,7 @@ fun PomodoroScreen(
                         text = "%02d:%02d".format(minutes, seconds),
                         fontSize = 48.sp,
                         fontWeight = FontWeight.Bold,
-                        color = onPhaseColor
+                        color = onSurfaceColor
                     )
                 }
             }
@@ -317,6 +329,14 @@ fun PomodoroScreen(
                     Text(stringResource(R.string.pomodoro_btn_skip))
                 }
             }
+        }
+        }
+        if (flashVisible) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(12.dp, flashColor, RectangleShape)
+            )
         }
     }
 }

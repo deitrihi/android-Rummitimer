@@ -47,15 +47,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.foundation.border
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
@@ -94,6 +98,19 @@ fun HomeScreen(
     onShowAd: (onAdDismissed: () -> Unit) -> Unit = { it() },
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var flashVisible by remember { mutableStateOf(false) }
+
+    fun triggerFlash() = scope.launch {
+        repeat(3) {
+            flashVisible = true
+            kotlinx.coroutines.delay(200)
+            flashVisible = false
+            kotlinx.coroutines.delay(200)
+        }
+    }
+
     var turnDuration by rememberSaveable { mutableIntStateOf(60) }
     var currentPlayerIndex by rememberSaveable { mutableIntStateOf(0) }
     var timeRemaining by rememberSaveable { mutableIntStateOf(60) }
@@ -112,10 +129,13 @@ fun HomeScreen(
                 if (timeRemaining > 0) {
                     val isWarning = timeRemaining <= WARNING_THRESHOLD
                     if (isWarning || timeRemaining % 10 == 0) {
-                        MetronomePlayer.tick(warning = isWarning)
+                        if (AlertHelper.getSoundEnabled(context)) {
+                            MetronomePlayer.tick(warning = isWarning)
+                        }
                     }
                 }
             }
+            AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
             isRunning = false
             isTimeUp = true
             currentOnPenalty(currentPlayerIndex)
@@ -183,10 +203,12 @@ fun HomeScreen(
     }
 
     val layoutType = currentLayoutType()
+    val flashColor = MaterialTheme.colorScheme.error
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
+    Box(modifier = modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
             TopAppBar(
                 title = {
                     Text(
@@ -196,7 +218,6 @@ fun HomeScreen(
                     )
                 },
                 actions = {
-                    val context = LocalContext.current
                     IconButton(onClick = {
                         AnalyticsHelper.log(context, AnalyticsHelper.MENU_OPEN)
                         onMenuClick()
@@ -242,6 +263,14 @@ fun HomeScreen(
                 onReset = onEndGame,
                 onPlayerCountChange = handlePlayerCountChange,
                 onTurnDurationChange = onTurnDurationChange,
+            )
+        }
+        }
+        if (flashVisible) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(12.dp, flashColor, RectangleShape)
             )
         }
     }

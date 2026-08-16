@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -30,12 +31,16 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,6 +57,19 @@ fun TwoPlayerTimerScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var flashVisible by remember { mutableStateOf(false) }
+
+    fun triggerFlash() = scope.launch {
+        repeat(3) {
+            flashVisible = true
+            delay(200)
+            flashVisible = false
+            delay(200)
+        }
+    }
+
     var player1Time by rememberSaveable { mutableIntStateOf(initialTimeSeconds) }
     var player2Time by rememberSaveable { mutableIntStateOf(initialTimeSeconds) }
     // -1=미시작/일시정지, 0=P1 활성, 1=P2 활성
@@ -68,14 +86,24 @@ fun TwoPlayerTimerScreen(
             if (active < 0 || winner >= 0) continue
             if (active == 0) {
                 player1Time = maxOf(0, player1Time - 1)
-                if (player1Time == 0) { winner = 1; activePlayer = -1; break }
-                if (player1Time <= TWO_PLAYER_WARNING_THRESHOLD) MetronomePlayer.tick(warning = true)
-                else if (player1Time % 10 == 0) MetronomePlayer.tick(warning = false)
+                if (player1Time == 0) {
+                    winner = 1; activePlayer = -1
+                    AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
+                    break
+                }
+                if (player1Time <= TWO_PLAYER_WARNING_THRESHOLD) {
+                    if (AlertHelper.getSoundEnabled(context)) MetronomePlayer.tick(warning = true)
+                } else if (player1Time % 10 == 0) MetronomePlayer.tick(warning = false)
             } else {
                 player2Time = maxOf(0, player2Time - 1)
-                if (player2Time == 0) { winner = 0; activePlayer = -1; break }
-                if (player2Time <= TWO_PLAYER_WARNING_THRESHOLD) MetronomePlayer.tick(warning = true)
-                else if (player2Time % 10 == 0) MetronomePlayer.tick(warning = false)
+                if (player2Time == 0) {
+                    winner = 0; activePlayer = -1
+                    AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
+                    break
+                }
+                if (player2Time <= TWO_PLAYER_WARNING_THRESHOLD) {
+                    if (AlertHelper.getSoundEnabled(context)) MetronomePlayer.tick(warning = true)
+                } else if (player2Time % 10 == 0) MetronomePlayer.tick(warning = false)
             }
         }
     }
@@ -130,7 +158,9 @@ fun TwoPlayerTimerScreen(
     }
 
     val isLandscape = LocalConfiguration.current.orientation == Configuration.ORIENTATION_LANDSCAPE
+    val flashColor = MaterialTheme.colorScheme.error
 
+    Box(modifier = modifier.fillMaxSize()) {
     if (isLandscape) {
         // 가로 모드: P1 좌 / ControlStrip 중앙 / P2 우
         Row(modifier = modifier.fillMaxSize().safeDrawingPadding()) {
@@ -206,6 +236,14 @@ fun TwoPlayerTimerScreen(
                 onTap = { handleMove(0) }
             )
         }
+    }
+    if (flashVisible) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .border(12.dp, flashColor, RectangleShape)
+        )
+    }
     }
 }
 

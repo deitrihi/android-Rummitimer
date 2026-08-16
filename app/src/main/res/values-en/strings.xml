@@ -22,6 +22,10 @@
     <string name="theme_dark">Dark</string>
     <string name="display_label">Display</string>
     <string name="keep_screen_on_label">Keep screen on</string>
+    <string name="alert_label">Alerts</string>
+    <string name="alert_sound_label">Sound</string>
+    <string name="alert_vibration_label">Vibration</string>
+    <string name="alert_flash_label">Screen Flash</string>
 
     <!-- Timer Settings -->
     <string name="player_count_label">Players</string>

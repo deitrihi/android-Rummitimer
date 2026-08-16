@@ -2,6 +2,7 @@
 package com.deitrihi.rummitimer
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,8 +31,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.launch
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -53,6 +58,19 @@ fun GeneralTimerScreen(
     onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    var flashVisible by remember { mutableStateOf(false) }
+
+    fun triggerFlash() = scope.launch {
+        repeat(3) {
+            flashVisible = true
+            kotlinx.coroutines.delay(200)
+            flashVisible = false
+            kotlinx.coroutines.delay(200)
+        }
+    }
+
     var inputHours by rememberSaveable { mutableIntStateOf(0) }
     var inputMinutes by rememberSaveable { mutableIntStateOf(5) }
     var inputSeconds by rememberSaveable { mutableIntStateOf(0) }
@@ -67,7 +85,7 @@ fun GeneralTimerScreen(
                 timeLeft--
                 if (timeLeft == 0) {
                     timerState = GeneralTimerState.DONE
-                    MetronomePlayer.tick(warning = true)
+                    AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
                 }
             }
         }
@@ -115,10 +133,12 @@ fun GeneralTimerScreen(
     val containerColor = MaterialTheme.colorScheme.primaryContainer
     val onContainerColor = MaterialTheme.colorScheme.onPrimaryContainer
     val accentColor = MaterialTheme.colorScheme.primary
+    val flashColor = MaterialTheme.colorScheme.error
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
+    Box(modifier = modifier.fillMaxSize()) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.menu_general_timer)) },
                 actions = {
@@ -243,6 +263,14 @@ fun GeneralTimerScreen(
                     }
                 }
             }
+        }
+    }
+        if (flashVisible) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .border(12.dp, flashColor, RectangleShape)
+            )
         }
     }
 }
