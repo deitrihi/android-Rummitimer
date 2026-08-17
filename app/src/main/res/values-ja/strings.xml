@@ -22,6 +22,10 @@
     <string name="theme_dark">ダーク</string>
     <string name="display_label">画面</string>
     <string name="keep_screen_on_label">画面を常にオン</string>
+    <string name="orientation_label">画面の向き</string>
+    <string name="orientation_adaptive">自動</string>
+    <string name="orientation_landscape">横向き</string>
+    <string name="orientation_portrait">縦向き</string>
     <string name="alert_label">アラート</string>
     <string name="alert_sound_label">サウンド</string>
     <string name="alert_vibration_label">バイブレーション</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%d秒</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">プレイヤー%dのターン</string>
+    <string name="player_turn_label">P%dのターン</string>
     <string name="time_up">時間切れ！</string>
     <string name="hurry_up">急いで！</string>
 

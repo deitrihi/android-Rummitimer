@@ -1,0 +1,63 @@
+Rummitimer — Zugtimer für Rummikub & Brettspiele
+
+Genug von endlosen „nur noch eine Sekunde …“-Momenten bei Rummikub, Janggi, Go oder Schach?
+Rummitimer sorgt dafür, dass jeder Spieler fair bleibt und das Spiel in Bewegung bleibt — jetzt mit eigenen Uhren für vier Brettspiele sowie mehreren allgemeinen Timern, alles in einer App.
+
+---------------------------------------
+🎲 Brettspiel-Timer
+---------------------------------------
+
+• Rummikub-Timer
+Wähle 2, 3 oder 4 Spieler und ein Zeitlimit pro Zug (30/60/90/120 Sekunden). Alle 10 Sekunden ertönt ein Metronom-Ton, in den letzten 10 Sekunden jede Sekunde. Ein Tipp auf „Weiter" startet automatisch nach 1 Sekunde den Zug des nächsten Spielers. Läuft die Zeit ab, notierst du die Strafe und spielst weiter; am Ende gibst du die Punkte der übrig gebliebenen Steine jedes Spielers ein und siehst die finale Rangliste.
+
+• Janggi-Timer
+Eine einfache Countdown-Uhr für jeden Spieler — Zeitlimit wählen und loslegen.
+
+• Go-Timer
+Grundzeit plus Byoyomi (Zeitabschnitte) — konfiguriere Grundzeit, Sekunden pro Abschnitt und Anzahl der Abschnitte, mit einer visuellen Ring-Anzeige der verbleibenden Abschnitte.
+
+• Schach-Timer
+Grundzeit mit Inkrement — jeder Zug addiert nach Fischer-Modus Sekunden zurück zur eigenen Uhr.
+
+Alle drei Duell-Timer teilen sich eine Bedienung per Antippen der eigenen Seite; die Uhr des aktiven Spielers wird hervorgehoben, und am Ende zeigt das Ergebnis die verbrauchte Zeit jedes Spielers.
+
+---------------------------------------
+⏱ Allgemeine Timer
+---------------------------------------
+
+• Stoppuhr — einfache Messung der verstrichenen Zeit
+• Pomodoro-Timer — Fokus-/Pausenzyklen zum Lernen oder Arbeiten
+• Allgemeiner Timer — ein flexibler Countdown für alles andere
+
+---------------------------------------
+🔔 Benachrichtigungen & Anzeige
+---------------------------------------
+
+• Signale bei Zugende — Ton, Vibration und Bildschirmblitzen, jeweils einzeln ein-/ausschaltbar
+• Bildschirm immer aktiv — der Bildschirm erlischt während des Spiels nicht
+• Bildschirmausrichtung — adaptiv, quer- oder hochformatgesperrt
+• Design — Hell, Dunkel oder passend zum Systemdesign
+
+---------------------------------------
+🎨 Personalisierung
+---------------------------------------
+
+• Spieler-Symbole — für jeden Spieler frei wählbare Frucht-Symbole, sodass du auf einen Blick siehst, wer am Zug ist
+
+---------------------------------------
+🌐 Mehrsprachig
+---------------------------------------
+
+Unterstützt Koreanisch, Englisch, Japanisch, Deutsch, Spanisch und Niederländisch — passt sich automatisch der Gerätesprache an.
+
+---------------------------------------
+Perfekt für
+---------------------------------------
+
+- Familienabende und Spieleabende mit Freunden
+- Brettspielgruppen, die Rummikub, Janggi, Go oder Schach spielen
+- Gruppen mit dem einen Spieler, der immer zu lange braucht
+- Wettkampfspiele, bei denen Tempo und Fairness zählen
+- Alle, die schnell eine Stoppuhr, einen Pomodoro-Timer oder einen Countdown brauchen
+
+Jetzt installieren und jedes Spiel schnell, fair und unterhaltsam gestalten!

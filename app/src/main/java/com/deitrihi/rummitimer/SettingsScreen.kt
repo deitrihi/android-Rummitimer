@@ -58,6 +58,8 @@ fun SettingsScreen(
     onAlertVibrationChange: (Boolean) -> Unit,
     alertFlash: Boolean,
     onAlertFlashChange: (Boolean) -> Unit,
+    orientationMode: String,
+    onOrientationChange: (String) -> Unit,
     fruitIndices: List<Int>,
     onFruitChange: (playerIndex: Int, fruitIndex: Int) -> Unit,
     onBack: () -> Unit,
@@ -81,6 +83,12 @@ fun SettingsScreen(
         ThemeHelper.THEME_SYSTEM to stringResource(R.string.theme_system),
         ThemeHelper.THEME_LIGHT to stringResource(R.string.theme_light),
         ThemeHelper.THEME_DARK to stringResource(R.string.theme_dark),
+    )
+
+    val orientationOptions = listOf(
+        OrientationHelper.ORIENTATION_ADAPTIVE to stringResource(R.string.orientation_adaptive),
+        OrientationHelper.ORIENTATION_LANDSCAPE to stringResource(R.string.orientation_landscape),
+        OrientationHelper.ORIENTATION_PORTRAIT to stringResource(R.string.orientation_portrait),
     )
 
     Scaffold(
@@ -172,6 +180,21 @@ fun SettingsScreen(
                 checked = keepScreenOn,
                 onCheckedChange = onKeepScreenOnChange
             )
+            Text(
+                text = stringResource(R.string.orientation_label),
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(top = 8.dp, start = 8.dp)
+            )
+            orientationOptions.forEach { (orientation, label) ->
+                SettingsRadioRow(
+                    label = label,
+                    selected = orientationMode == orientation,
+                    onClick = {
+                        AnalyticsHelper.log(context, AnalyticsHelper.ORIENTATION_CHANGE, "orientation" to orientation)
+                        onOrientationChange(orientation)
+                    }
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 

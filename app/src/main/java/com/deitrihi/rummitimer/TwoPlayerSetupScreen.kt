@@ -1,31 +1,38 @@
 // 2인 대국 타이머(장기·바둑·체스) 제한 시간 설정 화면
 package com.deitrihi.rummitimer
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
+import androidx.compose.material3.ExposedDropdownMenuAnchorType
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,12 +53,13 @@ fun TwoPlayerSetupScreen(
     onMenuClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var janggiMinutes by rememberSaveable { mutableIntStateOf(10) }
-    var badukMainMinutes by rememberSaveable { mutableIntStateOf(30) }
-    var badukByoyomiSeconds by rememberSaveable { mutableIntStateOf(30) }
-    var badukByoyomiPeriods by rememberSaveable { mutableIntStateOf(3) }
-    var chessMainMinutes by rememberSaveable { mutableIntStateOf(5) }
-    var chessIncrementSeconds by rememberSaveable { mutableIntStateOf(3) }
+    val context = LocalContext.current
+    var janggiMinutes by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getJanggiMinutes(context)) }
+    var badukMainMinutes by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getBadukMainMinutes(context)) }
+    var badukByoyomiSeconds by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getBadukByoyomiSeconds(context)) }
+    var badukByoyomiPeriods by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getBadukByoyomiPeriods(context)) }
+    var chessMainMinutes by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getChessMainMinutes(context)) }
+    var chessIncrementSeconds by rememberSaveable { mutableIntStateOf(TwoPlayerSetupHelper.getChessIncrementSeconds(context)) }
 
     val titleRes = when (gameType) {
         GameType.JANGGI -> R.string.janggi_setup_title
@@ -75,145 +83,89 @@ fun TwoPlayerSetupScreen(
             )
         }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(horizontal = 24.dp, vertical = 24.dp),
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
+        ) {
+        AutoFitContent {
+        Column(
+            modifier = Modifier
+                .width(320.dp)
+                .padding(vertical = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             when (gameType) {
                 GameType.JANGGI -> {
-                    Text(
-                        text = stringResource(R.string.turn_duration_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.turn_duration_label),
+                        selectedValue = janggiMinutes,
+                        options = JANGGI_TIME_OPTIONS_MINUTES,
+                        valueLabel = { stringResource(R.string.two_player_time_min_format, it) },
+                        onSelect = { janggiMinutes = it }
                     )
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        JANGGI_TIME_OPTIONS_MINUTES.forEach { minutes ->
-                            FilterChip(
-                                selected = janggiMinutes == minutes,
-                                onClick = { janggiMinutes = minutes },
-                                label = {
-                                    Text(stringResource(R.string.two_player_time_min_format, minutes))
-                                }
-                            )
-                        }
-                    }
                 }
                 GameType.BADUK -> {
-                    Text(
-                        text = stringResource(R.string.main_time_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.main_time_label),
+                        selectedValue = badukMainMinutes,
+                        options = BADUK_MAIN_TIME_OPTIONS_MINUTES,
+                        valueLabel = { stringResource(R.string.two_player_time_min_format, it) },
+                        onSelect = { badukMainMinutes = it }
                     )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        BADUK_MAIN_TIME_OPTIONS_MINUTES.forEach { minutes ->
-                            FilterChip(
-                                selected = badukMainMinutes == minutes,
-                                onClick = { badukMainMinutes = minutes },
-                                label = {
-                                    Text(stringResource(R.string.two_player_time_min_format, minutes))
-                                }
-                            )
-                        }
-                    }
-                    Text(
-                        text = stringResource(R.string.byoyomi_time_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.byoyomi_time_label),
+                        selectedValue = badukByoyomiSeconds,
+                        options = BADUK_BYOYOMI_TIME_OPTIONS_SECONDS,
+                        valueLabel = { stringResource(R.string.turn_duration_format, it) },
+                        onSelect = { badukByoyomiSeconds = it }
                     )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        BADUK_BYOYOMI_TIME_OPTIONS_SECONDS.forEach { seconds ->
-                            FilterChip(
-                                selected = badukByoyomiSeconds == seconds,
-                                onClick = { badukByoyomiSeconds = seconds },
-                                label = {
-                                    Text(stringResource(R.string.turn_duration_format, seconds))
-                                }
-                            )
-                        }
-                    }
-                    Text(
-                        text = stringResource(R.string.byoyomi_periods_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.byoyomi_periods_label),
+                        selectedValue = badukByoyomiPeriods,
+                        options = BADUK_BYOYOMI_PERIODS_OPTIONS,
+                        valueLabel = { stringResource(R.string.byoyomi_periods_format, it) },
+                        onSelect = { badukByoyomiPeriods = it }
                     )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        BADUK_BYOYOMI_PERIODS_OPTIONS.forEach { periods ->
-                            FilterChip(
-                                selected = badukByoyomiPeriods == periods,
-                                onClick = { badukByoyomiPeriods = periods },
-                                label = {
-                                    Text(stringResource(R.string.byoyomi_periods_format, periods))
-                                }
-                            )
-                        }
-                    }
                 }
                 GameType.CHESS -> {
-                    Text(
-                        text = stringResource(R.string.main_time_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.main_time_label),
+                        selectedValue = chessMainMinutes,
+                        options = CHESS_MAIN_TIME_OPTIONS_MINUTES,
+                        valueLabel = { stringResource(R.string.two_player_time_min_format, it) },
+                        onSelect = { chessMainMinutes = it }
                     )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        CHESS_MAIN_TIME_OPTIONS_MINUTES.forEach { minutes ->
-                            FilterChip(
-                                selected = chessMainMinutes == minutes,
-                                onClick = { chessMainMinutes = minutes },
-                                label = {
-                                    Text(stringResource(R.string.two_player_time_min_format, minutes))
-                                }
-                            )
-                        }
-                    }
-                    Text(
-                        text = stringResource(R.string.increment_time_label),
-                        style = MaterialTheme.typography.titleMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    ValueDropdown(
+                        label = stringResource(R.string.increment_time_label),
+                        selectedValue = chessIncrementSeconds,
+                        options = CHESS_INCREMENT_OPTIONS_SECONDS,
+                        valueLabel = { stringResource(R.string.turn_duration_format, it) },
+                        onSelect = { chessIncrementSeconds = it }
                     )
-                    Row(
-                        modifier = Modifier.horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        CHESS_INCREMENT_OPTIONS_SECONDS.forEach { seconds ->
-                            FilterChip(
-                                selected = chessIncrementSeconds == seconds,
-                                onClick = { chessIncrementSeconds = seconds },
-                                label = {
-                                    Text(stringResource(R.string.turn_duration_format, seconds))
-                                }
-                            )
-                        }
-                    }
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
+            Spacer(modifier = Modifier.height(24.dp))
             Button(
                 onClick = {
                     when (gameType) {
-                        GameType.JANGGI -> onStart(janggiMinutes * 60, 0, 0, 0)
-                        GameType.BADUK -> onStart(
-                            badukMainMinutes * 60,
-                            badukByoyomiSeconds,
-                            badukByoyomiPeriods,
-                            0
-                        )
-                        GameType.CHESS -> onStart(chessMainMinutes * 60, 0, 0, chessIncrementSeconds)
+                        GameType.JANGGI -> {
+                            TwoPlayerSetupHelper.setJanggiMinutes(context, janggiMinutes)
+                            onStart(janggiMinutes * 60, 0, 0, 0)
+                        }
+                        GameType.BADUK -> {
+                            TwoPlayerSetupHelper.setBadukMainMinutes(context, badukMainMinutes)
+                            TwoPlayerSetupHelper.setBadukByoyomiSeconds(context, badukByoyomiSeconds)
+                            TwoPlayerSetupHelper.setBadukByoyomiPeriods(context, badukByoyomiPeriods)
+                            onStart(badukMainMinutes * 60, badukByoyomiSeconds, badukByoyomiPeriods, 0)
+                        }
+                        GameType.CHESS -> {
+                            TwoPlayerSetupHelper.setChessMainMinutes(context, chessMainMinutes)
+                            TwoPlayerSetupHelper.setChessIncrementSeconds(context, chessIncrementSeconds)
+                            onStart(chessMainMinutes * 60, 0, 0, chessIncrementSeconds)
+                        }
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -222,6 +174,51 @@ fun TwoPlayerSetupScreen(
                     text = stringResource(R.string.btn_start),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        }
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ValueDropdown(
+    label: String,
+    selectedValue: Int,
+    options: List<Int>,
+    valueLabel: @Composable (Int) -> String,
+    onSelect: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    var expanded by remember { mutableStateOf(false) }
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = it },
+        modifier = modifier.fillMaxWidth()
+    ) {
+        OutlinedTextField(
+            value = valueLabel(selectedValue),
+            onValueChange = {},
+            readOnly = true,
+            label = { Text(label) },
+            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
+            modifier = Modifier
+                .menuAnchor(ExposedDropdownMenuAnchorType.PrimaryNotEditable, true)
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { value ->
+                DropdownMenuItem(
+                    text = { Text(valueLabel(value)) },
+                    onClick = {
+                        onSelect(value)
+                        expanded = false
+                    }
                 )
             }
         }

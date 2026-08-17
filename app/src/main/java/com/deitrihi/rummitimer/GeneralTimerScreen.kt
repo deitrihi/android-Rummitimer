@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.activity.compose.BackHandler
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -153,13 +153,16 @@ fun GeneralTimerScreen(
         },
         bottomBar = { BannerAd(modifier = Modifier.fillMaxWidth()) }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
+        ) {
+        AutoFitContent {
+        Column(
+            modifier = Modifier.padding(vertical = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             if (timerState == GeneralTimerState.IDLE) {
                 TimeInputRow(
@@ -182,9 +185,7 @@ fun GeneralTimerScreen(
                 }
             } else {
                 Box(
-                    modifier = Modifier
-                        .fillMaxWidth(0.72f)
-                        .aspectRatio(1f),
+                    modifier = Modifier.size(260.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Canvas(modifier = Modifier.fillMaxSize()) {
@@ -263,6 +264,8 @@ fun GeneralTimerScreen(
                     }
                 }
             }
+        }
+        }
         }
     }
         if (flashVisible) {

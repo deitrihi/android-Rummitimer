@@ -1,0 +1,63 @@
+Rummitimer — Temporizador de turnos para Rummikub y juegos de mesa
+
+¿Cansado de esos interminables "solo un segundo más..." en Rummikub, Janggi, Go o ajedrez?
+Rummitimer mantiene a todos los jugadores dentro del tiempo y el juego en movimiento — ahora con relojes propios para cuatro juegos de mesa, además de varios temporizadores de uso general, todo en una sola app.
+
+---------------------------------------
+🎲 Temporizadores de juegos de mesa
+---------------------------------------
+
+• Temporizador Rummikub
+Elige entre 2, 3 o 4 jugadores y un límite de tiempo por turno (30/60/90/120 segundos). Suena un metrónomo cada 10 segundos, y cada segundo en los últimos 10. Al pulsar Siguiente, el turno del siguiente jugador comienza automáticamente tras 1 segundo. Cuando se acaba el tiempo, registra la penalización y sigue jugando; al terminar la partida, introduce la puntuación de las fichas restantes de cada jugador para ver la clasificación final.
+
+• Temporizador Janggi
+Un reloj de cuenta atrás simple para cada jugador — elige el límite de tiempo y comienza.
+
+• Temporizador Baduk (Go)
+Tiempo principal más byoyomi (periodos de cuenta atrás) — configura el tiempo principal, los segundos por periodo y el número de periodos, con un anillo visual que muestra los periodos restantes.
+
+• Temporizador de ajedrez
+Tiempo principal con incremento — cada jugada suma segundos a tu reloj, al estilo Fischer.
+
+Los tres relojes de duelo comparten una interfaz de "toca tu lado para pasar", con el reloj del jugador activo resaltado y, al finalizar, un resultado que muestra el tiempo usado por cada jugador.
+
+---------------------------------------
+⏱ Temporizadores generales
+---------------------------------------
+
+• Cronómetro — seguimiento simple del tiempo transcurrido
+• Temporizador Pomodoro — ciclos de enfoque y descanso para estudiar o trabajar
+• Temporizador general — una cuenta atrás flexible para cualquier otra cosa
+
+---------------------------------------
+🔔 Alertas y pantalla
+---------------------------------------
+
+• Alertas de fin de turno — sonido, vibración y destello de pantalla, cada uno activable por separado
+• Mantener pantalla activa — la pantalla nunca se apaga durante la partida
+• Orientación de pantalla — adaptativa, horizontal o vertical fija
+• Tema — claro, oscuro o siguiendo el tema del sistema
+
+---------------------------------------
+🎨 Personalización
+---------------------------------------
+
+• Iconos de jugador — un icono de fruta libremente personalizable por jugador, siempre visible para saber de un vistazo a quién le toca
+
+---------------------------------------
+🌐 Multilingüe
+---------------------------------------
+
+Compatible con coreano, inglés, japonés, alemán, español y neerlandés, ajustándose automáticamente al idioma del dispositivo.
+
+---------------------------------------
+Ideal para
+---------------------------------------
+
+- Noches de juegos en familia o con amigos
+- Grupos de juegos de mesa que juegan Rummikub, Janggi, Go o ajedrez
+- Grupos con ese jugador que siempre tarda demasiado
+- Partidas competitivas donde el ritmo y la equidad importan
+- Cualquiera que necesite a mano un cronómetro, un temporizador Pomodoro o una cuenta atrás
+
+¡Instálala ahora y haz que cada partida sea rápida, justa y divertida!

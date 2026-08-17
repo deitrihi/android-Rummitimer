@@ -1,6 +1,7 @@
 package com.deitrihi.rummitimer
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
             var alertSound by remember { mutableStateOf(AlertHelper.getSoundEnabled(this)) }
             var alertVibration by remember { mutableStateOf(AlertHelper.getVibrationEnabled(this)) }
             var alertFlash by remember { mutableStateOf(AlertHelper.getFlashEnabled(this)) }
+            var orientationMode by remember { mutableStateOf(OrientationHelper.getSelectedOrientation(this)) }
             val darkTheme = when (themeMode) {
                 ThemeHelper.THEME_DARK -> true
                 ThemeHelper.THEME_LIGHT -> false
@@ -51,6 +53,11 @@ class MainActivity : ComponentActivity() {
                     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 } else {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
+                requestedOrientation = when (orientationMode) {
+                    OrientationHelper.ORIENTATION_LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                    OrientationHelper.ORIENTATION_PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+                    else -> ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
             RummitimerTheme(darkTheme = darkTheme) {
@@ -70,7 +77,12 @@ class MainActivity : ComponentActivity() {
                     alertVibration = alertVibration,
                     onAlertVibrationChange = { v -> AlertHelper.setVibrationEnabled(this, v); alertVibration = v },
                     alertFlash = alertFlash,
-                    onAlertFlashChange = { v -> AlertHelper.setFlashEnabled(this, v); alertFlash = v }
+                    onAlertFlashChange = { v -> AlertHelper.setFlashEnabled(this, v); alertFlash = v },
+                    orientationMode = orientationMode,
+                    onOrientationChange = { mode ->
+                        OrientationHelper.setOrientation(this, mode)
+                        orientationMode = mode
+                    }
                 )
             }
         }
@@ -89,6 +101,8 @@ fun RummitimerApp(
     onAlertVibrationChange: (Boolean) -> Unit = {},
     alertFlash: Boolean = false,
     onAlertFlashChange: (Boolean) -> Unit = {},
+    orientationMode: String = OrientationHelper.ORIENTATION_ADAPTIVE,
+    onOrientationChange: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -280,6 +294,8 @@ fun RummitimerApp(
             onAlertVibrationChange = onAlertVibrationChange,
             alertFlash = alertFlash,
             onAlertFlashChange = onAlertFlashChange,
+            orientationMode = orientationMode,
+            onOrientationChange = onOrientationChange,
             fruitIndices = fruitIndices,
             onFruitChange = { playerIndex, fruitIndex ->
                 FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)

@@ -22,6 +22,10 @@
     <string name="theme_dark">Dunkel</string>
     <string name="display_label">Anzeige</string>
     <string name="keep_screen_on_label">Bildschirm immer aktiv</string>
+    <string name="orientation_label">Bildschirmausrichtung</string>
+    <string name="orientation_adaptive">Adaptiv</string>
+    <string name="orientation_landscape">Querformat</string>
+    <string name="orientation_portrait">Hochformat</string>
     <string name="alert_label">Benachrichtigungen</string>
     <string name="alert_sound_label">Ton</string>
     <string name="alert_vibration_label">Vibration</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%ds</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Spieler %d ist dran</string>
+    <string name="player_turn_label">P%d ist dran</string>
     <string name="time_up">Zeit abgelaufen!</string>
     <string name="hurry_up">Beeil dich!</string>
 

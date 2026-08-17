@@ -22,6 +22,10 @@
     <string name="theme_dark">어두운색</string>
     <string name="display_label">화면</string>
     <string name="keep_screen_on_label">항상 켜짐</string>
+    <string name="orientation_label">화면 방향</string>
+    <string name="orientation_adaptive">적응형</string>
+    <string name="orientation_landscape">가로</string>
+    <string name="orientation_portrait">세로</string>
     <string name="alert_label">알림</string>
     <string name="alert_sound_label">소리</string>
     <string name="alert_vibration_label">진동</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%d초</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Player %d의 차례</string>
+    <string name="player_turn_label">P%d의 차례</string>
     <string name="time_up">시간 초과!</string>
     <string name="hurry_up">서두르세요!</string>
 
