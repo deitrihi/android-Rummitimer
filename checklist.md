@@ -12,3 +12,14 @@
 - [x] MainActivity.kt — TwoPlayerSetupScreen/TwoPlayerTimerScreen 호출부 업데이트
 - [x] ./gradlew assembleDebug 빌드 확인 (BUILD SUCCESSFUL, 23s)
 - [x] CHANGELOG.md [미커밋]에 항목 추가
+
+## 스토어 feature graphic 업데이트 체크리스트
+
+- [x] 현재 `store_assets/feature_graphic.svg` 구조 확인
+- [x] 추가된 핵심 기능을 반영한 문구와 시각 요소 설계
+- [x] `store_assets/feature_graphic.svg` 갱신
+- [x] `store_assets/feature_graphic.png` 재생성
+- [x] SVG XML 파싱 검증
+- [x] PNG 1024×500 크기 검증
+- [x] 렌더링 이미지 육안 확인
+- [x] 변경 diff 확인
