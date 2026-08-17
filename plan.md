@@ -48,3 +48,24 @@
 
 - SVG XML 파싱 확인
 - 변경 diff 확인
+
+---
+
+# 스토어 feature graphic 다국어 버전
+
+## 목표
+
+최신 feature graphic 디자인을 영어, 일본어, 독일어, 스페인어, 네덜란드어 스토어 등록용 파일로 확장한다.
+
+## 작업
+
+1. `feature_graphic_en.svg/png`를 최신 다기능 디자인으로 교체
+2. `feature_graphic_ja.svg/png`, `feature_graphic_de.svg/png`, `feature_graphic_es.svg/png`, `feature_graphic_nl.svg/png` 신규 생성
+3. 기능 카드, 칩, 서브타이틀, 태그라인을 언어별로 현지화
+4. 각 PNG를 1024×500으로 렌더링
+
+## 검증
+
+- 전체 SVG XML 파싱 확인
+- 전체 PNG 크기 1024×500 확인
+- 다국어 렌더링 이미지 육안 확인

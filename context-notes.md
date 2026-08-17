@@ -34,3 +34,11 @@
 - 앱 이름 `Rummitimer`와 기존 어두운 블루 배경, 노란 진행 링은 유지해 브랜드 연속성을 살림.
 - 오른쪽 메인 원형 타이머는 유지하되, 주변에 루미큐브 타일, 2인 보드게임 시계, 일반 타이머 미니 카드를 배치해 기능 확장을 시각적으로 전달함.
 - Google Play 업로드용 실제 이미지 파일도 필요하므로 `store_assets/feature_graphic.svg`에서 `store_assets/feature_graphic.png`를 1024×500으로 재생성함.
+
+## 다국어 버전 결정 사항
+
+- 기존 `feature_graphic_en.svg/png`는 이전 루미큐브 전용 디자인이므로 최신 다기능 레이아웃으로 교체함.
+- 새 파일명은 `feature_graphic_ja`, `feature_graphic_de`, `feature_graphic_es`, `feature_graphic_nl` 패턴으로 둠.
+- 앱명 `Rummitimer`, 숫자 타이머, P1/P2 표기는 모든 언어에서 공통으로 유지함.
+- 기능 카드와 칩, 서브타이틀, 태그라인만 언어별로 현지화함.
+- 첫 렌더링 확인에서 일부 한국어 조사 잔여와 상단 카드 텍스트 겹침을 발견해, 긴 문구 우선 치환으로 재생성하고 상단 카드 위치를 오른쪽으로 조정함.

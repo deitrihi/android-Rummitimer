@@ -82,9 +82,9 @@
 
   <!-- Mode cards -->
   <g filter="url(#cardShadow)">
-    <rect x="548" y="48" width="144" height="72" rx="8" fill="#11245C" stroke="#3457B2" stroke-width="1.5"/>
-    <text x="620" y="79" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">루미큐브</text>
-    <text x="620" y="101" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#90CAF9" text-anchor="middle">턴·점수 관리</text>
+    <rect x="590" y="48" width="144" height="72" rx="8" fill="#11245C" stroke="#3457B2" stroke-width="1.5"/>
+    <text x="662" y="79" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">루미큐브</text>
+    <text x="662" y="101" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#90CAF9" text-anchor="middle">턴·점수 관리</text>
   </g>
 
   <g filter="url(#cardShadow)">
@@ -183,3 +183,4 @@
   <circle cx="64"  cy="478" r="3" fill="#FFB300" opacity="0.6"/>
   <circle cx="76"  cy="478" r="3" fill="#FFB300" opacity="0.3"/>
 </svg>
+

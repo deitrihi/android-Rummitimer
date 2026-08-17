@@ -84,19 +84,19 @@
   <g filter="url(#cardShadow)">
     <rect x="590" y="48" width="144" height="72" rx="8" fill="#11245C" stroke="#3457B2" stroke-width="1.5"/>
     <text x="662" y="79" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Rummikub</text>
-    <text x="662" y="101" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#90CAF9" text-anchor="middle">Turns &amp; scores</text>
+    <text x="662" y="101" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#90CAF9" text-anchor="middle">Turnos y puntos</text>
   </g>
 
   <g filter="url(#cardShadow)">
     <rect x="814" y="60" width="146" height="78" rx="8" fill="#0C3B53" stroke="#39A7C7" stroke-width="1.5"/>
-    <text x="887" y="92" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Board Games</text>
-    <text x="887" y="115" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#9BE7FF" text-anchor="middle">Janggi · Go · Chess</text>
+    <text x="887" y="92" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Juegos de mesa</text>
+    <text x="887" y="115" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#9BE7FF" text-anchor="middle">Janggi · Go · Ajedrez</text>
   </g>
 
   <g filter="url(#cardShadow)">
     <rect x="826" y="352" width="140" height="76" rx="8" fill="#3B214D" stroke="#B36BE8" stroke-width="1.5"/>
-    <text x="896" y="384" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">General Timer</text>
-    <text x="896" y="407" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#E1BEE7" text-anchor="middle">Stopwatch · Pomodoro</text>
+    <text x="896" y="384" font-family="'Malgun Gothic', Arial, sans-serif" font-size="15" font-weight="700" fill="#FFFFFF" text-anchor="middle">Temporizador</text>
+    <text x="896" y="407" font-family="'Malgun Gothic', Arial, sans-serif" font-size="12" fill="#E1BEE7" text-anchor="middle">Cronómetro · Pomodoro</text>
   </g>
 
   <!-- Rummikub tiles -->
@@ -152,7 +152,7 @@
   <!-- Korean subtitle -->
   <text x="52" y="358"
         font-family="'Malgun Gothic', 'Apple SD Gothic Neo', Arial, sans-serif"
-        font-size="22" fill="#90CAF9" letter-spacing="2">Board games to everyday timing</text>
+        font-size="22" fill="#90CAF9" letter-spacing="2">Para juegos y tu día a día</text>
 
   <!-- Feature chips -->
   <!-- Chip 1 -->
@@ -165,18 +165,18 @@
   <rect x="172" y="382" width="160" height="30" rx="15" fill="#123353" stroke="#39A7C7" stroke-width="1"/>
   <text x="252" y="402"
         font-family="'Malgun Gothic', Arial, sans-serif"
-        font-size="13" fill="#9BE7FF" text-anchor="middle">Board Game Timer</text>
+        font-size="13" fill="#9BE7FF" text-anchor="middle">Juegos de mesa</text>
 
   <!-- Chip 3 -->
   <rect x="342" y="382" width="136" height="30" rx="15" fill="#3B214D" stroke="#B36BE8" stroke-width="1"/>
   <text x="410" y="402"
         font-family="'Malgun Gothic', Arial, sans-serif"
-        font-size="13" fill="#E1BEE7" text-anchor="middle">General Timer</text>
+        font-size="13" fill="#E1BEE7" text-anchor="middle">Temporizador</text>
 
   <!-- Tagline -->
   <text x="52" y="458"
         font-family="Georgia, 'Times New Roman', serif"
-        font-size="17" fill="#7B9FD4" font-style="italic">Every timer for your table.</text>
+        font-size="17" fill="#7B9FD4" font-style="italic">Un temporizador para cada partida.</text>
 
   <!-- Bottom brand accent dots -->
   <circle cx="52"  cy="478" r="3" fill="#FFB300"/>
