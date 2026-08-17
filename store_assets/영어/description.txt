@@ -1,0 +1,63 @@
+Rummitimer — Turn Timer for Rummikub & Board Games
+
+Tired of endless "just one more second..." moments during Rummikub, Janggi, Go, or Chess?
+Rummitimer keeps every player honest and the game moving — now with dedicated clocks for four board games, plus a set of general-purpose timers, all in one app.
+
+---------------------------------------
+🎲 Board Game Timers
+---------------------------------------
+
+• Rummikub Timer
+Choose 2, 3, or 4 players and a per-turn time limit (30/60/90/120 seconds). A metronome tick sounds every 10 seconds, then every second in the final 10 — and pressing Next auto-starts the following player's turn after a 1-second delay. When time runs out, log the penalty and keep playing; enter each player's leftover tile score at the end to see the final ranking.
+
+• Janggi Timer
+A simple countdown clock for each player — pick your time limit and go.
+
+• Baduk (Go) Timer
+Main time plus byoyomi (countdown periods) — configure main time, per-period seconds, and number of periods, with a visual ring showing periods remaining.
+
+• Chess Timer
+Main time with increment — each move adds seconds back to your clock, Fischer-style.
+
+All three head-to-head clocks share a tap-your-side-to-pass interface, with the active player's clock highlighted and the game result (time used per player) shown at the end.
+
+---------------------------------------
+⏱ General Timers
+---------------------------------------
+
+• Stopwatch — simple elapsed-time tracking
+• Pomodoro Timer — focus/break cycles for study or work sessions
+• General Timer — a flexible countdown for anything else
+
+---------------------------------------
+🔔 Alerts & Display
+---------------------------------------
+
+• Turn-Ending Alerts — sound, vibration, and full-screen flash, each toggled independently
+• Keep Screen On — never lose the display mid-game
+• Orientation Control — adaptive, landscape-locked, or portrait-locked
+• Theme Support — Light, Dark, or follow your System theme
+
+---------------------------------------
+🎨 Personalization
+---------------------------------------
+
+• Player Icons — a fruit icon per player, freely customizable, always visible so you can tell whose turn it is at a glance
+
+---------------------------------------
+🌐 Multilingual
+---------------------------------------
+
+Supports Korean, English, Japanese, German, Spanish, and Dutch — automatically matched to your device language.
+
+---------------------------------------
+Perfect For
+---------------------------------------
+
+- Family game nights and friend gatherings
+- Board game groups playing Rummikub, Janggi, Go, or Chess
+- Groups with that one player who always takes too long
+- Competitive games where pace and fairness matter
+- Anyone who needs a quick stopwatch, Pomodoro timer, or countdown on hand
+
+Install now and keep every game fast, fair, and fun!

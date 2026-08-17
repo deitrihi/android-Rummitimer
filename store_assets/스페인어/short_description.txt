@@ -1,0 +1,1 @@
+Temporizador de turnos para Rummikub y juegos de mesa, más Pomodoro y cronómetro

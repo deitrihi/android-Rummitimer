@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -208,19 +207,20 @@ fun PomodoroScreen(
         },
         bottomBar = { BannerAd(modifier = Modifier.fillMaxWidth()) }
     ) { innerPadding ->
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(vertical = 24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
+        ) {
+        AutoFitContent {
+        Column(
+            modifier = Modifier.padding(vertical = 24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             // 원형 파이 타이머
             Box(
-                modifier = Modifier
-                    .fillMaxWidth(0.82f)
-                    .aspectRatio(1f),
+                modifier = Modifier.size(280.dp),
                 contentAlignment = Alignment.Center
             ) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
@@ -329,6 +329,8 @@ fun PomodoroScreen(
                     Text(stringResource(R.string.pomodoro_btn_skip))
                 }
             }
+        }
+        }
         }
         }
         if (flashVisible) {

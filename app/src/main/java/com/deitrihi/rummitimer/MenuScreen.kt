@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.dp
 fun MenuScreen(
     onSelectRummicube: () -> Unit,
     onSelectJanggi: () -> Unit,
+    onSelectBaduk: () -> Unit,
+    onSelectChess: () -> Unit,
     onSelectPomodoro: () -> Unit,
     onSelectStopwatch: () -> Unit,
     onSelectGeneralTimer: () -> Unit,
@@ -80,16 +82,16 @@ fun MenuScreen(
                 MenuItemRow(
                     icon = "⚫",
                     label = stringResource(R.string.menu_baduk),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectBaduk
                 )
             }
             item {
                 MenuItemRow(
                     icon = "♜",
                     label = stringResource(R.string.menu_chess),
-                    comingSoon = true,
-                    onClick = {}
+                    comingSoon = false,
+                    onClick = onSelectChess
                 )
             }
 

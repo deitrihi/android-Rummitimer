@@ -25,8 +25,8 @@ android {
         applicationId = "com.deitrihi.rummitimer"
         minSdk = 24
         targetSdk = 37
-        versionCode = 19
-        versionName = "1.5"
+        versionCode = 21
+        versionName = "2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

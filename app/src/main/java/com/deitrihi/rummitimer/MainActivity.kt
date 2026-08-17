@@ -1,6 +1,7 @@
 package com.deitrihi.rummitimer
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -41,6 +42,7 @@ class MainActivity : ComponentActivity() {
             var alertSound by remember { mutableStateOf(AlertHelper.getSoundEnabled(this)) }
             var alertVibration by remember { mutableStateOf(AlertHelper.getVibrationEnabled(this)) }
             var alertFlash by remember { mutableStateOf(AlertHelper.getFlashEnabled(this)) }
+            var orientationMode by remember { mutableStateOf(OrientationHelper.getSelectedOrientation(this)) }
             val darkTheme = when (themeMode) {
                 ThemeHelper.THEME_DARK -> true
                 ThemeHelper.THEME_LIGHT -> false
@@ -51,6 +53,11 @@ class MainActivity : ComponentActivity() {
                     window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                 } else {
                     window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                }
+                requestedOrientation = when (orientationMode) {
+                    OrientationHelper.ORIENTATION_LANDSCAPE -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                    OrientationHelper.ORIENTATION_PORTRAIT -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+                    else -> ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
                 }
             }
             RummitimerTheme(darkTheme = darkTheme) {
@@ -70,7 +77,12 @@ class MainActivity : ComponentActivity() {
                     alertVibration = alertVibration,
                     onAlertVibrationChange = { v -> AlertHelper.setVibrationEnabled(this, v); alertVibration = v },
                     alertFlash = alertFlash,
-                    onAlertFlashChange = { v -> AlertHelper.setFlashEnabled(this, v); alertFlash = v }
+                    onAlertFlashChange = { v -> AlertHelper.setFlashEnabled(this, v); alertFlash = v },
+                    orientationMode = orientationMode,
+                    onOrientationChange = { mode ->
+                        OrientationHelper.setOrientation(this, mode)
+                        orientationMode = mode
+                    }
                 )
             }
         }
@@ -89,6 +101,8 @@ fun RummitimerApp(
     onAlertVibrationChange: (Boolean) -> Unit = {},
     alertFlash: Boolean = false,
     onAlertFlashChange: (Boolean) -> Unit = {},
+    orientationMode: String = OrientationHelper.ORIENTATION_ADAPTIVE,
+    onOrientationChange: (String) -> Unit = {},
 ) {
     val context = LocalContext.current
     val activity = context.findActivity()
@@ -98,11 +112,18 @@ fun RummitimerApp(
     val prefs = remember { context.getSharedPreferences("rummitimer_prefs", android.content.Context.MODE_PRIVATE) }
     val initialScreen = remember {
         when (prefs.getString("last_timer", "HOME")) {
-            "JANGGI" -> Screen.TWO_PLAYER_SETUP
+            "JANGGI", "BADUK", "CHESS" -> Screen.TWO_PLAYER_SETUP
             "POMODORO" -> Screen.POMODORO
             "STOPWATCH" -> Screen.STOPWATCH
             "GENERAL_TIMER" -> Screen.GENERAL_TIMER
             else -> Screen.HOME
+        }
+    }
+    val initialGameType = remember {
+        when (prefs.getString("last_timer", "HOME")) {
+            "BADUK" -> GameType.BADUK
+            "CHESS" -> GameType.CHESS
+            else -> GameType.JANGGI
         }
     }
     var currentScreen by rememberSaveable { mutableStateOf(initialScreen) }
@@ -115,8 +136,11 @@ fun RummitimerApp(
     var fruitIndices by remember { mutableStateOf(FruitHelper.getFruitIndices(context)) }
 
     // v3 2인 대국 타이머 상태
-    var twoPlayerGameType by rememberSaveable { mutableStateOf(GameType.JANGGI) }
+    var twoPlayerGameType by rememberSaveable { mutableStateOf(initialGameType) }
     var twoPlayerInitialTime by rememberSaveable { mutableIntStateOf(10 * 60) }
+    var twoPlayerByoyomiSeconds by rememberSaveable { mutableIntStateOf(0) }
+    var twoPlayerByoyomiPeriods by rememberSaveable { mutableIntStateOf(0) }
+    var twoPlayerIncrementSeconds by rememberSaveable { mutableIntStateOf(0) }
     var twoPlayerWinner by rememberSaveable { mutableIntStateOf(-1) }
     var twoPlayerP1Used by rememberSaveable { mutableIntStateOf(0) }
     var twoPlayerP2Used by rememberSaveable { mutableIntStateOf(0) }
@@ -174,6 +198,16 @@ fun RummitimerApp(
                 twoPlayerGameType = GameType.JANGGI
                 currentScreen = Screen.TWO_PLAYER_SETUP
             },
+            onSelectBaduk = {
+                prefs.edit().putString("last_timer", "BADUK").apply()
+                twoPlayerGameType = GameType.BADUK
+                currentScreen = Screen.TWO_PLAYER_SETUP
+            },
+            onSelectChess = {
+                prefs.edit().putString("last_timer", "CHESS").apply()
+                twoPlayerGameType = GameType.CHESS
+                currentScreen = Screen.TWO_PLAYER_SETUP
+            },
             onSelectPomodoro = {
                 prefs.edit().putString("last_timer", "POMODORO").apply()
                 currentScreen = Screen.POMODORO
@@ -200,8 +234,11 @@ fun RummitimerApp(
         )
         Screen.TWO_PLAYER_SETUP -> TwoPlayerSetupScreen(
             gameType = twoPlayerGameType,
-            onStart = { time ->
-                twoPlayerInitialTime = time
+            onStart = { mainTime, byoyomiSec, byoyomiPeriods, incrementSec ->
+                twoPlayerInitialTime = mainTime
+                twoPlayerByoyomiSeconds = byoyomiSec
+                twoPlayerByoyomiPeriods = byoyomiPeriods
+                twoPlayerIncrementSeconds = incrementSec
                 currentScreen = Screen.TWO_PLAYER_TIMER
             },
             onMenuClick = { previousScreen = currentScreen; currentScreen = Screen.MENU }
@@ -209,6 +246,9 @@ fun RummitimerApp(
         Screen.TWO_PLAYER_TIMER -> TwoPlayerTimerScreen(
             gameType = twoPlayerGameType,
             initialTimeSeconds = twoPlayerInitialTime,
+            byoyomiSeconds = twoPlayerByoyomiSeconds,
+            byoyomiPeriods = twoPlayerByoyomiPeriods,
+            incrementSeconds = twoPlayerIncrementSeconds,
             onGameEnd = { w, p1, p2 ->
                 twoPlayerWinner = w
                 twoPlayerP1Used = p1
@@ -254,6 +294,8 @@ fun RummitimerApp(
             onAlertVibrationChange = onAlertVibrationChange,
             alertFlash = alertFlash,
             onAlertFlashChange = onAlertFlashChange,
+            orientationMode = orientationMode,
+            onOrientationChange = onOrientationChange,
             fruitIndices = fruitIndices,
             onFruitChange = { playerIndex, fruitIndex ->
                 FruitHelper.setFruitIndex(context, playerIndex, fruitIndex)

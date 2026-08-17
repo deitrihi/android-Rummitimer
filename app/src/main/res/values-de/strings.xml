@@ -22,6 +22,10 @@
     <string name="theme_dark">Dunkel</string>
     <string name="display_label">Anzeige</string>
     <string name="keep_screen_on_label">Bildschirm immer aktiv</string>
+    <string name="orientation_label">Bildschirmausrichtung</string>
+    <string name="orientation_adaptive">Adaptiv</string>
+    <string name="orientation_landscape">Querformat</string>
+    <string name="orientation_portrait">Hochformat</string>
     <string name="alert_label">Benachrichtigungen</string>
     <string name="alert_sound_label">Ton</string>
     <string name="alert_vibration_label">Vibration</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%ds</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Spieler %d ist dran</string>
+    <string name="player_turn_label">P%d ist dran</string>
     <string name="time_up">Zeit abgelaufen!</string>
     <string name="hurry_up">Beeil dich!</string>
 
@@ -92,6 +96,14 @@
     <string name="btn_new_game">Neues Spiel</string>
     <string name="btn_change_settings">Einstellungen ändern</string>
     <string name="two_player_time_used_label">Verwendete Zeit</string>
+    <string name="baduk_setup_title">Go-Timer-Einstellungen</string>
+    <string name="chess_setup_title">Schach-Timer-Einstellungen</string>
+    <string name="main_time_label">Grundzeit</string>
+    <string name="byoyomi_time_label">Byoyomi-Zeit</string>
+    <string name="byoyomi_periods_label">Byoyomi-Perioden</string>
+    <string name="increment_time_label">Inkrement</string>
+    <string name="byoyomi_periods_format">%d Perioden</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d übrig</string>
 
     <!-- v5: Stoppuhr -->
     <string name="btn_lap">Runde</string>

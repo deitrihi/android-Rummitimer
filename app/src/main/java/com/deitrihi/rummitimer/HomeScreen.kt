@@ -447,7 +447,7 @@ private fun LandscapeContent(
                     strokeWidth = 13.dp,
                     timerFontSize = 32.sp,
                     timeUpFontSize = 19.sp,
-                    playerLabel = "$currentFruitEmoji P${currentPlayerIndex + 1}의 차례",
+                    playerLabel = "$currentFruitEmoji " + stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
                 )
             }
 
@@ -588,7 +588,7 @@ private fun PlayerTurnLabel(
     isTimeUp: Boolean,
 ) {
     Text(
-        text = "$fruitEmoji P${currentPlayerIndex + 1}의 차례",
+        text = "$fruitEmoji " + stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.SemiBold,
         color = if (isTimeUp) MaterialTheme.colorScheme.error
@@ -712,7 +712,7 @@ private fun SplitTimerCircle(
                 color = progressColor
             )
             Text(
-                text = "$fruitEmoji P${currentPlayerIndex + 1}의 차례",
+                text = "$fruitEmoji " + stringResource(R.string.player_turn_label, currentPlayerIndex + 1),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
                 color = if (isTimeUp) MaterialTheme.colorScheme.error

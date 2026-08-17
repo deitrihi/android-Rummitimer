@@ -22,6 +22,10 @@
     <string name="theme_dark">Dark</string>
     <string name="display_label">Display</string>
     <string name="keep_screen_on_label">Keep screen on</string>
+    <string name="orientation_label">Screen orientation</string>
+    <string name="orientation_adaptive">Adaptive</string>
+    <string name="orientation_landscape">Landscape</string>
+    <string name="orientation_portrait">Portrait</string>
     <string name="alert_label">Alerts</string>
     <string name="alert_sound_label">Sound</string>
     <string name="alert_vibration_label">Vibration</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%ds</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Player %d\'s Turn</string>
+    <string name="player_turn_label">P%d\'s Turn</string>
     <string name="time_up">Time\'s Up!</string>
     <string name="hurry_up">Hurry up!</string>
 
@@ -92,6 +96,14 @@
     <string name="btn_new_game">New Game</string>
     <string name="btn_change_settings">Change Settings</string>
     <string name="two_player_time_used_label">Time Used</string>
+    <string name="baduk_setup_title">Go Timer Setup</string>
+    <string name="chess_setup_title">Chess Timer Setup</string>
+    <string name="main_time_label">Main Time</string>
+    <string name="byoyomi_time_label">Byoyomi Time</string>
+    <string name="byoyomi_periods_label">Byoyomi Periods</string>
+    <string name="increment_time_label">Increment</string>
+    <string name="byoyomi_periods_format">%d periods</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d left</string>
 
     <!-- v5: Stopwatch -->
     <string name="btn_lap">Lap</string>

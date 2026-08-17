@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -37,7 +39,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import kotlinx.coroutines.launch
@@ -49,10 +55,48 @@ import kotlinx.coroutines.delay
 
 private const val TWO_PLAYER_WARNING_THRESHOLD = 10
 
+// 한 플레이어의 시계를 1초 진행시킨다. 메인 시간 소진 후 초읽기(byoyomi)가 있으면 진입/소모/리셋을 처리한다.
+private data class ClockTickResult(
+    val mainTime: Int,
+    val inByoyomi: Boolean,
+    val byoyomiTime: Int,
+    val byoyomiPeriodsLeft: Int,
+    val lost: Boolean,
+)
+
+private fun tickClock(
+    mainTime: Int,
+    inByoyomi: Boolean,
+    byoyomiTime: Int,
+    byoyomiPeriodsLeft: Int,
+    byoyomiSeconds: Int,
+): ClockTickResult {
+    if (!inByoyomi) {
+        val newMain = mainTime - 1
+        if (newMain > 0) return ClockTickResult(newMain, false, byoyomiTime, byoyomiPeriodsLeft, lost = false)
+        return if (byoyomiPeriodsLeft > 0) {
+            ClockTickResult(0, true, byoyomiSeconds, byoyomiPeriodsLeft, lost = false)
+        } else {
+            ClockTickResult(0, false, byoyomiTime, byoyomiPeriodsLeft, lost = true)
+        }
+    }
+    val newByoyomi = byoyomiTime - 1
+    if (newByoyomi > 0) return ClockTickResult(mainTime, true, newByoyomi, byoyomiPeriodsLeft, lost = false)
+    val periodsLeft = byoyomiPeriodsLeft - 1
+    return if (periodsLeft > 0) {
+        ClockTickResult(mainTime, true, byoyomiSeconds, periodsLeft, lost = false)
+    } else {
+        ClockTickResult(mainTime, true, 0, 0, lost = true)
+    }
+}
+
 @Composable
 fun TwoPlayerTimerScreen(
     gameType: GameType,
     initialTimeSeconds: Int,
+    byoyomiSeconds: Int = 0,
+    byoyomiPeriods: Int = 0,
+    incrementSeconds: Int = 0,
     onGameEnd: (winner: Int, p1UsedSeconds: Int, p2UsedSeconds: Int) -> Unit,
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -72,6 +116,12 @@ fun TwoPlayerTimerScreen(
 
     var player1Time by rememberSaveable { mutableIntStateOf(initialTimeSeconds) }
     var player2Time by rememberSaveable { mutableIntStateOf(initialTimeSeconds) }
+    var player1InByoyomi by rememberSaveable { mutableStateOf(false) }
+    var player2InByoyomi by rememberSaveable { mutableStateOf(false) }
+    var player1ByoyomiTime by rememberSaveable { mutableIntStateOf(byoyomiSeconds) }
+    var player2ByoyomiTime by rememberSaveable { mutableIntStateOf(byoyomiSeconds) }
+    var player1ByoyomiPeriodsLeft by rememberSaveable { mutableIntStateOf(byoyomiPeriods) }
+    var player2ByoyomiPeriodsLeft by rememberSaveable { mutableIntStateOf(byoyomiPeriods) }
     // -1=미시작/일시정지, 0=P1 활성, 1=P2 활성
     var activePlayer by rememberSaveable { mutableIntStateOf(-1) }
     var lastActivePlayer by rememberSaveable { mutableIntStateOf(0) }
@@ -85,25 +135,35 @@ fun TwoPlayerTimerScreen(
             val active = activePlayer
             if (active < 0 || winner >= 0) continue
             if (active == 0) {
-                player1Time = maxOf(0, player1Time - 1)
-                if (player1Time == 0) {
+                val result = tickClock(player1Time, player1InByoyomi, player1ByoyomiTime, player1ByoyomiPeriodsLeft, byoyomiSeconds)
+                player1Time = result.mainTime
+                player1InByoyomi = result.inByoyomi
+                player1ByoyomiTime = result.byoyomiTime
+                player1ByoyomiPeriodsLeft = result.byoyomiPeriodsLeft
+                if (result.lost) {
                     winner = 1; activePlayer = -1
                     AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
                     break
                 }
-                if (player1Time <= TWO_PLAYER_WARNING_THRESHOLD) {
+                val remaining = if (result.inByoyomi) result.byoyomiTime else result.mainTime
+                if (remaining <= TWO_PLAYER_WARNING_THRESHOLD) {
                     if (AlertHelper.getSoundEnabled(context)) MetronomePlayer.tick(warning = true)
-                } else if (player1Time % 10 == 0) MetronomePlayer.tick(warning = false)
+                } else if (remaining % 10 == 0) MetronomePlayer.tick(warning = false)
             } else {
-                player2Time = maxOf(0, player2Time - 1)
-                if (player2Time == 0) {
+                val result = tickClock(player2Time, player2InByoyomi, player2ByoyomiTime, player2ByoyomiPeriodsLeft, byoyomiSeconds)
+                player2Time = result.mainTime
+                player2InByoyomi = result.inByoyomi
+                player2ByoyomiTime = result.byoyomiTime
+                player2ByoyomiPeriodsLeft = result.byoyomiPeriodsLeft
+                if (result.lost) {
                     winner = 0; activePlayer = -1
                     AlertHelper.triggerAlerts(context, warning = true) { triggerFlash() }
                     break
                 }
-                if (player2Time <= TWO_PLAYER_WARNING_THRESHOLD) {
+                val remaining = if (result.inByoyomi) result.byoyomiTime else result.mainTime
+                if (remaining <= TWO_PLAYER_WARNING_THRESHOLD) {
                     if (AlertHelper.getSoundEnabled(context)) MetronomePlayer.tick(warning = true)
-                } else if (player2Time % 10 == 0) MetronomePlayer.tick(warning = false)
+                } else if (remaining % 10 == 0) MetronomePlayer.tick(warning = false)
             }
         }
     }
@@ -116,6 +176,14 @@ fun TwoPlayerTimerScreen(
 
     fun handleMove(playerIndex: Int) {
         if (activePlayer == playerIndex && winner < 0) {
+            // 착수 완료: 초읽기 중이면 시간 내 착수이므로 리셋, 증가시간 모드면 자기 시간에 가산
+            if (playerIndex == 0) {
+                if (player1InByoyomi) player1ByoyomiTime = byoyomiSeconds
+                if (incrementSeconds > 0) player1Time += incrementSeconds
+            } else {
+                if (player2InByoyomi) player2ByoyomiTime = byoyomiSeconds
+                if (incrementSeconds > 0) player2Time += incrementSeconds
+            }
             val next = 1 - playerIndex
             lastActivePlayer = next
             activePlayer = next
@@ -167,7 +235,10 @@ fun TwoPlayerTimerScreen(
             PlayerHalf(
                 modifier = Modifier.weight(1f),
                 rotation = 0f,
-                timeSeconds = player1Time,
+                timeSeconds = if (player1InByoyomi) player1ByoyomiTime else player1Time,
+                totalSeconds = if (player1InByoyomi) byoyomiSeconds else initialTimeSeconds,
+                inByoyomi = player1InByoyomi,
+                byoyomiPeriodsLeft = player1ByoyomiPeriodsLeft,
                 playerIndex = 0,
                 isActive = activePlayer == 0,
                 isGameStarted = gameStarted,
@@ -183,13 +254,20 @@ fun TwoPlayerTimerScreen(
                 onTogglePause = ::togglePause,
                 onEnd = onBack,
                 onSeeResult = {
-                    onGameEnd(winner, initialTimeSeconds - player1Time, initialTimeSeconds - player2Time)
+                    onGameEnd(
+                        winner,
+                        maxOf(0, initialTimeSeconds - player1Time),
+                        maxOf(0, initialTimeSeconds - player2Time)
+                    )
                 }
             )
             PlayerHalf(
                 modifier = Modifier.weight(1f),
                 rotation = 0f,
-                timeSeconds = player2Time,
+                timeSeconds = if (player2InByoyomi) player2ByoyomiTime else player2Time,
+                totalSeconds = if (player2InByoyomi) byoyomiSeconds else initialTimeSeconds,
+                inByoyomi = player2InByoyomi,
+                byoyomiPeriodsLeft = player2ByoyomiPeriodsLeft,
                 playerIndex = 1,
                 isActive = activePlayer == 1,
                 isGameStarted = gameStarted,
@@ -204,7 +282,10 @@ fun TwoPlayerTimerScreen(
             PlayerHalf(
                 modifier = Modifier.weight(1f),
                 rotation = 180f,
-                timeSeconds = player2Time,
+                timeSeconds = if (player2InByoyomi) player2ByoyomiTime else player2Time,
+                totalSeconds = if (player2InByoyomi) byoyomiSeconds else initialTimeSeconds,
+                inByoyomi = player2InByoyomi,
+                byoyomiPeriodsLeft = player2ByoyomiPeriodsLeft,
                 playerIndex = 1,
                 isActive = activePlayer == 1,
                 isGameStarted = gameStarted,
@@ -221,14 +302,21 @@ fun TwoPlayerTimerScreen(
                 onTogglePause = ::togglePause,
                 onEnd = onBack,
                 onSeeResult = {
-                    onGameEnd(winner, initialTimeSeconds - player1Time, initialTimeSeconds - player2Time)
+                    onGameEnd(
+                        winner,
+                        maxOf(0, initialTimeSeconds - player1Time),
+                        maxOf(0, initialTimeSeconds - player2Time)
+                    )
                 }
             )
             // P1 영역 — 하단
             PlayerHalf(
                 modifier = Modifier.weight(1f),
                 rotation = 0f,
-                timeSeconds = player1Time,
+                timeSeconds = if (player1InByoyomi) player1ByoyomiTime else player1Time,
+                totalSeconds = if (player1InByoyomi) byoyomiSeconds else initialTimeSeconds,
+                inByoyomi = player1InByoyomi,
+                byoyomiPeriodsLeft = player1ByoyomiPeriodsLeft,
                 playerIndex = 0,
                 isActive = activePlayer == 0,
                 isGameStarted = gameStarted,
@@ -250,10 +338,13 @@ fun TwoPlayerTimerScreen(
 @Composable
 private fun PlayerHalf(
     timeSeconds: Int,
+    totalSeconds: Int,
     playerIndex: Int,
     isActive: Boolean,
     isGameStarted: Boolean,
     winner: Int,
+    inByoyomi: Boolean = false,
+    byoyomiPeriodsLeft: Int = 0,
     rotation: Float = 0f,
     onTap: () -> Unit,
     modifier: Modifier = Modifier,
@@ -278,9 +369,12 @@ private fun PlayerHalf(
         isActive -> MaterialTheme.colorScheme.onPrimaryContainer
         else -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
     }
+    val ringColor = if (isGameOver && !isWinner) MaterialTheme.colorScheme.error else textColor
 
     val minutes = timeSeconds / 60
     val seconds = timeSeconds % 60
+    // 남은 시간 비율 × 360°의 양수 sweepAngle → 링이 반시계 방향으로 줄어드는 효과
+    val sweepAngle = if (totalSeconds > 0) timeSeconds.toFloat() / totalSeconds * 360f else 0f
 
     Surface(
         modifier = modifier
@@ -293,6 +387,7 @@ private fun PlayerHalf(
             contentAlignment = Alignment.Center
         ) {
             // Surface는 영역을 꽉 채우고, 텍스트 컨텐츠만 회전
+            AutoFitContent {
             Column(
                 modifier = Modifier.rotate(rotation),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -304,13 +399,70 @@ private fun PlayerHalf(
                     fontWeight = FontWeight.SemiBold,
                     color = textColor
                 )
-                Text(
-                    text = "%02d:%02d".format(minutes, seconds),
-                    fontSize = 64.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = if (isGameOver && !isWinner) MaterialTheme.colorScheme.error
-                            else textColor
-                )
+                if (inByoyomi && !isGameOver) {
+                    Text(
+                        text = stringResource(R.string.byoyomi_periods_remaining_format, byoyomiPeriodsLeft),
+                        style = MaterialTheme.typography.labelMedium,
+                        color = textColor.copy(alpha = 0.8f)
+                    )
+                }
+                Box(
+                    modifier = Modifier.size(190.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Canvas(modifier = Modifier.fillMaxSize()) {
+                        val radius = size.minDimension / 2f
+                        val cx = size.width / 2f
+                        val cy = size.height / 2f
+                        val strokeWidth = radius * 0.14f
+                        val ringRadius = radius - strokeWidth / 2f
+
+                        drawCircle(
+                            color = ringColor.copy(alpha = 0.2f),
+                            radius = ringRadius,
+                            center = Offset(cx, cy),
+                            style = Stroke(width = strokeWidth)
+                        )
+                        if (sweepAngle > 0f) {
+                            drawArc(
+                                color = ringColor,
+                                startAngle = -90f,
+                                sweepAngle = sweepAngle,
+                                useCenter = false,
+                                topLeft = Offset(cx - ringRadius, cy - ringRadius),
+                                size = Size(ringRadius * 2, ringRadius * 2),
+                                style = Stroke(width = strokeWidth, cap = StrokeCap.Round)
+                            )
+                        }
+
+                        // 초읽기 예비 횟수: 바깥쪽(현재 진행 중) 링 안쪽에 남은 횟수만큼 정적인 링을 서로 맞닿을 만큼
+                        // 촘촘히 겹쳐 그리되, 링끼리 구분되도록 얇은 간격만 남긴다. 횟수가 줄어들면 가장 안쪽 링부터 사라진다.
+                        if (inByoyomi && !isGameOver) {
+                            val reserveStroke = strokeWidth * 0.6f
+                            val edgeGap = strokeWidth * 0.12f
+                            val reserveCount = (byoyomiPeriodsLeft - 1).coerceAtLeast(0)
+                            var innerEdge = ringRadius - strokeWidth / 2f
+                            for (i in 1..reserveCount) {
+                                val reserveRadius = innerEdge - edgeGap - reserveStroke / 2f
+                                if (reserveRadius <= reserveStroke) break
+                                drawCircle(
+                                    color = ringColor.copy(alpha = 0.45f),
+                                    radius = reserveRadius,
+                                    center = Offset(cx, cy),
+                                    style = Stroke(width = reserveStroke)
+                                )
+                                innerEdge = reserveRadius - reserveStroke / 2f
+                            }
+                        }
+                    }
+                    Text(
+                        text = "%02d:%02d".format(minutes, seconds),
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isGameOver && !isWinner) MaterialTheme.colorScheme.error
+                                else textColor
+                    )
+                }
                 when {
                     isGameOver && isWinner ->
                         Text(
@@ -338,6 +490,7 @@ private fun PlayerHalf(
                             color = textColor
                         )
                 }
+            }
             }
         }
     }

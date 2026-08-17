@@ -16,6 +16,7 @@ object AnalyticsHelper {
     const val SETTINGS_BACK = "btn_settings_back"
     const val LANGUAGE_CHANGE = "btn_language_change"
     const val THEME_CHANGE = "btn_theme_change"
+    const val ORIENTATION_CHANGE = "btn_orientation_change"
     const val FRUIT_CHANGE = "btn_fruit_change"
     const val SCORE_SUBMIT = "btn_score_submit"
     const val GAME_RESET = "btn_game_reset"

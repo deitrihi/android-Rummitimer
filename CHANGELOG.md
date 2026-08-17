@@ -2,6 +2,44 @@
 
 ## [미커밋]
 
+## 2026-08-18 | 7c0d3f6
+
+- store_assets/{한글,영어,일본어,독일어,스페인어,네덜란드어}/description.txt, short_description.txt — 럼미큐브 전용 스토어 설명을 장기·바둑·체스 타이머, 스톱워치·뽀모도로·범용 타이머, 알림(소리·진동·깜박임)·화면 설정, 6개 언어 지원 등 현재 앱 스펙에 맞춰 6개 언어로 신규 작성
+- store_assets/{한글,영어,일본어,독일어,스페인어,네덜란드어}/{10인치,폰} — 현재 UI(원형 링 타이머, 드롭다운 설정 등) 기준으로 스크린샷 전량 갱신, 7인치 스크린샷 세트는 폐기
+- claude_logs/화면-방향-고정-설정.md — 2026-08-17 세션 로그(화면 방향 설정, 가로 모드 레이아웃 수정, 2인 대국 드롭다운·원형 링·초읽기 예비 링 UI, 설정값 저장, 패치 노트 작성, 차례 라벨 로케일 버그) 신규 추가
+- PATCHNOTES.md — 다국어 지원 업데이트(e670473) 이후 타이머별 기능 추가 내역을 정리한 사용자용 패치 노트 신규 작성
+- HomeScreen.kt — "P%d의 차례" 문구 3곳이 로케일 리소스(player_turn_label) 대신 한국어로 하드코딩되어 있던 버그 수정, stringResource로 교체
+- strings.xml (한/영/ja/de/es/nl) — player_turn_label 문구를 "Player %d" → "P%d" 형식으로 통일 (앱 전반의 P1/P2 표기와 일치, 실제 표시되던 한국어 문구와도 동일)
+- OrientationHelper.kt — 화면 방향(적응형·가로·세로) 설정 저장/로드 신규 생성
+- MainActivity.kt — orientationMode 상태 관리, requestedOrientation(SCREEN_ORIENTATION_UNSPECIFIED/SENSOR_LANDSCAPE/SENSOR_PORTRAIT) 적용
+- SettingsScreen.kt — 화면 섹션에 화면 방향 라디오 옵션(적응형·가로·세로) 추가
+- AnalyticsHelper.kt — ORIENTATION_CHANGE 이벤트 상수 추가
+- strings.xml (한/영/ja/de/es/nl) — orientation_label, orientation_adaptive, orientation_landscape, orientation_portrait 추가
+- AutoFitContent.kt — 콘텐츠가 가용 영역을 초과하면 비율 유지한 채 자동 축소하는 SubcomposeLayout 래퍼 신규 생성
+- GeneralTimerScreen.kt, PomodoroScreen.kt — 가로 모드에서 링·버튼이 화면 밖으로 잘리던 문제 수정 (fillMaxWidth 비율 → 고정 dp 크기 + AutoFitContent로 화면에 맞게 축소)
+- StopwatchScreen.kt — 링·버튼 헤더 영역에 AutoFitContent 적용 (랩 목록은 기존처럼 별도 스크롤 유지)
+- TwoPlayerSetupScreen.kt — 콘텐츠를 고정 폭(320dp) 컬럼으로 변경하고 AutoFitContent 적용, Spacer weight(1f) → 고정 24dp로 교체 (가로 모드에서 시작 버튼이 화면 밖으로 잘리던 문제 수정)
+- TwoPlayerSetupScreen.kt — 장기/바둑/체스 설정값 선택 UI를 FilterChip 나열 방식에서 ExposedDropdownMenuBox 기반 드롭다운으로 전면 교체 (ValueDropdown 컴포저블 신규 추가)
+- TwoPlayerTimerScreen.kt — PlayerHalf의 시간 표시를 일반 타이머(GeneralTimerScreen) 스타일의 원형 링 카운트다운으로 변경 (평범한 숫자 텍스트 → 남은 시간 비율 원형 진행 링 + 중앙 시간 텍스트), AutoFitContent 적용으로 좁은 영역에서도 잘림 없이 축소 표시
+- TwoPlayerTimerScreen.kt — 바둑 초읽기(byoyomi) 중 남은 횟수만큼 카운트다운 링 안쪽에 정적인 예비 링을 겹쳐 그려 표현, 횟수가 줄어들면 가장 안쪽 링부터 사라지도록 구현
+- TwoPlayerTimerScreen.kt — 초읽기 예비 링 사이 간격이 너무 벌어져 보이던 문제 수정, 링끼리 거의 맞닿되 얇은 구분 간격만 남도록 반지름 계산 방식을 누적(inner edge 추적) 방식으로 변경
+- TwoPlayerSetupHelper.kt — 장기/바둑/체스 직전 설정값(제한시간·기본시간·초읽기 시간·초읽기 횟수·증가시간) SharedPreferences 저장/로드 신규 생성
+- TwoPlayerSetupScreen.kt — 화면 진입 시 직전 설정값을 초기값으로 로드, 시작 버튼 클릭 시 현재 설정값을 저장하도록 연결 (게임 종료 후 재진입·앱 재실행 시에도 직전 값 유지)
+
+## 2026-06-26 | 2fba133
+
+- TwoPlayerSetupScreen.kt — gameType별 설정 UI 분기(장기: 기존 분 피커, 바둑: 기본시간+초읽기 시간/횟수, 체스: 기본시간+증가시간), onStart 4-인자로 확장
+- TwoPlayerTimerScreen.kt — 바둑 초읽기(byoyomi) 상태 전이 로직 신규 구현 (기본시간 소진 시 진입, 제한시간 내 착수 시 리셋, 시간 초과 시 횟수 소모, 횟수 소진 시 패배)
+- TwoPlayerTimerScreen.kt — 체스 증가시간(Fischer increment) 로직 신규 구현 (착수 완료 직후 자기 시간에 +N초)
+- TwoPlayerTimerScreen.kt — PlayerHalf에 초읽기 중 "초읽기 N회" 라벨 표시 추가
+- TwoPlayerTimerScreen.kt — 결과 화면 전달용 사용 시간 계산에 하한 0 클램프 추가 (증가시간으로 남은 시간이 초기값을 넘는 경우 대비)
+- MenuScreen.kt — onSelectBaduk/onSelectChess 파라미터 추가, 바둑·체스 메뉴 항목 comingSoon 해제
+- MainActivity.kt — twoPlayerByoyomiSeconds/twoPlayerByoyomiPeriods/twoPlayerIncrementSeconds 상태 추가 및 화면 연결
+- MainActivity.kt — last_timer 복원 로직에 BADUK/CHESS 케이스 추가, twoPlayerGameType 복원 누락 버그 수정
+- strings.xml (한/영/ja/de/es/nl) — baduk_setup_title, chess_setup_title, main_time_label, byoyomi_time_label, byoyomi_periods_label, increment_time_label, byoyomi_periods_format, byoyomi_periods_remaining_format 추가
+
+## 2026-06-26 | e6d1e88
+
 - AlertHelper.kt — 소리/진동/화면 깜박임 알림 설정 저장 및 실행 신규 생성
 - AndroidManifest.xml — VIBRATE 권한 추가
 - SettingsScreen.kt — 알림 섹션(소리·진동·화면 깜박임 토글) 추가

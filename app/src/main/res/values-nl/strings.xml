@@ -22,6 +22,10 @@
     <string name="theme_dark">Donker</string>
     <string name="display_label">Scherm</string>
     <string name="keep_screen_on_label">Scherm altijd aan</string>
+    <string name="orientation_label">Schermoriëntatie</string>
+    <string name="orientation_adaptive">Adaptief</string>
+    <string name="orientation_landscape">Liggend</string>
+    <string name="orientation_portrait">Staand</string>
     <string name="alert_label">Meldingen</string>
     <string name="alert_sound_label">Geluid</string>
     <string name="alert_vibration_label">Trillen</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%ds</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Beurt van speler %d</string>
+    <string name="player_turn_label">Beurt van P%d</string>
     <string name="time_up">Tijd is om!</string>
     <string name="hurry_up">Schiet op!</string>
 
@@ -92,6 +96,14 @@
     <string name="btn_new_game">Nieuw spel</string>
     <string name="btn_change_settings">Instellingen wijzigen</string>
     <string name="two_player_time_used_label">Gebruikte tijd</string>
+    <string name="baduk_setup_title">Go-timerinstellingen</string>
+    <string name="chess_setup_title">Schaaktimerinstellingen</string>
+    <string name="main_time_label">Hoofdtijd</string>
+    <string name="byoyomi_time_label">Byoyomi-tijd</string>
+    <string name="byoyomi_periods_label">Byoyomi-perioden</string>
+    <string name="increment_time_label">Increment</string>
+    <string name="byoyomi_periods_format">%d perioden</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d over</string>
 
     <!-- v5: Stopwatch -->
     <string name="btn_lap">Ronde</string>

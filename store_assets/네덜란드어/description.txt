@@ -1,0 +1,63 @@
+Rummitimer — Beurttimer voor Rummikub en bordspellen
+
+Zat van die eindeloze "nog heel even..."-momenten bij Rummikub, Janggi, Go of schaken?
+Rummitimer houdt elke speler eerlijk en het spel in beweging — nu met eigen klokken voor vier bordspellen, plus diverse algemene timers, allemaal in één app.
+
+---------------------------------------
+🎲 Bordspeltimers
+---------------------------------------
+
+• Rummikub-timer
+Kies 2, 3 of 4 spelers en een tijdslimiet per beurt (30/60/90/120 seconden). Elke 10 seconden klinkt een metronoomtik, en in de laatste 10 seconden elke seconde. Druk op Volgende en de beurt van de volgende speler start automatisch na 1 seconde. Is de tijd om, noteer dan de straf en speel verder; vul aan het einde van de partij de score van de resterende stenen van elke speler in om de eindstand te zien.
+
+• Janggi-timer
+Een eenvoudige aftelklok per speler — kies je tijdslimiet en begin.
+
+• Baduk (Go)-timer
+Hoofdtijd plus byoyomi (afteltijdvakken) — stel hoofdtijd, seconden per tijdvak en aantal tijdvakken in, met een visuele ring die de resterende tijdvakken toont.
+
+• Schaaktimer
+Hoofdtijd met increment — elke zet voegt in Fischer-stijl seconden toe aan je eigen klok.
+
+Alle drie de duel-timers werken door op je eigen kant te tikken om de beurt door te geven; de klok van de actieve speler wordt gemarkeerd, en aan het einde toont het resultaat de gebruikte tijd per speler.
+
+---------------------------------------
+⏱ Algemene timers
+---------------------------------------
+
+• Stopwatch — eenvoudige tijdregistratie
+• Pomodoro-timer — focus-/pauzecycli voor studeren of werken
+• Algemene timer — een flexibele aftelklok voor al het andere
+
+---------------------------------------
+🔔 Meldingen en scherm
+---------------------------------------
+
+• Meldingen bij einde beurt — geluid, trilling en schermflits, elk afzonderlijk in of uit te schakelen
+• Scherm altijd aan — het scherm gaat tijdens het spel nooit uit
+• Schermoriëntatie — adaptief, liggend of staand vastgezet
+• Thema — licht, donker of volgens het systeemthema
+
+---------------------------------------
+🎨 Personalisatie
+---------------------------------------
+
+• Spelerspictogrammen — voor elke speler een vrij te kiezen fruitpictogram, altijd zichtbaar zodat je in één oogopslag ziet wie er aan de beurt is
+
+---------------------------------------
+🌐 Meertalig
+---------------------------------------
+
+Ondersteunt Koreaans, Engels, Japans, Duits, Spaans en Nederlands, automatisch aangepast aan de taal van je apparaat.
+
+---------------------------------------
+Perfect voor
+---------------------------------------
+
+- Familieavonden en speelavonden met vrienden
+- Bordspelgroepen die Rummikub, Janggi, Go of schaken spelen
+- Groepen met die ene speler die altijd te lang doet over zijn beurt
+- Competitieve spellen waarbij tempo en eerlijkheid ertoe doen
+- Iedereen die snel een stopwatch, Pomodoro-timer of aftelklok nodig heeft
+
+Installeer nu en maak elk spel snel, eerlijk en leuk!

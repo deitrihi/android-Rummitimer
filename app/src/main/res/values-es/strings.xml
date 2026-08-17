@@ -22,6 +22,10 @@
     <string name="theme_dark">Oscuro</string>
     <string name="display_label">Pantalla</string>
     <string name="keep_screen_on_label">Mantener pantalla activa</string>
+    <string name="orientation_label">Orientación de pantalla</string>
+    <string name="orientation_adaptive">Adaptable</string>
+    <string name="orientation_landscape">Horizontal</string>
+    <string name="orientation_portrait">Vertical</string>
     <string name="alert_label">Alertas</string>
     <string name="alert_sound_label">Sonido</string>
     <string name="alert_vibration_label">Vibración</string>
@@ -34,7 +38,7 @@
     <string name="turn_duration_format">%ds</string>
 
     <!-- Timer -->
-    <string name="player_turn_label">Turno del jugador %d</string>
+    <string name="player_turn_label">Turno de P%d</string>
     <string name="time_up">¡Tiempo agotado!</string>
     <string name="hurry_up">¡Date prisa!</string>
 
@@ -92,6 +96,14 @@
     <string name="btn_new_game">Nuevo juego</string>
     <string name="btn_change_settings">Cambiar ajustes</string>
     <string name="two_player_time_used_label">Tiempo usado</string>
+    <string name="baduk_setup_title">Configuración del temporizador de Go</string>
+    <string name="chess_setup_title">Configuración del temporizador de ajedrez</string>
+    <string name="main_time_label">Tiempo principal</string>
+    <string name="byoyomi_time_label">Tiempo de byoyomi</string>
+    <string name="byoyomi_periods_label">Periodos de byoyomi</string>
+    <string name="increment_time_label">Incremento</string>
+    <string name="byoyomi_periods_format">%d periodos</string>
+    <string name="byoyomi_periods_remaining_format">Byoyomi %d restantes</string>
 
     <!-- v5: Cronómetro -->
     <string name="btn_lap">Vuelta</string>
